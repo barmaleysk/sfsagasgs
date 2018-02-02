@@ -20,7 +20,7 @@ bot.on('message', msg => {
     const chatId = helper.gCI(msg)
     
     console.log(JSON.stringify(msg,null,2))
-    
+    /*
     switch (msg.text) {
         // Начало экрана главного меню
             
@@ -153,7 +153,7 @@ bot.on('message', msg => {
         
         
         // Конец экрана
-    }
+    } */
 })
 
 bot.onText(/\/start/, msg => {
