@@ -2,4 +2,4 @@
 
 ## BlaBlaBla
 
- :video_game: игры
+https://www.webpagefx.com/tools/emoji-cheat-sheet/
