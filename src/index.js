@@ -1,4 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api')
+const mongoose = require('mongoose')
 
 const config = require('./config')
 const helper = require('./helper')
@@ -8,7 +9,17 @@ const kb = require('./keyboard-buttons')
 const ikb = require('./inline-keyboard')
 
 
+mongoose.connect(config.DB_URL)
+.then (() => console.log('mogodb connected'))
+.catch((e) => console.log(e))
 
+require('./models/users.model')
+
+const User = mongoose.model('users')
+
+
+
+// ===========================================
 const bot = new TelegramBot(config.TOKEN, {
     polling: true
 })
@@ -154,12 +165,19 @@ bot.on('message', msg => {
 
 bot.onText(/\/start/, msg => {
     
-    bot.sendMessage(helper.gCI(msg), texts.firstStarting, {
-        reply_markup: {
-            keyboard: keyboard.home
-        }
-    })
+    const u = new User({
+        _id: msg.from.id,
+        chat_id: msg.chat.id,
+        nameFarm: 'VolodyaFarm'
+    }).save()
     
+//    bot.sendMessage(helper.gCI(msg), texts.firstStarting, {
+//        reply_markup: {
+//            keyboard: keyboard.home
+//        }
+//    })
+    //bot.sendMessage(helper.gCI(msg), JSON.stringify(User.findOne({_id: msg.from.id}), null, 2))
+    console.log(JSON.stringify(User, null, 2))
 })
 
 
