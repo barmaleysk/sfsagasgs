@@ -17,6 +17,9 @@ helper.logStart()
 
 bot.on('message', msg => {
     const chatId = helper.gCI(msg)
+    
+    console.log(JSON.stringify(msg,null,2))
+    
     switch (msg.text) {
         // Начало экрана главного меню
             
