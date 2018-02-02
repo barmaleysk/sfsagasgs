@@ -70,5 +70,8 @@ module.exports = {
         portuguese: '🇵🇹 Portuguese'
     },
     back: '⬅️ Назад',
-    back_farm: '🏡 Назад'
+    back_farm: '🏡 Назад',
+    skip: '📰',
+    continue: '🗞',
+    step: '📃'
 }

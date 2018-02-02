@@ -1,0 +1,23 @@
+module.exports = {
+    deposit: 'deposit',
+    withdraw: 'withdraw',
+    exchange: 'exchange',
+    redeem: 'redeem',
+    build: 'build',
+    send_buildings: 'send_buildings',
+    buy_fruit: 'buy_fruit',
+    send_fruit: 'send_fruit',
+    buy_vegetables: 'buy_vegetables',
+    send_vegetables: 'send_vegetables',
+    sell_plants: 'sell_plants',
+    sell_products: 'sell_products',
+    det_fruit: 'det_fruit',
+    det_vegetables: 'det_vegetables',
+    det_products: 'det_products',
+    next_step: 'next_step',
+    skip: 'skip',
+    step2: 'step2',
+    step3: 'step3',
+    step4: 'step4',
+    step5: 'step5'
+}

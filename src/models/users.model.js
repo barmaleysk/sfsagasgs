@@ -2,11 +2,11 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const UsersSchema = new Schema({
-    chat_id: {
+    _id: Number,
+    nameFarm: {
         type: String,
-        required: true
+        default: ''
     },
-    nameFarm: String,
     landlord: {
         type: String,
         default: 'Bank'
@@ -19,7 +19,8 @@ const UsersSchema = new Schema({
                     count: {
                         type: Number,
                         default: 0
-                    }
+                    },
+                    _id: false
                 }
             ],
             vegetables: [
@@ -123,7 +124,8 @@ const UsersSchema = new Schema({
         {
             name: String,
             chance: {
-                type: Number
+                type: Number,
+                default: 0
             }
         }
     ]

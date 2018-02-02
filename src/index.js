@@ -1,12 +1,15 @@
 const TelegramBot = require('node-telegram-bot-api')
 const mongoose = require('mongoose')
 
+
 const config = require('./config')
 const helper = require('./helper')
 const texts = require('./texts')
 const keyboard = require('./keyboard')
 const kb = require('./keyboard-buttons')
 const ikb = require('./inline-keyboard')
+const arr = require('./arrays')
+const cbd = require('./callbacks')
 
 
 mongoose.connect(config.DB_URL)
@@ -25,12 +28,9 @@ const bot = new TelegramBot(config.TOKEN, {
 })
 
 helper.logStart()
-console.log('hello')
 
 bot.on('message', msg => {
     const chatId = helper.gCI(msg)
-    
-    console.log(JSON.stringify(msg,null,2))
     
     switch (msg.text) {
         // Начало экрана главного меню
@@ -169,23 +169,131 @@ bot.on('message', msg => {
 
 bot.onText(/\/start/, msg => {
     
-    const u = new User({
-        _id: msg.from.id,
-        chat_id: msg.chat.id,
-        nameFarm: 'VolodyaFarm'
-    }).save()
+    const chatId = helper.gCI(msg)
     
-//    bot.sendMessage(helper.gCI(msg), texts.firstStarting, {
-//        reply_markup: {
-//            keyboard: keyboard.home
-//        }
-//    })
-    //bot.sendMessage(helper.gCI(msg), JSON.stringify(User.findOne({_id: msg.from.id}), null, 2))
-    console.log(JSON.stringify(User, null, 2))
+    User.findOne({_id: chatId}).then(u => {
+        
+        if (u != null) {
+            bot.sendMessage(helper.gCI(msg), texts.mainMenu, {
+                parse_mode: 'HTML',
+                reply_markup: {
+                    keyboard: keyboard.home
+                }
+            })
+            
+        }
+        else if (u == null) {
+            u = new User({
+                _id: chatId,
+                warehouse: [{
+                    fruit: arr.fruit,
+                    vegetables: arr.vegetables,
+                    products: arr.products,
+                }],
+                buildings: arr.buildings,
+                plants: [{
+                    fruit: arr.fruit,
+                    vegetables: arr.vegetables
+                }],
+                bank: arr.bank,
+                garage: arr.garage,
+                incidents: arr.incidents
+            })
+        
+            u.save()
+                .catch((e) => console.log(e))
+
+            bot.sendMessage(helper.gCI(msg), texts.firstStarting, {
+                reply_markup: {
+                    inline_keyboard: ikb.firstMessage
+                }
+            })
+            
+        }
+    })
+    
 })
 
 bot.on('callback_query', query => {
     
-    //bot.answerCallbackQuery(query.id, `${query.data}`)
-    bot.sendMessage(query.message.chat.id, query.data)
+    const {chat, message_id } = query.message
+    
+    bot.answerCallbackQuery(query.id, `${query.data}`)
+    
+    
+    switch (query.data) {
+        
+        case cbd.deposit:
+        break
+        case cbd.withdraw:
+        break
+        case cbd.exchange:
+        break
+        case cbd.redeem:
+        break
+        case cbd.build:
+        break
+        case cbd.send_buildings:
+        break
+        case cbd.buy_fruit:
+        break
+        case cbd.send_fruit:
+        break
+        case cbd.buy_vegetables:
+        break
+        case cbd.send_vegetables:
+        break
+        case cbd.sell_plants:
+        break
+        case cbd.sell_products:
+        break
+        case cbd.det_fruit:
+        break
+        case cbd.det_vegetables:
+        break
+        case cbd.det_products:
+        break
+        case cbd.next_step:
+            bot.editMessageText(texts.step2, {
+                chat_id: chat.id,
+                message_id: message_id,
+                parse_mode: 'HTML',
+                reply_markup: {
+                    inline_keyboard: ikb.step2
+                }
+            })
+        break
+        case cbd.skip:
+            bot.sendMessage(chat.id, texts.mainMenu, {
+                parse_mode: 'HTML',
+                reply_markup: {
+                    keyboard: keyboard.home
+                }
+            })
+        break
+        case cbd.step3: 
+            bot.editMessageText(texts.step3, {
+                chat_id: chat.id,
+                message_id: message_id,
+                parse_mode: 'HTML',
+                reply_markup: {
+                    inline_keyboard: ikb.step4
+                }
+            })
+        break
+        case cbd.step4: 
+            bot.editMessageText(texts.step4, {
+                chat_id: chat.id,
+                message_id: message_id,
+                parse_mode: 'HTML',
+                reply_markup: {
+                    inline_keyboard: ikb.step5
+                }
+            })
+        break
+    }
+    
 })
+
+
+

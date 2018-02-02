@@ -230,7 +230,7 @@ id: 'id пользователя',
         {
             fruit: [
                 {
-                    name: String,
+                    name: 'apple',
                     count: {
                         type: Number,
                         default: 0
