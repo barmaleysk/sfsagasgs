@@ -14,6 +14,7 @@ const bot = new TelegramBot(config.TOKEN, {
 })
 
 helper.logStart()
+console.log('hello')
 
 bot.on('message', msg => {
     const chatId = helper.gCI(msg)
