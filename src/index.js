@@ -25,9 +25,13 @@ const bot = new TelegramBot(config.TOKEN, {
 })
 
 helper.logStart()
+console.log('hello')
 
 bot.on('message', msg => {
     const chatId = helper.gCI(msg)
+    
+    console.log(JSON.stringify(msg,null,2))
+    
     switch (msg.text) {
         // Начало экрана главного меню
             
@@ -160,7 +164,7 @@ bot.on('message', msg => {
         
         
         // Конец экрана
-    }
+    } 
 })
 
 bot.onText(/\/start/, msg => {
@@ -180,9 +184,8 @@ bot.onText(/\/start/, msg => {
     console.log(JSON.stringify(User, null, 2))
 })
 
-
 bot.on('callback_query', query => {
     
-    bot.answerCallbackQuery(query.id, `${query.data}`)
-    
+    //bot.answerCallbackQuery(query.id, `${query.data}`)
+    bot.sendMessage(query.message.chat.id, query.data)
 })
