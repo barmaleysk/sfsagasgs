@@ -29,8 +29,16 @@ const bot = new TelegramBot(config.TOKEN, {
 
 helper.logStart()
 
+//setInterval(function(){
+//    bot.sendMessage(268932098, 'Гыгыгы')
+//}, 5000)
+
+
+
 bot.on('message', msg => {
     const chatId = helper.gCI(msg)
+    
+    console.log(chatId)
     
     switch (msg.text) {
         // Начало экрана главного меню
@@ -360,56 +368,6 @@ bot.onText(/\/info/, msg => {
         
     })
 })
-
-var notes = []
-
-bot.onText(/\/napomni (.+) v (.+)/, (msg, match) => {
-    const chatId = msg.chat.id
-
-    var text = match[1]
-    var time = match[2]
-    
-    notes.push({chatId, time, text})
-    
-    console.log(notes)
-    
-    
-    bot.sendMessage(chatId, notes.chatId + ' - Ваш текст: ' + notes.text + ' напомню в: ' + notes.time)
-    
-    
-    
-})
-setInterval(function(){
-
-    for (var i = 0; i < notes.length; i++) {
-
-        var curDate = new Date().getHours() + ':' + new Date().getMinutes()
-
-        if (notes[i]['time'] == curDate) {
-            bot.sendMessage(notes[i]['chatId'], 'Напоминаю, что вы должны ' + notes[i]['text'] + ' сейчас')
-            
-            notes.splice(i, 1)
-        }
-    }
-
-}, 1000)
-
-
-//setInterval(function(){
-//    for (var i = 0; i < notes.length; i++) {
-//        var curDate = new Date().getHours() + ':' + new Date().getMinutes();
-//
-//        if (notes[i]['time'] == curDate) {
-//            bot.sendMessage(notes[i]['uid'], 'Напоминаю, что вы должны: ' + notes[i]['text']+ ' сейчас.');
-//            notes.splice(i,1);
-//        }
-//        }
-//},1000);
-
-
-
-
-
 
 
 
