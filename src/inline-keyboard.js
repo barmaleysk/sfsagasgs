@@ -138,7 +138,7 @@ module.exports = {
         [
             {
                 text: kb.step,
-                callback_data: cbd.skip
+                callback_data: cbd.finish
             }
         ]
     ]
