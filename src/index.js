@@ -152,13 +152,10 @@ bot.onText(/\/menu/, msg => {
     sendHTML(helper.gCI(msg), texts.mainMenu, 'home')
 })
 
-
 bot.on('callback_query', query => {
     const {chat, message_id } = query.message
-    bot.answerCallbackQuery(query.id, `${query.data}`)
-    
+//    bot.answerCallbackQuery(query.id, `${query.data}`)
     switch (query.data) {
-        
         case cbd.deposit:
         break
         case cbd.withdraw:
@@ -190,49 +187,17 @@ bot.on('callback_query', query => {
         case cbd.det_products:
         break
         case cbd.next_step:
-            bot.editMessageText(texts.step2, {
-                chat_id: chat.id,
-                message_id: message_id,
-                parse_mode: 'HTML',
-                reply_markup: {
-                    inline_keyboard: ikb.step2
-                }
-            })
+            editText(texts.step2, chat.id, message_id, 'step2')
         break
         case cbd.step3: 
-            bot.editMessageText(texts.step3, {
-                chat_id: chat.id,
-                message_id: message_id,
-                parse_mode: 'HTML',
-                reply_markup: {
-                    inline_keyboard: ikb.step3
-                }
-            })
+            editText(texts.step3, chat.id, message_id, 'step3')
         break
         case cbd.step4: 
-            bot.editMessageText(texts.step4, {
-                chat_id: chat.id,
-                message_id: message_id,
-                parse_mode: 'HTML',
-                reply_markup: {
-                    inline_keyboard: ikb.step4
-                }
-            })
+            editText(texts.step4, chat.id, message_id, 'step4')
         break
         
-        case cbd.step5: 
-        
+        case cbd.step5:
             editText(texts.step5, chat.id, message_id, 'step5')
-        
-//            bot.editMessageText(texts.step5, {
-//                chat_id: chat.id,
-//                message_id: message_id,
-//                parse_mode: 'HTML',
-//                reply_markup: {
-//                    inline_keyboard: ikb.step5
-//                }
-//            })
-            
         break
         case cbd.finish:
             sendHTML(chat.id, texts.finish, 'home')
@@ -242,7 +207,6 @@ bot.on('callback_query', query => {
             sendHTML(chat.id, texts.mainMenu, 'home')
         break
     }
-    
 })
 
 bot.onText(/\/setfruit (.+)/, (msg, [source, match]) => {
@@ -312,8 +276,6 @@ bot.onText(/\/info/, msg => {
     })
 })
 
-
-
 function DisplayBank (chatId) {
     
     User.findOne({_id: chatId}).then(u => {
@@ -330,7 +292,6 @@ function DisplayBank (chatId) {
         
     })
 }
-
 function DisplayFruit(chatId) {
     User.findOne({_id: chatId}).then(u => {
         const fruit = `Ваши фрукты:
@@ -368,7 +329,6 @@ function DisplayFruit(chatId) {
         
     })
 }
-
 function DisplayVegetables(chatId) {
     User.findOne({_id: chatId}).then(u => {
         
@@ -407,7 +367,6 @@ function DisplayVegetables(chatId) {
         
     })
 }
-
 function DisplayProducts(chatId) {
     User.findOne({_id: chatId}).then(u => {
         const products =  ``
@@ -416,7 +375,6 @@ function DisplayProducts(chatId) {
         
     })
 }
-
 function DisplayBuildings(chatId) {
     User.findOne({_id: chatId}).then(u => {
         const buildings =  `🏫 <b>Постройки</b>
@@ -460,7 +418,6 @@ function DisplayBuildings(chatId) {
         
     })
 }
-
 function DisplayWarehouse(chatId) {
     User.findOne({_id: chatId}).then(u => {
         const warehouse =  `📦 <b>Склад</b>\nУ вас на складе:\n
@@ -473,8 +430,6 @@ function DisplayWarehouse(chatId) {
         
     })
 }
-
-
 function sendHTML(chatId, html, kbName = null) {
     
     const options = {
@@ -490,7 +445,6 @@ function sendHTML(chatId, html, kbName = null) {
     bot.sendMessage(chatId, html, options)
     
 }
-
 function sendHTMLi(chatId, html, ikbName = null) {
     const options = {
         parse_mode: 'HTML'
@@ -504,7 +458,6 @@ function sendHTMLi(chatId, html, ikbName = null) {
     
     bot.sendMessage(chatId, html, options)
 }
-
 function editText(text, chatId, messageId, ikbName = null) {
     
     const options = {
