@@ -20,8 +20,6 @@ require('./models/users.model')
 
 const User = mongoose.model('users')
 
-
-
 // ===========================================
 const bot = new TelegramBot(config.TOKEN, {
     polling: true
@@ -33,33 +31,21 @@ helper.logStart()
 //    bot.sendMessage(268932098, 'Гыгыгы')
 //}, 5000)
 
-
-
 bot.on('message', msg => {
     const chatId = helper.gCI(msg)
     
-    console.log(chatId)
+//    console.log(chatId)
     
     switch (msg.text) {
         // Начало экрана главного меню
             
         case kb.home.myFarm:
-            bot.sendMessage(chatId, texts.myFarm, {
-                parse_mode: 'HTML',
-                reply_markup: {
-                    keyboard: keyboard.myFarm
-                }
-            })
+            sendHTML(chatId, texts.myFarm, 'myFarm')
         break
         case kb.home.friends:
         break
         case kb.home.market:
-            bot.sendMessage(chatId, texts.market, {
-                parse_mode: 'HTML',
-                reply_markup: {
-                    inline_keyboard: ikb.market
-                }
-            })
+            sendHTMLi(chatId, texts.market, 'market')
         break
         case kb.home.bank:
             DisplayBank(chatId)
@@ -75,23 +61,13 @@ bot.on('message', msg => {
         
         
         case kb.back: 
-            bot.sendMessage(chatId, texts.mainMenu, {
-                parse_mode: 'HTML',
-                reply_markup: {
-                    keyboard: keyboard.home
-                }
-            })
+            sendHTML(chatId, texts.mainMenu, 'home')
         break
         // Конец экрана главного меню
         // Начало экрана Моя ферма
         
         case kb.myFarm.plants:
-            bot.sendMessage(chatId, texts.plants, {
-                parse_mode: 'HTML',
-                reply_markup: {
-                    keyboard: keyboard.plants
-                }
-            })
+            sendHTML(chatId, texts.plants, 'plants')
         break
         
         case kb.plants.fruit:
@@ -118,12 +94,7 @@ bot.on('message', msg => {
         
         
         case kb.back_farm: 
-            bot.sendMessage(chatId, texts.myFarm, {
-                parse_mode: 'HTML',
-                reply_markup: {
-                    keyboard: keyboard.myFarm
-                }
-            })
+            sendHTML(chatId, texts.myFarm, 'myFarm')
         break
         
         // Конец экрана Моя ферма
@@ -157,12 +128,8 @@ bot.onText(/\/start/, msg => {
     User.findOne({_id: chatId}).then(u => {
         
         if (u != null) {
-            bot.sendMessage(helper.gCI(msg), texts.mainMenu, {
-                parse_mode: 'HTML',
-                reply_markup: {
-                    keyboard: keyboard.home
-                }
-            })
+            
+            sendHTML(chatId, texts.mainMenu, 'home')
             
         }
         else if (u == null) {
@@ -172,12 +139,9 @@ bot.onText(/\/start/, msg => {
         
             u.save()
                 .catch((e) => console.log(e))
-
-            bot.sendMessage(helper.gCI(msg), texts.firstStarting, {
-                reply_markup: {
-                    inline_keyboard: ikb.firstMessage
-                }
-            })
+            
+            sendHTMLi(chatId, texts.firstStarting, 'firstMessage')
+            
             
         }
     })
@@ -185,21 +149,13 @@ bot.onText(/\/start/, msg => {
 })
 
 bot.onText(/\/menu/, msg => {
-    bot.sendMessage(helper.gCI(msg), texts.mainMenu, {
-        parse_mode: 'HTML',
-        reply_markup: {
-            keyboard: keyboard.home
-        }
-    })
+    sendHTML(helper.gCI(msg), texts.mainMenu, 'home')
 })
 
 
 bot.on('callback_query', query => {
-    
     const {chat, message_id } = query.message
-    
     bot.answerCallbackQuery(query.id, `${query.data}`)
-    
     
     switch (query.data) {
         
@@ -254,7 +210,6 @@ bot.on('callback_query', query => {
             })
         break
         case cbd.step4: 
-            console.log(query.data)
             bot.editMessageText(texts.step4, {
                 chat_id: chat.id,
                 message_id: message_id,
@@ -266,36 +221,25 @@ bot.on('callback_query', query => {
         break
         
         case cbd.step5: 
-            console.log(query.data)
         
-            bot.editMessageText(texts.step5, {
-                chat_id: chat.id,
-                message_id: message_id,
-                parse_mode: 'HTML',
-                reply_markup: {
-                    inline_keyboard: ikb.step5
-                }
-            })
+            editText(texts.step5, chat.id, message_id, 'step5')
+        
+//            bot.editMessageText(texts.step5, {
+//                chat_id: chat.id,
+//                message_id: message_id,
+//                parse_mode: 'HTML',
+//                reply_markup: {
+//                    inline_keyboard: ikb.step5
+//                }
+//            })
             
         break
         case cbd.finish:
-            
-            bot.sendMessage(chat.id, texts.finish, {
-                parse_mode: 'HTML',
-                reply_markup: {
-                    keyboard: keyboard.home
-                }
-            })
-            
+            sendHTML(chat.id, texts.finish, 'home')
         break
         
         case cbd.skip:
-            bot.sendMessage(chat.id, texts.mainMenu, {
-                parse_mode: 'HTML',
-                reply_markup: {
-                    keyboard: keyboard.home
-                }
-            })
+            sendHTML(chat.id, texts.mainMenu, 'home')
         break
     }
     
@@ -341,7 +285,6 @@ bot.onText(/\/setvegetables (.+)/, (msg, [source, match]) => {
     
 })
 
-
 bot.onText(/\/setproducts (.+)/, (msg, [source, match]) => {
     
     const prod = match.split(' ')
@@ -383,13 +326,8 @@ function DisplayBank (chatId) {
 <b>${u.bank.points}</b> ⚜️ Баллы
 <b>${u.bank.token}</b> 💠 Токены`
     
+        sendHTMLi(u._id, bank, 'bank')
         
-        bot.sendMessage(u._id, bank, {
-            parse_mode: 'HTML',
-            reply_markup: {
-                inline_keyboard: ikb.bank
-            }
-        })
     })
 }
 
@@ -426,12 +364,8 @@ function DisplayFruit(chatId) {
 Выросло: <b>${u.produced.fruit.peach}</b> 🍑 Персиков
 На складе: <b>${u.warehouse.fruit.peach}</b> 🍑`
     
-        bot.sendMessage(u._id, fruit, {
-            parse_mode: 'HTML',
-            reply_markup: {
-                inline_keyboard: ikb.fruit
-            }
-        })
+        sendHTMLi(u._id, fruit, 'fruit')
+        
     })
 }
 
@@ -469,27 +403,17 @@ function DisplayVegetables(chatId) {
 Выросло: <b>${u.produced.vegetables.potatoes}</b> 🥔 Картофеля
 На складе: <b>${u.warehouse.vegetables.potatoes}</b> 🥔`
     
+        sendHTMLi(u._id, vegetables, 'vegetables')
         
-        bot.sendMessage(u._id, vegetables, {
-            parse_mode: 'HTML',
-            reply_markup: {
-                inline_keyboard: ikb.vegetables
-            }
-        })
     })
 }
 
 function DisplayProducts(chatId) {
     User.findOne({_id: chatId}).then(u => {
         const products =  ``
-    
         
-        bot.sendMessage(u._id, products, {
-            parse_mode: 'HTML',
-            reply_markup: {
-                inline_keyboard: ikb.products
-            }
-        })
+        sendHTMLi(u._id, products, 'products')
+        
     })
 }
 
@@ -532,13 +456,8 @@ function DisplayBuildings(chatId) {
 
 <i>Вы отдаете 30% всей добываемых Вами ресурсов вашему арендодателю.</i>`
     
+        sendHTMLi(u._id, buildings, 'buildings')
         
-        bot.sendMessage(u._id, buildings, {
-            parse_mode: 'HTML',
-            reply_markup: {
-                inline_keyboard: ikb.buildings
-            }
-        })
     })
 }
 
@@ -550,12 +469,55 @@ function DisplayWarehouse(chatId) {
 <b>${u.warehouse.products.eggs + u.warehouse.products.bacon + u.warehouse.products.wool + u.warehouse.products.milk + u.warehouse.products.honey + u.warehouse.products.leg}</b> 🥚 Продуктов
 \nРесурсы со склада Вы можете продать на 🛒 <b>Рынке</b>`
     
+        sendHTMLi(u._id, warehouse, 'warehouse')
         
-        bot.sendMessage(u._id, warehouse, {
-            parse_mode: 'HTML',
-            reply_markup: {
-                inline_keyboard: ikb.warehouse
-            }
-        })
     })
+}
+
+
+function sendHTML(chatId, html, kbName = null) {
+    
+    const options = {
+        parse_mode: 'HTML'
+    }
+    
+    if (kbName) {
+        options['reply_markup'] = {
+            keyboard: keyboard[kbName]
+        }
+    }
+    
+    bot.sendMessage(chatId, html, options)
+    
+}
+
+function sendHTMLi(chatId, html, ikbName = null) {
+    const options = {
+        parse_mode: 'HTML'
+    }
+    
+    if (ikbName) {
+        options['reply_markup'] = {
+            inline_keyboard: ikb[ikbName]
+        }
+    }
+    
+    bot.sendMessage(chatId, html, options)
+}
+
+function editText(text, chatId, messageId, ikbName = null) {
+    
+    const options = {
+        chat_id: chatId,
+        message_id: messageId,
+        parse_mode: 'HTML'
+    }
+    
+    if (ikbName) {
+        options['reply_markup'] = {
+            inline_keyboard: ikb[ikbName]
+        }
+    }
+    
+    bot.editMessageText(text, options)
 }
