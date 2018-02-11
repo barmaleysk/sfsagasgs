@@ -9,9 +9,8 @@ module.exports = {
     ],
     myFarm: [
         [kb.myFarm.plants, kb.myFarm.buildings],
-        [kb.myFarm.warehouse, kb.myFarm.statistics],
-        [kb.myFarm.referals, kb.myFarm.name],
-        [kb.back]
+        [kb.myFarm.referals, kb.myFarm.statistics],
+        [kb.myFarm.name, kb.back]
     ],
     plants: [
         [kb.plants.fruit, kb.plants.vegetables],
@@ -31,5 +30,11 @@ module.exports = {
     ],
     languages: [
         
+    ],
+    cancel: [
+        [kb.cancel]
+    ],
+    yesno: [
+        [kb.yes, kb.no]
     ]
 }

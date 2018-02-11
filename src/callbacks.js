@@ -21,5 +21,27 @@ module.exports = {
     step4: 'step4',
     step5: 'step5',
     step6: 'step6',
-    finish: 'finish'
+    finish: 'finish',
+    buildChicken: 'buildChicken',
+    buildPig: 'buildPig',
+    buildSheepdog: 'buildSheepdog',
+    buildCowshed: 'buildCowshed',
+    buildHive: 'buildHive',
+    buildTurkey: 'buildTurkey',
+    // ======== FRUIT =========
+    buyApple: 'buyApple',
+    buyPear: 'buyPear',
+    buyGrapes: 'buyGrapes',
+    buyStrawberries: 'buyStrawberries',
+    buyCherries: 'buyCherries',
+    buyPeach: 'buyPeach',
+    // ======== VEGETABLES =========
+    buyTomato: 'buyTomato',
+    buyEggplant: 'buyEggplant',
+    buyCarrots: 'buyCarrots',
+    buyCorn: 'buyCorn',
+    buyPepper: 'buyPepper',
+    buyPotatoes: 'buyPotatoes',
+    
+    changeName: 'changeName'
 }

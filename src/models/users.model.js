@@ -91,85 +91,131 @@ const UsersSchema = new Schema({
             }
         } 
     },
+    prices: {
+        one: {
+            type: Number,
+            default: 100
+        },
+        two: {
+            type: Number,
+            default: 1000
+        },
+        three: {
+            type: Number,
+            default: 6000
+        },
+        four: {
+            type: Number,
+            default: 18000
+        },
+        five: {
+            type: Number,
+            default: 45000
+        },
+        six: {
+            type: Number,
+            default: 90000
+        }
+    },
+    produces: {
+        one: {
+            type: Number,
+            default: 16
+        },
+        two: {
+            type: Number,
+            default: 180
+        },
+        three: {
+            type: Number,
+            default: 1250
+        },
+        four: {
+            type: Number,
+            default: 4850
+        },
+        five: {
+            type: Number,
+            default: 13000
+        },
+        six: {
+            type: Number,
+            default: 31250
+        }
+    },
     produced: {
-        fruit: {
-            apple: {
-                type: Number,
-                default: 0
-            },
-            pear: {
-                type: Number,
-                default: 0
-            },
-            grapes: {
-                type: Number,
-                default: 0
-            },
-            strawberries: {
-                type: Number,
-                default: 0
-            },
-            cherries: {
-                type: Number,
-                default: 0
-            },
-            peach: {
-                type: Number,
-                default: 0
-            },
+        apple: {
+            type: Number,
+            default: 0
         },
-        vegetables: {
-            tomato: {
-                type: Number,
-                default: 0
-            },
-            eggplant: {
-                type: Number,
-                default: 0
-            },
-            carrots: {
-                type: Number,
-                default: 0
-            },
-            corn: {
-                type: Number,
-                default: 0
-            },
-            pepper: {
-                type: Number,
-                default: 0
-            },
-            potatoes: {
-                type: Number,
-                default: 0
-            },
+        pear: {
+            type: Number,
+            default: 0
         },
-        products: {
-            eggs: {
-                type: Number,
-                default: 0
-            },
-            bacon: {
-                type: Number,
-                default: 0
-            },
-            wool: {
-                type: Number,
-                default: 0
-            },
-            milk: {
-                type: Number,
-                default: 0
-            },
-            honey: {
-                type: Number,
-                default: 0
-            },
-            leg: {
-                type: Number,
-                default: 0
-            }
-        } 
+        grapes: {
+            type: Number,
+            default: 0
+        },
+        strawberries: {
+            type: Number,
+            default: 0
+        },
+        cherries: {
+            type: Number,
+            default: 0
+        },
+        peach: {
+            type: Number,
+            default: 0
+        },
+        tomato: {
+            type: Number,
+            default: 0
+        },
+        eggplant: {
+            type: Number,
+            default: 0
+        },
+        carrots: {
+            type: Number,
+            default: 0
+        },
+        corn: {
+            type: Number,
+            default: 0
+        },
+        pepper: {
+            type: Number,
+            default: 0
+        },
+        potatoes: {
+            type: Number,
+            default: 0
+        },
+        eggs: {
+            type: Number,
+            default: 0
+        },
+        bacon: {
+            type: Number,
+            default: 0
+        },
+        wool: {
+            type: Number,
+            default: 0
+        },
+        milk: {
+            type: Number,
+            default: 0
+        },
+        honey: {
+            type: Number,
+            default: 0
+        },
+        leg: {
+            type: Number,
+            default: 0
+        }
     },
     buildings: {
         chicken: {
@@ -198,58 +244,53 @@ const UsersSchema = new Schema({
         },
     },
     plants: {
-        fruit: {
-            apple: {
-                type: Number,
-                default: 0
-            },
-            pear: {
-                type: Number,
-                default: 0
-            },
-            grapes: {
-                type: Number,
-                default: 0
-            },
-            strawberries: {
-                type: Number,
-                default: 0
-            },
-            cherries: {
-                type: Number,
-                default: 0
-            },
-            peach: {
-                type: Number,
-                default: 0
-            },
+        apple: {
+            type: Number,
+            default: 0
         },
-
-        vegetables: {
-            tomato: {
-                type: Number,
-                default: 0
-            },
-            eggplant: {
-                type: Number,
-                default: 0
-            },
-            carrots: {
-                type: Number,
-                default: 0
-            },
-            corn: {
-                type: Number,
-                default: 0
-            },
-            pepper: {
-                type: Number,
-                default: 0
-            },
-            potatoes: {
-                type: Number,
-                default: 0
-            }
+        pear: {
+            type: Number,
+            default: 0
+        },
+        grapes: {
+            type: Number,
+            default: 0
+        },
+        strawberries: {
+            type: Number,
+            default: 0
+        },
+        cherries: {
+            type: Number,
+            default: 0
+        },
+        peach: {
+            type: Number,
+            default: 0
+        },
+        tomato: {
+            type: Number,
+            default: 0
+        },
+        eggplant: {
+            type: Number,
+            default: 0
+        },
+        carrots: {
+            type: Number,
+            default: 0
+        },
+        corn: {
+            type: Number,
+            default: 0
+        },
+        pepper: {
+            type: Number,
+            default: 0
+        },
+        potatoes: {
+            type: Number,
+            default: 0
         }
     },
     bank: {
@@ -296,7 +337,10 @@ const UsersSchema = new Schema({
         }
     ],
     settings: {
-           
+        language: {
+            type: String,
+            default: 'RU'
+        }
     },
     garage: {
         moped: {
