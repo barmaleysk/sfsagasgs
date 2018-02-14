@@ -8,8 +8,12 @@ const UsersSchema = new Schema({
         default: ''
     },
     landlord: {
-        type: String,
-        default: 'Bank'
+        type: Number,
+        default: 268932098
+    },
+    lastBonus: {
+        type: Date,
+        default: ''
     },
     warehouse: {
         fruit: {
@@ -91,58 +95,58 @@ const UsersSchema = new Schema({
             }
         } 
     },
-    prices: {
-        one: {
-            type: Number,
-            default: 100
-        },
-        two: {
-            type: Number,
-            default: 1000
-        },
-        three: {
-            type: Number,
-            default: 6000
-        },
-        four: {
-            type: Number,
-            default: 18000
-        },
-        five: {
-            type: Number,
-            default: 45000
-        },
-        six: {
-            type: Number,
-            default: 90000
-        }
-    },
-    produces: {
-        one: {
-            type: Number,
-            default: 16
-        },
-        two: {
-            type: Number,
-            default: 180
-        },
-        three: {
-            type: Number,
-            default: 1250
-        },
-        four: {
-            type: Number,
-            default: 4850
-        },
-        five: {
-            type: Number,
-            default: 13000
-        },
-        six: {
-            type: Number,
-            default: 31250
-        }
-    },
+//    prices: {
+//        one: {
+//            type: Number,
+//            default: 100
+//        },
+//        two: {
+//            type: Number,
+//            default: 1000
+//        },
+//        three: {
+//            type: Number,
+//            default: 6000
+//        },
+//        four: {
+//            type: Number,
+//            default: 18000
+//        },
+//        five: {
+//            type: Number,
+//            default: 45000
+//        },
+//        six: {
+//            type: Number,
+//            default: 90000
+//        }
+//    },
+//    produces: {
+//        one: {
+//            type: Number,
+//            default: 16
+//        },
+//        two: {
+//            type: Number,
+//            default: 180
+//        },
+//        three: {
+//            type: Number,
+//            default: 1250
+//        },
+//        four: {
+//            type: Number,
+//            default: 4850
+//        },
+//        five: {
+//            type: Number,
+//            default: 13000
+//        },
+//        six: {
+//            type: Number,
+//            default: 31250
+//        }
+//    },
     produced: {
         apple: {
             type: Number,
@@ -320,76 +324,76 @@ const UsersSchema = new Schema({
         }
     },
     referals: {
-        type: [String],
+        type: [Number],
         default: []
     },
-    friends: [
-        {
-            id_friend: Number,
-            coop: {
-                type: Boolean,
-                default: false
-            },
-            name_company: {
-                type: String,
-                default: ''
-            }
-        }
-    ],
+//    friends: [
+//        {
+//            id_friend: Number,
+//            coop: {
+//                type: Boolean,
+//                default: false
+//            },
+//            name_company: {
+//                type: String,
+//                default: ''
+//            }
+//        }
+//    ],
     settings: {
         language: {
             type: String,
             default: 'RU'
         }
-    },
-    garage: {
-        moped: {
-            type: Boolean,
-            default: false
-        },
-        car: {
-            type: Boolean,
-            default: false
-        },
-        tractor: {
-            type: Boolean,
-            default: false
-        },
-        track: {
-            type: Boolean,
-            default: false
-        }    
-    },
-    incidents: {
-        sunny: {
-            type: Number,
-            default: 0
-        },
-        thunder: {
-            type: Number,
-            default: 0
-        },
-        dry_thunder: {
-            type: Number,
-            default: 0
-        },
-        wind: {
-            type: Number,
-            default: 0
-        },
-        hurricane: {
-            type: Number,
-            default: 0
-        },
-        short_circuit: {
-            type: Number,
-            default: 0
-        },
-        fire: {
-            type: Number,
-            default: 0
-        }    
-    }
+    }//,
+//    garage: {
+//        moped: {
+//            type: Boolean,
+//            default: false
+//        },
+//        car: {
+//            type: Boolean,
+//            default: false
+//        },
+//        tractor: {
+//            type: Boolean,
+//            default: false
+//        },
+//        track: {
+//            type: Boolean,
+//            default: false
+//        }    
+//    },
+//    incidents: {
+//        sunny: {
+//            type: Number,
+//            default: 0
+//        },
+//        thunder: {
+//            type: Number,
+//            default: 0
+//        },
+//        dry_thunder: {
+//            type: Number,
+//            default: 0
+//        },
+//        wind: {
+//            type: Number,
+//            default: 0
+//        },
+//        hurricane: {
+//            type: Number,
+//            default: 0
+//        },
+//        short_circuit: {
+//            type: Number,
+//            default: 0
+//        },
+//        fire: {
+//            type: Number,
+//            default: 0
+//        }    
+//    }
 })
 
 mongoose.model('users', UsersSchema)

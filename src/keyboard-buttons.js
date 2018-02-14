@@ -2,12 +2,24 @@ module.exports = {
     home: {
         myFarm: '🏡 Моя ферма',
         friends: '🏘 Друзья',
+        city: '🏢 Город',
+        other: '✨ Разное'
+    },
+    city: {
+        townHall: '⛪️ Ратушь',
         market: '🛒 Рынок',
         bank: '🏦 Банк',
-        games: '🎲 Игры',
+        casino: '🎰 Казино'
+    },
+    other: {
         tasks: '📋 Задания',
         settings: '⚙️ Настройки',
-        help: '❓ Помощь'
+        help: '❓ Помощь',
+        community: '💬 Сообщества'
+    },
+    townHall: {
+        statistics: '📊 Статистика',
+        name: '📝 Лицензия фермера'
     },
     myFarm: {
         plants: '🌱 Растения',
@@ -15,7 +27,6 @@ module.exports = {
         warehouse: '📦 Склад',
         statistics: '📊 Статистика',
         referals: '👥 Рефералы',
-        name: '📝 Название',
         garage: '🚗 Транспорт'
     },
     plants: {
@@ -49,7 +60,6 @@ module.exports = {
         products: 'Подробно про 🥚 Продукты'
     },
     settings: {
-        statistics: '📊 Статистика',
         notifications: '🔔 Уведомления'
     },
     bank: {
@@ -61,18 +71,26 @@ module.exports = {
     help: {
         
     },
-    games: {
-        
+    casino: {
+        dice: '🎲 Кости',
+        bonus: '🎁 Ежедневный бонус',
+        darts: '🎯 Дартс',
+        slot_machine: '🎰 Игровые автоматы',
+        lottery: '🎟 Лотерея',
+        guess_suit: '🃏 Угадай масть',
+        bowling: '🎳 Боулинг'
     },
     languages: {
         english: '🇬🇧 English',
-        russian: '🇷🇺 Russian',
-        german: '🇩🇪 German',
-        french: '🇫🇷 French',
-        portuguese: '🇵🇹 Portuguese'
+        russian: '🇷🇺 Русский',
+        german: '🇩🇪 Deutsch 🤖',
+        french: '🇫🇷 Français 🤖',
+        portuguese: '🇵🇹 Portugues 🤖',
+        spanish: '🇪🇸 Español 🤖'
     },
     back: '⬅️ Назад',
     back_farm: '🏡 Назад',
+    back_city: '🏢 Назад',
     skip: '📰',
     continue: '🗞',
     step: '📃',
