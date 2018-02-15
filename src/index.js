@@ -37,11 +37,10 @@ const bot = new TelegramBot(config.TOKEN, {
 
 helper.logStart()
 
+console.log(lang, kb.home[1])
+
 setInterval(function(){
     var hm = new Date().getHours() + ':' + new Date().getMinutes()
-    
-    console.log(lang, kb.home[1][0])
-    
     switch (hm) {
         case '0:30':
         case '1:30':
