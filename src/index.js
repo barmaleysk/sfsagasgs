@@ -16,7 +16,11 @@ mongoose.connect(config.DB_URL)
 let texts = require('./texts-ru')
 let kb = require('./keyboard-buttons-ru')
 let ikb = require('./inline-keyboard-ru')
+let lang
 
+module.exports = {
+    lang   
+}
 
 require('./models/users.model')
 require('./models/general.model')
