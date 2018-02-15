@@ -18,10 +18,6 @@ let texts = require('./texts-ru')
 let kb = require('./keyboard-buttons-ru')
 let lang = 'ru'
 
-module.exports = {
-    lang   
-}
-
 require('./models/users.model')
 require('./models/general.model')
 
@@ -1451,4 +1447,8 @@ function sendProducts(Id, qId) {
                 bot.answerCallbackQuery(qId, error, true)
             }
         })
+}
+
+module.exports = {
+    lang   
 }
