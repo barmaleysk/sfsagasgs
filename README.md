@@ -6,4 +6,25 @@ https://www.webpagefx.com/tools/emoji-cheat-sheet/
 
 https://www.onlinedoctranslator.com/ru/
 
- :wink:
+:izakaya_lantern: ярмарки
+
+:fire_engine: - пожарная машины
+:police_car: - полицейская
+
+:wink:  
+
+:hibiscus: - для продажи 
+:cherry_blossom: или :ear_of_rice: - для корма коров
+ 
+:rice: мука из :ear_of_rice: пшеницы
+
+:bread: хлеб из муки
+
+:cake: - мука + сахар
+:cookie: - мука 
+:hamburger: - из хлебных булочек ( ) + бекон
+:fries: - из картошки
+
+:warning: - Внимание
+
+:black_large_square: - грядка
