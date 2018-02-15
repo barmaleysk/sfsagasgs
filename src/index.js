@@ -37,6 +37,7 @@ helper.logStart()
 
 setInterval(function(){
     var hm = new Date().getHours() + ':' + new Date().getMinutes()
+    let = 'de'
     switch (hm) {
         case '0:30':
         case '1:30':
