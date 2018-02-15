@@ -1,27 +1,24 @@
 const TelegramBot = require('node-telegram-bot-api')
 const mongoose = require('mongoose')
 
-
 const config = require('./config')
 const helper = require('./helper')
 const cbd = require('./callbacks')
-
-
-mongoose.connect(config.DB_URL)
-.then (() => console.log('MogoDB Connected: ' + config.DB_URL))
-.catch((e) => console.log(e))
-
-
 let texts = require('./texts-ru')
 let kb = require('./keyboard-buttons-ru')
-let lang = 'en'
-
+let lang = 'es'
 module.exports = {
     lang   
 }
-
 const keyboard = require('./keyboard')
 const ikb = require('./inline-keyboard')
+
+mongoose.connect(config.DB_URL)
+.then (() => {
+      console.log('MogoDB Connected: ' + config.DB_URL)
+      console.log(lang, ikb.bank[1][0].text)
+})
+.catch((e) => console.log(e))
 
 require('./models/users.model')
 require('./models/general.model')
@@ -36,8 +33,6 @@ const bot = new TelegramBot(config.TOKEN, {
 })
 
 helper.logStart()
-
-console.log(lang, ikb.bank[1][0].text)
 
 setInterval(function(){
     var hm = new Date().getHours() + ':' + new Date().getMinutes()
