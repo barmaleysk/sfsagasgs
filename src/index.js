@@ -10,7 +10,7 @@ const cbd = require('./callbacks')
 
 
 mongoose.connect(config.DB_URL)
-.then (() => console.log('mogodb connected'))
+.then (() => console.log('MogoDB Connected: URL(${config.DB_URL})'))
 .catch((e) => console.log(e))
 
 
