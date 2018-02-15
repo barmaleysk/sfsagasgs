@@ -4,10 +4,10 @@ const mongoose = require('mongoose')
 
 const config = require('./config')
 const helper = require('./helper')
-const texts = require('./texts')
+let texts = require('./texts-ru')
 const keyboard = require('./keyboard')
-const kb = require('./keyboard-buttons')
-const ikb = require('./inline-keyboard')
+let kb = require('./keyboard-buttons-ru')
+let ikb = require('./inline-keyboard-ru')
 const arr = require('./arrays')
 const cbd = require('./callbacks')
 
