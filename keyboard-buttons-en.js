@@ -1,6 +1,6 @@
 module.exports = {
     home: {
-        myFarm: '🏡 My Farm',
+        myFarm: '🏡 My farm',
         friends: '🏘 Friends',
         city: '🏢 City',
         other: '✨ Other'
@@ -24,9 +24,9 @@ module.exports = {
     myFarm: {
         plants: '🌱 Plants',
         buildings: '🏫 Buildings',
-        referals: '👥 Referals',
-        name: '📝 Title',
-        garage: '🚗 Транспорт'
+        warehouse: '📦 Warehouse',
+        referals: '👥 Referrals',
+        garage: '🚗 Transport'
     },
     plants: {
         fruit: '🍎 Fruits',
@@ -35,15 +35,15 @@ module.exports = {
     },
     fruit: {
         buy: 'Buy 🍎 Fruits',
-        send: '📦 Send 🍎 to the warehouse'
+        send: '📦 Send 🍎 Warehouse'
     },
     vegetables: {
         buy: 'Buy 🌽 Vegetables',
-        send: '📦 Send 🌽 to the warehouse'
+        send: '📦 Send 🌽 Warehouse'
     },
     buildings: {
-        build: '🏫 Build new',
-        send: '📦 Send 🥚 to the warehouse',
+        build: '🏫 Build New',
+        send: '📦 Send 🥚 Warehouse',
         buildOne: '🏫 Build'
     },
     friends: {
@@ -53,38 +53,42 @@ module.exports = {
         plants: 'Sell 🌱 Plants',
         products: 'Sell 🥚 Products'
     },
-    warehouse: {
-        fruit: 'Подробно про 🍎 Фрукты',
-        vegetables: 'Подробно про 🌽 Овощи',
-        products: 'Подробно про 🥚 Продукты'
-    },
     settings: {
-        statistics: '📊 Statistics',
         notifications: '🔔 Notification'
     },
     bank: {
-        deposit: '💸 Deposit balance',
+        deposit: '💸 Fill up balance',
         exchange: '💱 Currency Exchange',
-        withdraw: '📤 Withdraw',
-        redeem: '💼 Purchase a Site'
+        withdraw: '📤 Display',
+        redeem: '💼 Redeem plot'
     },
     help: {
         
     },
-    games: {
-        dice: '',
-        bonus: '',
-        darts: '',
-        slot_machine: '',
-        lottery: '',
-        guess_suit: ''
+    casino: {
+        dice: '🎲 ​​Bones',
+        bonus: '🎁 Daily bonus',
+        darts: '🎯 Darts',
+        slot_machine: '🎰 Slot Machines',
+        lottery: '🎟 Lottery',
+        guess_suit: '🃏 Guess the suit',
+        bowling: '🎳 Bowling'
+    },
+    languages: {
+        english: '🇬🇧 English',
+        russian: '🇷🇺 Русский',
+        german: '🇩🇪 Deutsch 🤖',
+        french: '🇫🇷 Français 🤖',
+        portuguese: '🇵🇹 Portugues 🤖',
+        spanish: '🇪🇸 Español 🤖'
     },
     back: '⬅️ Back',
     back_farm: '🏡 Back',
+    back_city: '🏢 Back',
     skip: '📰',
     continue: '🗞',
     step: '📃',
-    changeName: '📝 Изменить название',
+    changeName: '📝 Change the Name',
     cancel: '✖️ Cancel',
     yes: '✔️ Yes',
     no: '❌ No'
