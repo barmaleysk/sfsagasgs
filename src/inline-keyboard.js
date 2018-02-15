@@ -103,24 +103,6 @@ module.exports = {
             }
         ]
     ],
-    warehouse: [
-        [
-            {
-                text: kb.warehouse.fruit,
-                callback_data: cbd.det_fruit
-            },
-            {
-                text: kb.warehouse.vegetables,
-                callback_data: cbd.det_vegetables
-            }
-        ],
-        [
-            {
-                text: kb.warehouse.products,
-                callback_data: cbd.det_products
-            }
-        ]
-    ],
     firstMessage: [
         [
             {
