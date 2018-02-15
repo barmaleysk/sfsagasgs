@@ -35,7 +35,7 @@ helper.logStart()
 setInterval(function(){
     var hm = new Date().getHours() + ':' + new Date().getMinutes()
     
-    console.log(lang, kb.home.myFarm)
+    console.log(lang, ikb.bank[1][0])
     
     switch (hm) {
         case '0:30':
