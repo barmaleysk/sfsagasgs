@@ -3,7 +3,7 @@ module.exports = {
         myFarm: '🏡 My farm',
         friends: '🏘 Friends',
         city: '🏢 City',
-        other: '✨ Other'
+        other: '✨ Other' //
     },
     city: {
         townHall: '⛪️ Town Hall',
@@ -12,14 +12,14 @@ module.exports = {
         casino: '🎰 Casino'
     },
     other: {
-        tasks: '📋 Tasks',
+        tasks: '📋 Tasks', //
         settings: '⚙️ Settings',
         help: '❓ Help',
-        community: '💬 Community'
+        community: '💬 Community' //
     },
     townHall: {
         statistics: '📊 Statistics',
-        name: '📝 Farmer License'
+        name: '📝 Farmer License' //
     },
     myFarm: {
         plants: '🌱 Plants',
@@ -54,33 +54,25 @@ module.exports = {
         products: 'Sell 🥚 Products'
     },
     settings: {
-        notifications: '🔔 Notification'
+        notifications: '🔔 Notification' //
     },
     bank: {
-        deposit: '💸 Fill up balance',
-        exchange: '💱 Currency Exchange',
-        withdraw: '📤 Display',
-        redeem: '💼 Redeem plot'
-    },
+        deposit: '💸 Add balance',  //
+        exchange: '💱 Currency Exchange', //
+        withdraw: '📤 Withdraw', //
+        redeem: '💼 Redeem plot' //
+    }, 
     help: {
         
     },
     casino: {
-        dice: '🎲 ​​Bones',
+        dice: '🎲 Dice',
         bonus: '🎁 Daily bonus',
         darts: '🎯 Darts',
         slot_machine: '🎰 Slot Machines',
         lottery: '🎟 Lottery',
-        guess_suit: '🃏 Guess the suit',
+        guess_suit: '🃏 Guess suit',
         bowling: '🎳 Bowling'
-    },
-    languages: {
-        english: '🇬🇧 English',
-        russian: '🇷🇺 Русский',
-        german: '🇩🇪 Deutsch 🤖',
-        french: '🇫🇷 Français 🤖',
-        portuguese: '🇵🇹 Portugues 🤖',
-        spanish: '🇪🇸 Español 🤖'
     },
     back: '⬅️ Back',
     back_farm: '🏡 Back',
@@ -88,7 +80,7 @@ module.exports = {
     skip: '📰',
     continue: '🗞',
     step: '📃',
-    changeName: '📝 Change the Name',
+    changeName: '📝 Change Title', //
     cancel: '✖️ Cancel',
     yes: '✔️ Yes',
     no: '❌ No'
