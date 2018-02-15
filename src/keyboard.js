@@ -1,8 +1,5 @@
 const index = require('./index')
-
 let kb
-
-console.log(index.lang)
 
 switch (index.lang) {
     case 'ru':
