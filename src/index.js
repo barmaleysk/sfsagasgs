@@ -16,7 +16,7 @@ mongoose.connect(config.DB_URL)
 
 let texts = require('./texts-ru')
 let kb = require('./keyboard-buttons-ru')
-let lang = 'ru'
+let lang = 'en'
 
 require('./models/users.model')
 require('./models/general.model')
@@ -34,6 +34,9 @@ helper.logStart()
 
 setInterval(function(){
     var hm = new Date().getHours() + ':' + new Date().getMinutes()
+    
+    console.log(lang, kb.home.myFarm)
+    
     switch (hm) {
         case '0:30':
         case '1:30':
