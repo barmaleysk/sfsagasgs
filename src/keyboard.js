@@ -1,21 +1,60 @@
-const kb = require('./keyboard-buttons')
+const index = require('./index')
+
+let kb = require('./keyboard-buttons-ru')
+
+switch (index.lang) {
+    case 'ru':
+        kb = require('./keyboard-buttons-ru')    
+    break
+    case 'en':
+        kb = require('./keyboard-buttons-en')    
+    break
+    case 'de':
+        kb = require('./keyboard-buttons-de')    
+    break
+    case 'fr':
+        kb = require('./keyboard-buttons-fr')    
+    break
+    case 'es':
+        kb = require('./keyboard-buttons-es')    
+    break
+    case 'pt':
+        kb = require('./keyboard-buttons-pt')    
+    break
+}
 
 module.exports = {
     home: [
         [kb.home.myFarm, kb.home.friends],
-        [kb.home.market, kb.home.bank],
-        [kb.home.games, kb.home.tasks],
-        [kb.home.settings, kb.home.help]
+        [kb.home.city, kb.home.other]
     ],
     myFarm: [
         [kb.myFarm.plants, kb.myFarm.buildings],
-        [kb.myFarm.warehouse, kb.myFarm.statistics],
-        [kb.myFarm.referals, kb.myFarm.name],
+        [kb.myFarm.referals, kb.back]
+    ],
+    city: [
+        [kb.city.market, kb.city.bank],
+        [kb.city.casino, kb.city.townHall],
         [kb.back]
+    ],
+    townHall: [
+        [kb.townHall.name, kb.townHall.statistics],
+        [kb.back_city]
     ],
     plants: [
         [kb.plants.fruit, kb.plants.vegetables],
         [kb.back_farm]
+    ],
+    other: [
+        [kb.other.settings, kb.other.help],
+        [kb.other.tasks, kb.other.community],
+        [kb.back]
+    ],
+    casino: [
+//        [kb.casino.bowling, kb.casino.lottery],
+//        [kb.casino.dice, kb.casino.darts],
+//        [kb.casino.slot_machine, kb.casino.guess_suit],
+        [kb.casino.bonus, kb.back_city]
     ],
     friends: [
         
@@ -26,10 +65,15 @@ module.exports = {
     help: [
         
     ],
-    games: [
-        
-    ],
     languages: [
-        
+        [kb.languages.english, kb.languages.russian],
+        [kb.languages.german, kb.languages.french],
+        [kb.languages.portuguese, kb.languages.spanish]
+    ],
+    cancel: [
+        [kb.cancel]
+    ],
+    yesno: [
+        [kb.yes, kb.no]
     ]
 }
