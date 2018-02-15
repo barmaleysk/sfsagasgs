@@ -1,4 +1,4 @@
-const kb = require('./keyboard-buttons')
+const kb = require('./keyboard-buttons-ru')
 const cbd = require('./callbacks')
 
 module.exports = {
