@@ -6,7 +6,8 @@ const helper = require('./helper')
 const cbd = require('./callbacks')
 let texts = require('./texts-ru')
 let kb = require('./keyboard-buttons-ru')
-let lang = 'es'
+let lang
+
 module.exports = {
     lang   
 }
