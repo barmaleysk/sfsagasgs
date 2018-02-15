@@ -3,6 +3,8 @@ const index = require('./index')
 
 let kb = require('./keyboard-buttons-ru')
 
+console.log(index.lang)
+
 switch (index.lang) {
     case 'ru':
         kb = require('./keyboard-buttons-ru')    
@@ -22,6 +24,7 @@ switch (index.lang) {
     case 'pt':
         kb = require('./keyboard-buttons-pt')    
     break
+    default: kb = require('./keyboard-buttons-ru')  
 }
 
 module.exports = {
