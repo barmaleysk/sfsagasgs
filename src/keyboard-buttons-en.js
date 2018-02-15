@@ -79,6 +79,14 @@ module.exports = {
         lottery: '',
         guess_suit: ''
     },
+    languages: {
+        english: '🇬🇧 English',
+        russian: '🇷🇺 Русский',
+        german: '🇩🇪 Deutsch 🤖',
+        french: '🇫🇷 Français 🤖',
+        portuguese: '🇵🇹 Portugues 🤖',
+        spanish: '🇪🇸 Español 🤖'
+    },
     back: '⬅️ Back',
     back_farm: '🏡 Back',
     skip: '📰',
