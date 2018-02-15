@@ -1,101 +1,87 @@
 module.exports = {
-    Início: {
-        myFarm: '🏡 Minha fazenda'
-        Amigos: '🏘 Friends'
-        cidade: '🏢 City'
-        outro: '✨ Diversos'
-    }
-    cidade: {
-        Townhall: '⛪️ Town Hall'
-        Mercado: 'Mercado 🛒'
-        banco: '🏦 Banco'
-        casino: 'Casino 🎰'
-    }
-    outra: {
-        tarefas: '📋 Jobs'
-        Configurações: '⚙️ Configurações'
-        ajuda: 'Ajuda ❓'
-        comunidade: '💬 Comunidades'
-    }
-    Townhall: {
-        Estatísticas: '📊 Estatísticas'
-        Nome: '📝 fazendeiro licença'
-    }
+    home: {
+        myFarm: '🏡 Minha Fazenda',
+        friends: '🏘 Amigos',
+        city: '🏢 Cidade',
+        other: '✨ Outra' //
+    },
+    city: {
+        townHall: '⛪️ Prefeitura',
+        market: '🛒 Mercado',
+        bank: '🏦 Banco',
+        casino: '🎰 Casino'
+    },
+    other: {
+        tasks: '📋 Tarefas', //
+        settings: '⚙️ Configurações',
+        help: '❓ Socorro',
+        community: '💬 Comunidade' //
+    },
+    townHall: {
+        statistics: '📊 Estatisticas',
+        name: '📝 Licença agricultor' //
+    },
     myFarm: {
-        plantas: 'Plantas 🌱'
-        Edifícios: '🏫 Edifícios'
-        armazém: 'Warehouse 📦'
-        Estatísticas: '📊 Estatísticas'
-        Referals: '👥 Referências'
-        garagem: 'Transportes 🚗'
-    }
-    plantas: {
-        frutas: '🍎 Frutas'
-        legumes: 'Legumes 🌽'
-        comprar: '🌱 Buy' 
-    }
-    frutas: {
-        comprar: 'Frutas Comprar 🍎'
-        enviar: '📦 Enviar 🍎 armazém'
-    }
-    legumes: {
-        comprar: 'Vegetais Comprar 🌽'
-        enviar: '📦 Enviar 🌽 armazém'
-    }
-    edifícios: {
-        construir: '🏫 construir novo'
-        enviar: '📦 Enviar 🥚 armazém'
+        plants: '🌱 Plantas',
+        buildings: '🏫 Edifícios',
+        warehouse: '📦 Armazém',
+        referals: '👥 Referências',
+        garage: '🚗 Transporte'
+    },
+    plants: {
+        fruit: '🍎 Frutas',
+        vegetables: '🌽 Legumes',
+        buy: '🌱 Comprar' 
+    },
+    fruit: {
+        buy: 'Comprar 🍎 Frutas',
+        send: '📦 Enviar 🍎 para Armazém'
+    },
+    vegetables: {
+        buy: 'Comprar 🌽 Legumes',
+        send: '📦 Enviar 🌽 para Armazém'
+    },
+    buildings: {
+        build: '🏫 Construir Novo',
+        send: '📦 Enviar 🥚 para Armazém',
         buildOne: '🏫 Construir'
-    }
-    amigos: {
+    },
+    friends: {
         
-    }
-    Mercado: {
-        plantas: 'Vender 🌱 Plantas'
-        produtos: 'vender produtos 🥚'
-    }
-    armazém: {
-        frutos: 'Mais sobre 🍎 Frutas'
-        legumes: 'Mais sobre 🌽 Legumes'
-        produtos: 'Mais sobre 🥚 produtos'
-    }
-    configurações: {
-        notificações: '🔔 alerta'
-    }
-    banco: {
-        depósito: '💸 Encha equilíbrio'
-        troca: '💱 câmbios'
-        retirar: 'Mostrar 📤'
-        redimir: '💼 Resgatar enredo'
-    }
-    ajudar: {
+    },
+    market: {
+        plants: 'Vender 🌱 Plantas',
+        products: 'Vender 🥚 Produtos'
+    },
+    settings: {
+        notifications: '🔔 Notificação' //
+    },
+    bank: {
+        deposit: '💸 Adicionar equilíbrio',  //
+        exchange: '💱 Câmbio Monetário', //
+        withdraw: '📤 Saída', //
+        redeem: '💼 Redeçam enredo' //
+    }, 
+    help: {
         
-    }
+    },
     casino: {
-        dice: '🎲 ​​Bones'
-        bônus: '🎁 bônus diário'
-        dardos: '🎯 Darts'
-        slot_machine: '🎰 Slot Machines'
-        loteria: 'Loteria 🎟'
-        guess_suit: '🃏 Adivinha o terno'
-        boliche: '🎳 Bowling'
-    }
-    idiomas: {
-        Inglês: '🇬🇧 Inglês',
-        russa: '🇷🇺 russo'
-        Alemão: '🇩🇪 Deutsch 🤖',
-        francês: '🇫🇷 Français 🤖',
-        português: '🇵🇹 Portugues 🤖',
-        Espanhol: '🇪🇸 Español 🤖'
-    }
-    de volta: '⬅️ Back'
-    back_farm: '🏡 Back'
-    back_city: '🏢 Back'
-    pular: '📰',
-    Ele continua: '🗞',
-    etapa: '📃',
-    changeName: '📝 Alterar o nome de'
-    cancelar: '✖️ Anular'
-    sim: '✔️ Sim'
-    não: '❌ Não'
+        dice: '🎲 Dados',
+        bonus: '🎁 Bônus Diário',
+        darts: '🎯 Dardos',
+        slot_machine: '🎰 Máquinas caça-níqueis',
+        lottery: '🎟 Loteria',
+        guess_suit: '🃏 Terno Suposição',
+        bowling: '🎳 Boliche'
+    },
+    back: '⬅️ Costas',
+    back_farm: '🏡 Costas',
+    back_city: '🏢 Costas',
+    skip: '📰',
+    continue: '🗞',
+    step: '📃',
+    changeName: '📝 Alterar Título', //
+    cancel: '✖️ Cancelar',
+    yes: '✔️ Sim',
+    no: '❌ Não'
 }
