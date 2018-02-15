@@ -70,12 +70,13 @@ module.exports = {
         idea: '💡 To suggest idea'
     },
     games: {
-        dice: '',
-        bonus: '',
-        darts: '',
-        slot_machine: '',
-        lottery: '',
-        guess_suit: ''
+        dice: '🎲 Dice',
+        bonus: '🎁 Daily bonus',
+        darts: '🎯 Darts',
+        slot_machine: '🎰 Slot Machines',
+        lottery: '🎟 Lottery',
+        guess_suit: '🃏 Guess Suit',
+        bowling: '🎳 Bowling'
     },
     languages: {
         english: '🇬🇧 English',
