@@ -6,7 +6,7 @@ module.exports = {
         other: '✨ Разное'
     },
     city: {
-        townHall: '⛪️ Ратушь',
+        townHall: '⛪️ Ратуша',
         market: '🛒 Рынок',
         bank: '🏦 Банк',
         casino: '🎰 Казино'
@@ -71,7 +71,7 @@ module.exports = {
     help: {
         feedback: '✉️ Обратная связь',
         training: '🎓 Пройти обучение',
-        faq: '‼️ Часто Задаваемые Вопросы',
+        faq: '❔ FAQ ❔',
         idea: '💡 Предложить идею'
     },
     casino: {
@@ -100,5 +100,6 @@ module.exports = {
     changeName: '📝 Изменить название',
     cancel: '✖️ Отмена',
     yes: '✔️ Да',
-    no: '❌ Нет'
+    no: '❌ Нет',
+    check: '📎 Проверить задание'
 }

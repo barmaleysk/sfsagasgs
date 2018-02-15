@@ -54,15 +54,12 @@ module.exports = {
 //        [kb.casino.bowling, kb.casino.lottery],
 //        [kb.casino.dice, kb.casino.darts],
 //        [kb.casino.slot_machine, kb.casino.guess_suit],
-//        [kb.casino.bonus, kb.back_city]
+        [kb.casino.bonus, kb.back_city]
     ],
     friends: [
         
     ],
     settings: [
-        
-    ],
-    help: [
         
     ],
     languages: [
