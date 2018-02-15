@@ -57,16 +57,16 @@ module.exports = {
         notifications: '🔔 Notification' //
     },
     bank: {
-        deposit: '💸 Fill up balance',  //
+        deposit: '💸 Add balance',  //
         exchange: '💱 Currency Exchange', //
-        withdraw: '📤 Display', //
+        withdraw: '📤 Withdraw', //
         redeem: '💼 Redeem plot' //
     }, 
     help: {
         
     },
     casino: {
-        dice: '🎲 ​​Bones',
+        dice: '🎲 Dice',
         bonus: '🎁 Daily bonus',
         darts: '🎯 Darts',
         slot_machine: '🎰 Slot Machines',
@@ -74,21 +74,13 @@ module.exports = {
         guess_suit: '🃏 Guess the suit',
         bowling: '🎳 Bowling'
     },
-    languages: {
-        english: '🇬🇧 English',
-        russian: '🇷🇺 Русский',
-        german: '🇩🇪 Deutsch 🤖',
-        french: '🇫🇷 Français 🤖',
-        portuguese: '🇵🇹 Portugues 🤖',
-        spanish: '🇪🇸 Español 🤖'
-    },
     back: '⬅️ Back',
     back_farm: '🏡 Back',
     back_city: '🏢 Back',
     skip: '📰',
     continue: '🗞',
     step: '📃',
-    changeName: '📝 Change the Name', //
+    changeName: '📝 Change the Title', //
     cancel: '✖️ Cancel',
     yes: '✔️ Yes',
     no: '❌ No'
