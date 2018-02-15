@@ -63,7 +63,10 @@ module.exports = {
         redeem: '💼 Grundstück Einlösen'
     },
     help: {
-        
+        feedback: '✉️ Feedback',
+        training: '🎓 Training Absolvieren',
+        faq: '‼️ FAQ',
+        idea: '💡 Idee Vorschlagen'
     },
     casino: {
         dice: '🎲 Würfel',
