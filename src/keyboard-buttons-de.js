@@ -74,6 +74,14 @@ module.exports = {
         guess_suit: '🃏 Raten Sie den Anzug',
         bowling: '🎳 Bowling'
     },
+    languages: {
+        english: '🇬🇧 English',
+        russian: '🇷🇺 Русский',
+        german: '🇩🇪 Deutsch 🤖',
+        french: '🇫🇷 Français 🤖',
+        portuguese: '🇵🇹 Portugues 🤖',
+        spanish: '🇪🇸 Español 🤖'
+    },
     back: '⬅️ Zurück',
     back_farm: '🏡 Zurück',
     back_city: '🏢 Zurück',
