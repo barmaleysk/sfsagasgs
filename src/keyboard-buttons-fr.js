@@ -71,7 +71,7 @@ module.exports = {
         darts: '🎯 Fléchettes',
         slot_machine: '🎰 Machine à sous',
         lottery: '🎟 Loterie',
-        guess_suit: '🃏 Devinez le costume',
+        guess_suit: '🃏 Devinez Costume',
         bowling: '🎳 Bowling'
     },
     back: '⬅️ Arrière',
