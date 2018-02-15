@@ -1,101 +1,87 @@
 module.exports = {
-    Inicio: {
-        MyFarm: '🏡 Mi granja'
-        Amigos: 'Friends' 🏘
-        ciudad: 'Ciudad 🏢'
-        otra: '✨ Varios'
-    }
-    ciudad: {
-        Ayuntamiento: '⛪️ Ayuntamiento'
-        Mercado: 'Mercado 🛒'
-        banco: '🏦 Banco
+    home: {
+        myFarm: '🏡 Mi Granja',
+        friends: '🏘 Amigos',
+        city: '🏢 Ciudad',
+        other: '✨ Otro' //
+    },
+    city: {
+        townHall: '⛪️ Ayuntamiento',
+        market: '🛒 Mercado',
+        bank: '🏦 Banco',
         casino: '🎰 Casino'
-    }
-    Otros: {
-        tareas: '📋 Jobs
-        Ajustes: 'Configuración' ⚙️
-        ayuda: 'Ayuda ❓'
-        comunidad: '💬 Comunidades
-    }
-    Ayuntamiento: {
-        Estadísticas: '📊 Estadísticas'
-        Nombre: '📝 Licencia agricultor
-    }
-    MyFarm: {
-        Plantas: Las plantas '' 🌱
-        Edificios: '' 🏫 Edificios
-        almacén: 'Almacén 📦'
-        Estadísticas: '📊 Estadísticas'
-        Referals: 'Referencias' 👥
-        Garaje: '🚗 Transporte'
-    }
-    plantas: {
-        frutas: '🍎 Fruits'
-        Verduras: 'vegetales' 🌽
-        comprar: '🌱 Comprar' 
-    }
-    fruta: {
-        comprar: 'Comprar 🍎 Fruits'
-        enviar: '📦 Enviar 🍎 almacén'
-    }
-    verduras: {
-        comprar: 'Comprar 🌽 verduras'
-        enviar: '📦 Enviar 🌽 almacén'
-    }
-    edificios: {
-        construir: '🏫 construir nuevas'
-        enviar: '📦 Enviar 🥚 almacén'
-        buildOne: 'Construir 🏫'
-    }
-    amigos: {
+    },
+    other: {
+        tasks: '📋 Tareas', //
+        settings: '⚙️ Configuraciones',
+        help: '❓ Ayuda',
+        community: '💬 Comunidad' //
+    },
+    townHall: {
+        statistics: '📊 Estadística',
+        name: '📝 Licencia agricultor' //
+    },
+    myFarm: {
+        plants: '🌱 Plantas',
+        buildings: '🏫 Edificios',
+        warehouse: '📦 Almacén',
+        referals: '👥 Referencias',
+        garage: '🚗 Transporte'
+    },
+    plants: {
+        fruit: '🍎 Frutas',
+        vegetables: '🌽 Vegetales',
+        buy: '🌱 Comprar' 
+    },
+    fruit: {
+        buy: 'Comprar 🍎 Frutas',
+        send: '📦 Enviar 🍎 a Almacén'
+    },
+    vegetables: {
+        buy: 'Comprar 🌽 Vegetales',
+        send: '📦 Enviar 🌽 a Almacén'
+    },
+    buildings: {
+        build: '🏫 Construir Nuevo',
+        send: '📦 Enviar 🥚 a Almacén',
+        buildOne: '🏫 Construir'
+    },
+    friends: {
         
-    }
-    Mercado: {
-        Plantas: 'Vender 🌱 Plantas
-        los productos '' vender productos 🥚
-    }
-    almacén: {
-        fruta: 'Más acerca 🍎 Frutas'
-        verduras: 'Más acerca 🌽 Verduras'
-        productos: 'Más sobre los productos 🥚'
-    }
-    Ajustes: {
-        Notificaciones: '🔔 alerta'
-    }
-    Banco: {
-        Depósito: '💸 Llenar equilibrio'
-        intercambio: 'Cambio de divisas 💱'
-        retirar: 'Pantalla 📤'
-        redimir: '💼 Canjear trama'
-    }
-    ayudar: {
+    },
+    market: {
+        plants: 'Vender 🌱 Plantas',
+        products: 'Vender 🥚 Productos'
+    },
+    settings: {
+        notifications: '🔔 Notificación' //
+    },
+    bank: {
+        deposit: '💸 Agregar saldo',  //
+        exchange: '💱 Cambio de divisas', //
+        withdraw: '📤 Retirar', //
+        redeem: '💼 Canjear trama' //
+    }, 
+    help: {
         
-    }
+    },
     casino: {
-        dados: 'Bones' 🎲
-        bono: '🎁 bono diario'
-        dardos: '🎯 dardos'
-        slot_machine: '🎰 máquinas tragaperras'
-        lotería: 'Lotería 🎟'
-        guess_suit: '🃏 Adivina el traje'
-        bolera: '🎳 Bowling'
-    }
-    idiomas: {
-        Inglés: '🇬🇧 Inglés',
-        ruso: '🇷🇺 rusa'
-        alemán: '🇩🇪 Deutsch 🤖',
-        francés: '🇫🇷 Français 🤖',
-        portugués: '🇵🇹 Portugues 🤖',
-        español: '🇪🇸 Español 🤖'
-    }
-    espalda: '⬅️ Volver'
-    back_farm: '🏡 Volver'
-    back_city: '🏢 Volver'
-    saltar: '📰',
-    Continúa: '🗞',
-    paso: '📃',
-    changename: '📝 Cambiar el nombre de'
-    cancelar: '✖️ Cancelar'
-    Sí: 'Sí ✔️'
-    no: 'No ❌'
+        dice: '🎲 Dado',
+        bonus: '🎁 Bonus Diario',
+        darts: '🎯 Dardos',
+        slot_machine: '🎰 Maquina de casino',
+        lottery: '🎟 Lotería',
+        guess_suit: '🃏 Traje Guess',
+        bowling: '🎳 Bolos'
+    },
+    back: '⬅️ Espalda',
+    back_farm: '🏡 Espalda',
+    back_city: '🏢 Espalda',
+    skip: '📰',
+    continue: '🗞',
+    step: '📃',
+    changeName: '📝 Cambiar título', //
+    cancel: '✖️ Cancelar',
+    yes: '✔️ Sí',
+    no: '❌ No'
 }
