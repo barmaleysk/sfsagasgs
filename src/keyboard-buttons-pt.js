@@ -63,7 +63,10 @@ module.exports = {
         redeem: '💼 Redeçam enredo' //
     }, 
     help: {
-        
+        feedback: '✉️ Comentários',
+        training: '🎓 Treinar',
+        faq: '‼️ Perguntas frequentes',
+        idea: '💡 Sugerir uma ideia'
     },
     casino: {
         dice: '🎲 Dados',
