@@ -74,6 +74,14 @@ module.exports = {
         guess_suit: '🃏 Devinez Costume',
         bowling: '🎳 Bowling'
     },
+    languages: {
+        english: '🇬🇧 English',
+        russian: '🇷🇺 Русский',
+        german: '🇩🇪 Deutsch 🤖',
+        french: '🇫🇷 Français 🤖',
+        portuguese: '🇵🇹 Portugues 🤖',
+        spanish: '🇪🇸 Español 🤖'
+    },
     back: '⬅️ Arrière',
     back_farm: '🏡 Arrière',
     back_city: '🏢 Arrière',
