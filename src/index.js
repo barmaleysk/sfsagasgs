@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const config = require('./config')
 const helper = require('./helper')
 const keyboard = require('./keyboard')
+const ikb = require('./inline-keyboard')
 const cbd = require('./callbacks')
 
 
@@ -15,8 +16,7 @@ mongoose.connect(config.DB_URL)
 
 let texts = require('./texts-ru')
 let kb = require('./keyboard-buttons-ru')
-let ikb = require('./inline-keyboard-ru')
-let lang
+let lang = 'ru'
 
 module.exports = {
     lang   
