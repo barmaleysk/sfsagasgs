@@ -1,3 +1,4 @@
+let lang
 module.exports = {
     logStart() {
         console.log('Bot has been started...')
@@ -7,4 +8,10 @@ module.exports = {
         return msg.chat.id
     }
     
+    setLanguage(l) {
+        lang = l
+    }
+    getLanguage() {
+        return lang
+    }
 }
