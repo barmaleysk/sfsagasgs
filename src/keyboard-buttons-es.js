@@ -74,6 +74,14 @@ module.exports = {
         guess_suit: '🃏 Traje Guess',
         bowling: '🎳 Bolos'
     },
+    languages: {
+        english: '🇬🇧 English',
+        russian: '🇷🇺 Русский',
+        german: '🇩🇪 Deutsch 🤖',
+        french: '🇫🇷 Français 🤖',
+        portuguese: '🇵🇹 Portugues 🤖',
+        spanish: '🇪🇸 Español 🤖'
+    },
     back: '⬅️ Espalda',
     back_farm: '🏡 Espalda',
     back_city: '🏢 Espalda',
