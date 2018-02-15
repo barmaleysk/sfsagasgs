@@ -29,3 +29,4 @@ https://www.onlinedoctranslator.com/ru/
 :warning: - Внимание
 
 :black_large_square: - грядка
+ :bulb:
