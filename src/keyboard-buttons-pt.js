@@ -66,7 +66,7 @@ module.exports = {
         feedback: '✉️ Comentários',
         training: '🎓 Treinar',
         faq: '‼️ Perguntas frequentes',
-        idea: '💡 Sugerir uma ideia'
+        idea: '💡 Sugerir ideia'
     },
     casino: {
         dice: '🎲 Dados',
