@@ -1,51 +1,49 @@
-`Welcome to FarmerGame! In this game You can unleash Your potential farmer growing vegetables or fruits or to get the product from the animals and selling them!\n\nLet's will not waste time and immediately move on to learning! Click 🗞, to go to training or 📰, to skip his`,
+module.exports = {
+firstStarting: `Welcome to FarmerGame! In this game, you can unlock your potential as a farmer by growing vegetables or fruits, getting food from animals and selling them! \ N \ nLet's not going to waste time, but we will immediately go on to training! Press 🗞 to go to training or 📰 to skip it`,
     
-    `<b> Let's start!</b> 
-From a small garden to the huge farm You will find a lot of interesting things. But I will not rush You.
+    step2: `<b>Let's start!</b>
+From a small garden, to a huge farm you are waiting for a lot of interesting things. But I will not rush you.
  
-At this point in the game there are two kinds of plant and animal products:
-1. 🍎 Fruits.
-2. 🌽 Vegetables.
-3. 🥚 products.
+At the moment in the game there are two types of plant and animal products:
+🌱 Vegetable are divided into: 🍎 Fruits and 🌽 Vegetables.
  
-<B> Push 📃, to find out more:) </ b> `,
+<b>Press 📃 to learn more 😉 </b> `,
     
-    `<B> Step 2 </ b>
-🍎 Fruits and Vegetables 🌽 grow and sell for dollars and 💵 💰 Gold. 
-🥚 products are extracted with 🏫 Buildings with animals, and they can be sold for Euro 💶 and 💎 Diamond. 
-For 💵 dollars you can buy 🌱 plants for planting, and for 💶 Euro - build 🏫 Buildings for animals.
+    step3: `<b> Step 2 </ b>
+🍎 Fruits and 🌽 Vegetables grow on beds and can be sold for 💵 Dollars and 💰 Gold.
+🥚 Products are mined from 🏫 Buildings with animals, and they can be sold for 💶 Euro and 💎 Diamond.
+For 💵 Dollars you can buy 🌱 Plants for planting as well as beds, and for 💶 Euro - build 🏫 Buildings for animals.
 Gold and Diamond can be exchanged for real money.
-<Code> To date, the exchange rate is as follows: 
+<code> At the moment, the exchange rate is as follows:
 100 Gold = $ 1.
 100 Diamond = 0.0002 BTC. </ Code>
-If you're ready to move on PUSH 📃, it left quite a bit! `
+If you're ready to move on, press 📃, it's quite a bit!`,
     
-    `All the plants and products have on 6️⃣ species. The more expensive kind, the more will grow and produce products.
+    step4: `All plants and products have 6 species. The more expensive the species, the more will grow and produce products.
   
-For example, ⛽️ Petrochemical pump 100 is 1 level and produces 🌑 OilCoin 🛢 16 barrels of oil per hour, whereas Petrochemical pump 6 OilCoin level is 100,000 and produces 31,250 barrels per hour. 
-You feel the difference? Yes, she's just ogramnaya! Just for those who want to develop quickly, we have created 🏦 Bank. There you can buy OilCoin and another currency for the purchase of plants, using real money. Do not forget that all the investment required to return to the form of currency that can be displayed as real money :)
-Push Okay, to find out more! `
+For example, 🌱🍎 Apple tree costs 100 💵 Dollars and produces 16 🍎 apples per hour, whereas 🍑 Peach tree costs 90,000 💵 Dollars and grows 31,250 peaches per hour.
+Do you feel the difference? Yes, she's just awesome! Just for those who want to develop quickly, we created 🏦 Bank. There you can buy 💵 Dollar and 💶 Euro, using real money. Do not forget that all the invested funds must be returned in the form of a currency that can be displayed as real money 😉
+Click 📃 to find out more!`,
     
-    `Deposit - not ednistvenny fastest way to get in-game currency. We also implemented a smart referral system!
+    step5: `Account replenishment is by no means an unordinary way to quickly get an in-game currency. We also have a smart referral system implemented!
   
-For every friend you will receive a lump sum of 40 dollars and 20 💵 💶 Euro just like that! Also, you will get a% of the completion of its accounts and% of their harvests. But more about that a little later.
-Push 📃, to complete the theory and begin to practice! `
+For each friend you invite, you will receive 40 💵 Dollars and 20 💶 Euros at a time! Also, you will receive % of the replenishment of his account and % of the resources he gets. But about this a little later.
+Press 📃 to complete the theory and start practicing!`,
     
-    'I see you are tired of reading so much text. Let's get down to the game itself! At the bottom you see a menu with buttons. Click on the button 📋 tasks to learn the current job and move to implement it! `
+    finish: `I see you're tired of reading so much text. Let's get down to the game! At the bottom you see the menu with buttons. Click on the button 📋 Tasks to find the current job and proceed to its execution! `,
     
-    `🏡 <b> My Farm </ b> \ n \ nHere you will find basic information on your ferme.`,
+    myFarm: `🏡<b>My Farm</b>\n\nHere you will find basic information about your farm.`,
     
-    `📃 Main menu`,
+    mainMenu: `📃 Main Menu`,
     
-    `🏢 City \ n \ nHere You can visit different zavedeniya.`,
+    city: `🏢 City\n\nHere you can visit different places .`,
     
-    `🎰 Casino \ n \ nHere You can play different types of games or just get 🎁 Daily bonus.`,
+    casino: `🎰 Casino\n\nHere you can play various kinds of games or just get 🎁 Daily bonus.`,
     
-    `⛪️ Town Hall \ n \ nIn the town hall you can get the farmer a license that allows you to name your farm, change an existing name, see your stats,`
+    townHall: `⛪️ Town Hall\n\nYou can get a farmer's license at the Town Hall, which gives you the opportunity to name your farm, change an existing name, look at your stats`,
     
-    `✨ Other \ n \ nHere You can find your settings, tasks, ask for help or visit our chaty.`,
+    other: `✨ Other\n\nHere you can find your settings, tasks, ask for help, or visit our chat rooms.`,
     
-    `🌱 <b> Plants </ b>
-  
-Here you can buy a variety of plants. On plants grown products, you later can send to the warehouse and to sell on the market for dollars and 💵 💰 Gold, which subsequently can be displayed as real money!
-<I> You give 30% of the resources you extracted to your landlord. </ I> `
+    plants: `🌱<b>Plants</b>\n\nHere you can buy various plants. The plants are grown products that you can later send to the warehouse and sell on the market for 💵 Dollars and 💰 Gold, which in the future can be deduced as real money!
+<i>You give 30% of all the resources you get to your landlord.</i> `
+}
