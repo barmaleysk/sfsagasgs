@@ -1,6 +1,6 @@
 module.exports = {
     home: {
-        myFarm: '🏡 Ma ferme',
+        myFarm: '🏡 Ma Ferme',
         friends: '🏘 Copains',
         city: '🏢 Ville',
         other: '✨ Autre' //
