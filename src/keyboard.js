@@ -1,6 +1,8 @@
 const index = require('./index')
 
-let kb = require('./keyboard-buttons-ru')
+let kb
+
+console.log(index.lang)
 
 switch (index.lang) {
     case 'ru':
