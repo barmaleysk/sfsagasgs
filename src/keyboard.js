@@ -23,6 +23,7 @@ switch (index.lang) {
     case 'pt':
         kb = require('./keyboard-buttons-pt')    
     break
+    default: kb = require('./keyboard-buttons-ru')  
 }
 
 module.exports = {
