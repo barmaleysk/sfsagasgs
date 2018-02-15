@@ -2,6 +2,27 @@ const index = require('./index')
 
 let kb = require('./keyboard-buttons-ru')
 
+switch (index.lang) {
+    case 'ru':
+        kb = require('./keyboard-buttons-ru')    
+    break
+    case 'en':
+        kb = require('./keyboard-buttons-en')    
+    break
+    case 'de':
+        kb = require('./keyboard-buttons-de')    
+    break
+    case 'fr':
+        kb = require('./keyboard-buttons-fr')    
+    break
+    case 'es':
+        kb = require('./keyboard-buttons-es')    
+    break
+    case 'pt':
+        kb = require('./keyboard-buttons-pt')    
+    break
+}
+
 module.exports = {
     home: [
         [kb.home.myFarm, kb.home.friends],
