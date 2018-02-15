@@ -1,101 +1,87 @@
 module.exports = {
-    Haus: {
-        MyFarm: '🏡 My Farm'
-        Freunde: '🏘 Friends'
-        Stadt: ‚🏢 Stadt‘
-        andere: ‚✨ Verschiedenes‘
-    }
-    Stadt: {
-        RATHAUS: '⛪️ Town Hall'
-        Markt: ‚🛒 Markt‘
-        Bank: '🏦 Bank
-        Casino: '🎰 Casino'
-    }
-    andere: {
-        Aufgaben: '📋 Jobs'
-        Einstellungen: ‚⚙️ Einstellungen‘
-        Hilfe: '❓ Help'
-        Gemeinschaft: ‚💬 Gemeinschaften‘
-    }
-    RATHAUS: {
-        Statistiken: ‚📊 Statistik‘
-        Name: '📝 Bauer Lizenz'
-    }
-    MyFarm: {
-        Pflanzen: '🌱 Plants'
-        Gebäude: ‚🏫 Gebäude‘
-        Lager: ‚📦 Warehouse‘
-        Statistiken: ‚📊 Statistik‘
-        referals: '👥 Empfehlungen'
-        Garage: '🚗 Transport'
-    }
-    Pflanzen: {
-        Frucht: ‚🍎 Früchte‘
-        Gemüse: ‚🌽 Gemüse‘
-        kaufen: '🌱 Buy' 
-    }
-    Obst: {
-        kaufen: 'Kaufen 🍎 Fruits'
-        senden: ‚📦 🍎 Lager Senden‘
-    }
-    Gemüse: {
-        kaufen: ‚Kaufen 🌽 Gemüse‘
-        senden: ‚📦 🌽 Lager Senden‘
-    }
-    Gebäude: {
-        bauen: ‚🏫 neu bauen‘
-        senden: ‚📦 🥚 Lager Senden‘
+    home: {
+        myFarm: '🏡 My Farm',
+        friends: '🏘 Friends',
+        city: '🏢 Stadt',
+        other: '✨ Verschiedenes'
+    },
+    city: {
+        townHall: '⛪️ Rathaus',
+        market: '🛒 Markt',
+        bank: '🏦 Bank',
+        casino: '🎰 Casino'
+    },
+    other: {
+        tasks: '📋 Aufgaben',
+        settings: '⚙️ Einstellungen',
+        help: '❓ Hilfe',
+        community: '💬 Gemeinschaft'
+    },
+    townHall: {
+        statistics: '📊 Statistiken',
+        name: '📝 Farmer Lizenz'
+    },
+    myFarm: {
+        plants: '🌱 Pflanzen',
+        buildings: '🏫 Gebäude',
+        warehouse: '📦 Warehouse',
+        referals: '👥 Empfehlungen',
+        garage: '🚗 Transport'
+    },
+    plants: {
+        fruit: '🍎 Früchte',
+        vegetables: '🌽 Gemüse',
+        buy: '🌱 Kaufen' 
+    },
+    fruit: {
+        buy: 'Kaufen 🍎 Fruits',
+        send: '📦 Senden 🍎 zum Lagerhaus'
+    },
+    vegetables: {
+        buy: 'Kaufen 🌽 Gemüse',
+        send: '📦 Senden 🌽 zum Lagerhaus'
+    },
+    buildings: {
+        build: '🏫 Baue Neues',
+        send: '📦 Senden 🥚 zum Lagerhaus',
         buildOne: '🏫 Bauen'
-    }
-    Freunde: {
+    },
+    friends: {
         
-    }
-    Markt: {
-        Pflanzen: ‚Verkaufen 🌱 Pflanzen‘
-        Produkte: ‚Verkaufen Produkte 🥚‘
-    }
-    Lager: {
-        Obst: ‚Mehr über 🍎 Fruits‘
-        Gemüse: ‚Mehr über 🌽 Gemüse‘
-        Produkte: ‚Mehr über 🥚 Produkte‘
-    }
-    Einstellungen: {
-        Benachrichtigungen: '🔔 alert'
-    }
-    Bank: {
-        Kaution: ‚💸 Balance Füllen Sie‘
-        Austausch: ‚💱 Geldwechsel‘
-        zurückziehen: '📤 Display'
-        einlösen: '💼 einlösen plot'
-    }
-    Hilfe: {
+    },
+    market: {
+        plants: 'Verkaufen 🌱 Gemüse',
+        products: 'Verkaufen 🥚 Produkte'
+    },
+    settings: {
+        notifications: '🔔 Notiz'
+    },
+    bank: {
+        deposit: '💸 Kontostand hinzufügen',
+        exchange: '💱 Geldwechsel',
+        withdraw: '📤 Zurückziehen',
+        redeem: '💼 Grundstück Einlösen'
+    },
+    help: {
         
-    }
-    Casino: {
-        Würfel: '🎲 Bones'
-        Bonus: '🎁 Täglicher Bonus'
-        Darts: '🎯 Dart'
-        slot_machine: '🎰 Slot Machines'
-        Lotterie: ‚🎟 Lotterie‘
-        guess_suit: '🃏 den Anzug Guess
-        Bowling: '🎳 Bowling'
-    }
-    Sprachen: {
-        Englisch: '🇬🇧 Englisch',
-        Russisch: ‚🇷🇺 Russisch‘
-        Deutsch: '🇩🇪 Deutsch 🤖',
-        französisch: '🇫🇷 Français 🤖',
-        portugiesisch: '🇵🇹 Portugues 🤖',
-        spanisch: '🇪🇸 Español 🤖'
-    }
-    zurück: ‚⬅️ Zurück‘
-    back_farm: '🏡 Back'
-    back_city: '🏢 Back'
-    Überspringen: '📰',
-    Weiter heißt es: '🗞',
-    Schritt: '📃',
-    Change: ‚📝 Ändern Sie den Namen von‘
-    Abbrechen: ‚✖️ Abbrechen‘
-    ja: ‚✔️ Ja‘
-    nein: '❌ No'
+    },
+    casino: {
+        dice: '🎲 Würfel',
+        bonus: '🎁 Täglicher Bonus',
+        darts: '🎯 Darts',
+        slot_machine: '🎰 Einarmiger Bandit',
+        lottery: '🎟 Lotterie',
+        guess_suit: '🃏 Raten Sie den Anzug',
+        bowling: '🎳 Bowling'
+    },
+    back: '⬅️ Zurück',
+    back_farm: '🏡 Zurück',
+    back_city: '🏢 Zurück',
+    skip: '📰',
+    continue: '🗞',
+    step: '📃',
+    changeName: '📝 Ändere den Titel',
+    cancel: '✖️ Stornieren',
+    yes: '✔️ Ja',
+    no: '❌ Nein'
 }
