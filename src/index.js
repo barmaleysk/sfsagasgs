@@ -38,7 +38,7 @@ helper.logStart()
 setInterval(function(){
     var hm = new Date().getHours() + ':' + new Date().getMinutes()
     
-    let = 'de'
+    lang = 'de'
     console.log(lang, ikb.bank[1][0].text)
     
     switch (hm) {
