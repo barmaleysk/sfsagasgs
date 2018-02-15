@@ -32,8 +32,8 @@ var name = ''
 // ===========================================
 const bot = new TelegramBot(config.TOKEN, {
     polling: true
-}).then(() => { helper.logStart() })
-
+})
+helper.logStart()
 setInterval(function(){
     var hm = new Date().getHours() + ':' + new Date().getMinutes()
     switch (hm) {
@@ -140,7 +140,6 @@ setInterval(function(){
         break
     }
 }, 60 * 1000)
-
 
 bot.on('message', msg => {
     const chatId = helper.gCI(msg)
