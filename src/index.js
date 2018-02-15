@@ -4,18 +4,19 @@ const mongoose = require('mongoose')
 
 const config = require('./config')
 const helper = require('./helper')
-let texts = require('./texts-ru')
 const keyboard = require('./keyboard')
-let kb = require('./keyboard-buttons-ru')
-let ikb = require('./inline-keyboard-ru')
-const arr = require('./arrays')
 const cbd = require('./callbacks')
-
 
 
 mongoose.connect(config.DB_URL)
 .then (() => console.log('mogodb connected'))
 .catch((e) => console.log(e))
+
+
+let texts = require('./texts-ru')
+let kb = require('./keyboard-buttons-ru')
+let ikb = require('./inline-keyboard-ru')
+
 
 require('./models/users.model')
 require('./models/general.model')
