@@ -14,15 +14,16 @@ https://www.onlinedoctranslator.com/ru/
 :wink:  
 
 :hibiscus: - для продажи 
+
 :cherry_blossom: или :ear_of_rice: - для корма коров
  
 :rice: мука из :ear_of_rice: пшеницы
 
 :bread: хлеб из муки
 
-:cake: - мука + сахар
+:cake: - мука + молоко
 :cookie: - мука 
-:hamburger: - из хлебных булочек ( ) + бекон
+:hamburger: - из хлеба + бекон
 :fries: - из картошки
 
 :warning: - Внимание
