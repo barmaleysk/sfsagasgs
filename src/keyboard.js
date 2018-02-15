@@ -1,4 +1,6 @@
-const kb = require('./keyboard-buttons')
+const index = require('./index')
+
+let kb = require('./keyboard-buttons-ru')
 
 module.exports = {
     home: [
