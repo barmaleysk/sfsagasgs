@@ -37,7 +37,7 @@ const bot = new TelegramBot(config.TOKEN, {
 
 helper.logStart()
 
-console.log(lang, kb.home[1])
+console.log(lang, ikb.bank[1][0].text)
 
 setInterval(function(){
     var hm = new Date().getHours() + ':' + new Date().getMinutes()
