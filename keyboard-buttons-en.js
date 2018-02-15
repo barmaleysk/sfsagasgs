@@ -3,7 +3,7 @@ module.exports = {
         myFarm: '🏡 My farm',
         friends: '🏘 Friends',
         city: '🏢 City',
-        other: '✨ Other'
+        other: '✨ Other' //
     },
     city: {
         townHall: '⛪️ Town Hall',
@@ -12,14 +12,14 @@ module.exports = {
         casino: '🎰 Casino'
     },
     other: {
-        tasks: '📋 Tasks',
+        tasks: '📋 Tasks', //
         settings: '⚙️ Settings',
         help: '❓ Help',
-        community: '💬 Community'
+        community: '💬 Community' //
     },
     townHall: {
         statistics: '📊 Statistics',
-        name: '📝 Farmer License'
+        name: '📝 Farmer License' //
     },
     myFarm: {
         plants: '🌱 Plants',
@@ -54,14 +54,14 @@ module.exports = {
         products: 'Sell 🥚 Products'
     },
     settings: {
-        notifications: '🔔 Notification'
+        notifications: '🔔 Notification' //
     },
     bank: {
-        deposit: '💸 Fill up balance',
-        exchange: '💱 Currency Exchange',
-        withdraw: '📤 Display',
-        redeem: '💼 Redeem plot'
-    },
+        deposit: '💸 Fill up balance',  //
+        exchange: '💱 Currency Exchange', //
+        withdraw: '📤 Display', //
+        redeem: '💼 Redeem plot' //
+    }, 
     help: {
         
     },
@@ -88,7 +88,7 @@ module.exports = {
     skip: '📰',
     continue: '🗞',
     step: '📃',
-    changeName: '📝 Change the Name',
+    changeName: '📝 Change the Name', //
     cancel: '✖️ Cancel',
     yes: '✔️ Yes',
     no: '❌ No'
