@@ -63,7 +63,10 @@ module.exports = {
         redeem: '💼 Racheter terrain' //
     }, 
     help: {
-        
+        feedback: '✉️ Retour d\'information',
+        training: '🎓 Undergo Training',
+        faq: '‼️ FAQ',
+        idea: '💡 Suggérer une idée'
     },
     casino: {
         dice: '🎲 Dé',
