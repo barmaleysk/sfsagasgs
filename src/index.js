@@ -167,11 +167,11 @@ bot.on('message', msg => {
 <b>${u.warehouse.products.eggs + u.warehouse.products.bacon + u.warehouse.products.wool + u.warehouse.products.milk + u.warehouse.products.honey + u.warehouse.products.leg}</b> 🥚 Продуктов
 
 Расценки
-<b>500</b> 🌱 Растительного = 1 💰 Gold и 2 💵 Доллара
-<b>500</b> 🥚 Продуктов = 1 💎 Diamond и 5 💶 Евро
+<b>500</b> 🌱 Растительных продуктов = 1 💰 Gold и 2 💵 Доллара
+<b>500</b> 🥚 Животных продуктов = 1 💎 Diamond и 2 💶 Евро
 
 Минимум для продажи:
-<i>500 🌱 Растительного/ 🥚 Продуктов</i>`
+<i>500 🌱/🥚 продуктов</i>`
         
             sendHTMLi(chatId, market, 'market')
         })
@@ -316,31 +316,38 @@ bot.onText(/\/start/, msg => {
 bot.onText(/\/start (.+)/, (msg, [, match]) => {
     const chatId = helper.gCI(msg)
     
+//    if (match) {
+//        console.log(match)
+//    }               
+//    else {
+//        console.log('start')
+//    }
+    
     User.findOne({_id: chatId}).then(u => {
         
         if (u != null) {
-            
             sendHTML(chatId, texts.mainMenu, 'home')
-            
         }
         else if (u == null) {
-            u = new User({
+            
+            const us = new User({
                 _id: chatId,
                 landlord: match
             })
+            us.save()
+                .catch((e) => console.log(e, 'СОХРАНЕНИЕ'))
             
-            u.save()
-                .catch((e) => console.log(e))
-            
-            User.updateOne({_id: match}, {
-                $push: {
-                    "referals": chatId
-                }
-            }).catch(e => console.log(e))
-            
+            if (chatId != match) {
+                User.updateOne({_id: match}, {
+                    $push: {
+                        "referals": chatId
+                    }
+                }).catch(e => console.log(e, 'ОБНОВЛЕНИЕ'))   
+
+            }
             sendHTMLi(chatId, texts.firstStarting, 'firstMessage')
             
-            const text = `🌐 <b>Новая регистрация по Вашей реферальной ссылке</b>\nИмя вашего реферала: ${msg.from.first_name} ${msg.from.second_name}\n<i>Вы получите награду за реферала, как только он придумает название для своей компании.</i>`
+            const text = `🌐 <b>Новая регистрация по Вашей реферальной ссылке</b>\nИмя вашего реферала: ${msg.from.first_name}\n<i>Вы получите награду за реферала, как только он придумает название для своей компании.</i>`
             
             sendHTML(match, text)
         }
@@ -484,15 +491,13 @@ bot.on('callback_query', query => {
             sendVegetables(chat.id, query.id)
         break
         case cbd.sell_plants:
+            sell(chat.id, query.id)
         break
         case cbd.sell_products:
+            sell(chat.id, query.id, false)
         break
-        case cbd.det_fruit:
-        break
-        case cbd.det_vegetables:
-        break
-        case cbd.det_products:
-        break
+        
+        
         case cbd.next_step:
             editText(texts.step2, chat.id, message_id, 'step2')
         break
@@ -506,13 +511,11 @@ bot.on('callback_query', query => {
         case cbd.step5:
             editText(texts.step5, chat.id, message_id, 'step5')
         break
-        case cbd.finish:
-            sendHTML(chat.id, texts.finish, 'home')
+        case cbd.skip: case cbd.finish:
+            sendHTML(chat.id, texts.skip, 'home')
         break
         
-        case cbd.skip:
-            sendHTML(chat.id, texts.mainMenu, 'home')
-        break
+        
         case cbd.buildChicken:
             Build(chat.id, 100, 'chicken', query.id)
         break
@@ -1171,7 +1174,7 @@ function sendFruit(Id, qId) {
    
 ➕ Вы успешно собрали <b>${collected}</b> 🍎 Фруктов и они были отправлены на склад.
 
-📦 Всего на складе: <b>${wh}</b> 🍎 Фруктов.`
+📦 Всего на складе: <b>${wh + collected}</b> 🍎 Фруктов.`
             
             sendHTML(Id, text)
                 
@@ -1217,7 +1220,7 @@ function sendFruit(Id, qId) {
    
 ➕ Вы успешно собрали <b>${collected}</b> 🍎 Фруктов, <b>${per70}</b> из которых были отправлены на склад.
 
-📦 Всего на складе: <b>${wh}</b> 🍎 Фруктов.
+📦 Всего на складе: <b>${wh + per70}</b> 🍎 Фруктов.
 🚚 Ваш арендодатель получил: <b>${per30}</b> Фруктов.`
             
             sendHTML(Id, text)
@@ -1285,7 +1288,7 @@ function sendVegetables(Id, qId) {
             const text = `<b>Сбор ресурсов</b>\n
 ➕ Вы успешно собрали <b>${collected}</b> 🌽 Овощей и они были отправлены на склад.
 
-📦 Всего на складе: <b>${wh}</b> 🌽 Овощей.`
+📦 Всего на складе: <b>${wh + collected}</b> 🌽 Овощей.`
             
             sendHTML(Id, text)
                 
@@ -1331,7 +1334,7 @@ function sendVegetables(Id, qId) {
             const text = `<b>Сбор ресурсов</b>\n
 ➕ Вы успешно собрали <b>${collected}</b> 🌽 Овощей, <b>${per70}</b> из которых были отправлены на склад.
 
-📦 Всего на складе: <b>${wh}</b> 🌽 Овощей.
+📦 Всего на складе: <b>${wh + per70}</b> 🌽 Овощей.
 🚚 Ваш арендодатель получил: <b>${per30}</b> Овощей.`
             sendHTML(Id, text)
             }
@@ -1393,7 +1396,7 @@ function sendProducts(Id, qId) {
             const wh = u.warehouse.products.eggs + u.warehouse.products.bacon + u.warehouse.products.wool + u.warehouse.products.milk + u.warehouse.products.honey + u.warehouse.products.leg  
             const text = `<b>Сбор ресурсов</b>\n
 ➕ Вы успешно собрали <b>${collected}</b> 🥚 Продуктов и они были отправлены на склад.\n
-📦 Всего на складе: <b>${wh}</b> 🥚 Продуктов.`
+📦 Всего на складе: <b>${wh + collected}</b> 🥚 Продуктов.`
             sendHTML(Id, text)
             }
             else {
@@ -1436,7 +1439,7 @@ function sendProducts(Id, qId) {
             
             const text = `<b>Сбор ресурсов</b>\n
 ➕ Вы успешно собрали <b>${collected}</b> 🥚 Продуктов, <b>${per70}</b> из которых были отправлены на склад.\n
-📦 Всего на складе: <b>${wh}</b> 🥚 Продуктов.
+📦 Всего на складе: <b>${wh + per70}</b> 🥚 Продуктов.
 🚚 Ваш арендодатель получил: <b>${per30}</b> Продуктов.`
             sendHTML(Id, text)
             }
@@ -1446,4 +1449,126 @@ function sendProducts(Id, qId) {
                 bot.answerCallbackQuery(qId, error, true)
             }
         })
+}
+
+function sell(Id, qId, plants = true) {
+    const price = 2
+    const price2 = 1
+    User.findOne({_id: Id}).then(u => {
+        let rounded, delta
+        if (plants) {
+            const apple = u.warehouse.fruit.apple
+            const pear = u.warehouse.fruit.pear
+            const grapes = u.warehouse.fruit.grapes
+            const strawberries = u.warehouse.fruit.strawberries
+            const cherries = u.warehouse.fruit.cherries
+            const peach = u.warehouse.fruit.peach
+            const tomato = u.warehouse.vegetables.tomato
+            const eggplant = u.warehouse.vegetables.eggplant
+            const carrots = u.warehouse.vegetables.carrots
+            const corn = u.warehouse.vegetables.corn
+            const pepper = u.warehouse.vegetables.pepper
+            const potatoes = u.warehouse.vegetables.potatoes
+            
+            const plants = apple + pear + grapes + strawberries + cherries + peach + tomato + eggplant + carrots + corn + pepper + potatoes
+            
+            rounded = Math.floor(plants / 500)
+            delta = plants - (Math.floor(plants / 500) * 500)
+            
+            if (rounded >= 1) {
+                
+            const appleRound = round(apple)
+            const pearRound = round(pear)
+            const grapesRound = round(grapes)
+            const strawberriesRound = round(strawberries)
+            const cherriesRound = round(cherries)
+            const peachRound = round(peach)
+            const tomatoRound = round(tomato)
+            const eggplantRound = round(eggplant)
+            const carrotsRound = round(carrots)
+            const cornRound = round(corn)
+            const pepperRound = round(pepper)
+            const potatoesRound = round(potatoes)
+            
+            User.updateOne({_id: Id}, { $inc: {
+                "bank.dollars": price * rounded,
+                "bank.gold": price2,
+                "warehouse.fruit.apple": -appleRound,
+                "warehouse.fruit.pear": -pearRound,
+                "warehouse.fruit.grapes": -grapesRound,
+                "warehouse.fruit.strawberries": -strawberriesRound,
+                "warehouse.fruit.cherries": -cherriesRound,
+                "warehouse.fruit.peach": -peachRound,
+                "warehouse.vegetables.tomato": -tomatoRound,
+                "warehouse.vegetables.eggplant": -eggplantRound,
+                "warehouse.vegetables.carrots": -carrotsRound,
+                "warehouse.vegetables.corn": -cornRound,
+                "warehouse.vegetables.pepper": -pepperRound,
+                "warehouse.vegetables.potatoes": -potatoesRound
+            }}).catch(e => console.log(e))
+            
+            const text = `🛒 <b>Рынок</b>\n\nВы продали\n${plants - delta} 🌱 Растительных продуктов\nза ${rounded * price} 💵 Долларов и ${price2} 💰 Gold`
+            
+            sendHTML(Id, text)
+            } else {
+                const error = `🚫 Минимум для продажи 500 🌱 Растительных продуктов, у Вас только ${plants} 🌱 продуктов(а)`
+                bot.answerCallbackQuery(qId, error, true)
+            }
+        }
+        else {
+            const eggs = u.warehouse.products.eggs
+            const bacon = u.warehouse.products.bacon
+            const wool = u.warehouse.products.wool
+            const milk = u.warehouse.products.milk
+            const honey = u.warehouse.products.honey
+            const leg = u.warehouse.products.leg
+            
+            const products = eggs + bacon + wool + milk + honey + leg
+            
+            rounded = Math.floor(products / 500)
+            delta = products - (Math.floor(products / 500) * 500)
+            
+            if (rounded >= 1) {
+                
+            const eggsRound = round(eggs)
+            const baconRound = round(bacon)
+            const woolRound = round(wool)
+            const milkRound = round(milk)
+            const honeyRound = round(honey)
+            const legRound = round(leg)
+            
+            User.updateOne({_id: Id}, { $inc: {
+                "bank.euro": price * rounded,
+                "bank.diamond": price2,
+                "warehouse.products.eggs": -eggsRound,
+                "warehouse.products.bacon": -baconRound,
+                "warehouse.products.wool": -woolRound,
+                "warehouse.products.milk": -milkRound,
+                "warehouse.products.honey": -honeyRound,
+                "warehouse.products.leg": -legRound
+            }}).catch(e => console.log(e))
+            
+            const text = `🛒 <b>Рынок</b>\n\nВы продали\n${products - delta} 🥚 Животных продуктов\nза ${rounded * price} 💶 Евро и ${price2} 💎 Diamond`
+            
+            sendHTML(Id, text)
+            } else {
+                const error = `🚫 Минимум для продажи 500 🥚 Животных продуктов, у Вас только ${products} 🥚 продуктов(а)`
+                bot.answerCallbackQuery(qId, error, true)
+            }
+        }   
+    })
+}
+
+function round(i) {
+    let main
+    let delta
+    if (i < 1000) {
+        main = Math.floor(i / 100)
+        delta = i - (Math.floor(i / 100) * 100)
+    }
+    else if (i >= 1000) {
+        main = Math.floor(i / 1000)
+        delta = i - (Math.floor(i / 1000) * 1000)
+    }
+    return (i - delta)
 }

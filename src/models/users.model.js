@@ -394,6 +394,6 @@ const UsersSchema = new Schema({
 //            default: 0
 //        }    
 //    }
-})
+}, { autoIndex: false })
 
 mongoose.model('users', UsersSchema)
