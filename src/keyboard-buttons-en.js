@@ -50,7 +50,7 @@ module.exports = {
         
     },
     market: {
-        plants: 'Sell 🌱 Plants',
+        plants: 'Sell 🌱 Vegetable',
         products: 'Sell 🥚 Products'
     },
     settings: {
