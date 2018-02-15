@@ -63,7 +63,10 @@ module.exports = {
         redeem: '💼 Canjear trama' //
     }, 
     help: {
-        
+        feedback: '✉️ Realimentación',
+        training: '🎓 Someterse a la formación',
+        faq: '‼️ Preguntas más frecuentes',
+        idea: '💡 Sugerir una idea'
     },
     casino: {
         dice: '🎲 Dado',
