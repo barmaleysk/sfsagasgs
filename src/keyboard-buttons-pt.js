@@ -74,6 +74,14 @@ module.exports = {
         guess_suit: '🃏 Terno Suposição',
         bowling: '🎳 Boliche'
     },
+    languages: {
+        english: '🇬🇧 English',
+        russian: '🇷🇺 Русский',
+        german: '🇩🇪 Deutsch 🤖',
+        french: '🇫🇷 Français 🤖',
+        portuguese: '🇵🇹 Portugues 🤖',
+        spanish: '🇪🇸 Español 🤖'
+    },
     back: '⬅️ Costas',
     back_farm: '🏡 Costas',
     back_city: '🏢 Costas',
