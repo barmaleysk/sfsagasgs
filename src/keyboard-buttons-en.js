@@ -53,11 +53,6 @@ module.exports = {
         plants: 'Sell 🌱 Plants',
         products: 'Sell 🥚 Products'
     },
-    warehouse: {
-        fruit: 'Подробно про 🍎 Фрукты',
-        vegetables: 'Подробно про 🌽 Овощи',
-        products: 'Подробно про 🥚 Продукты'
-    },
     settings: {
         statistics: '📊 Statistics',
         notifications: '🔔 Notification'
@@ -69,7 +64,10 @@ module.exports = {
         redeem: '💼 Purchase a Site'
     },
     help: {
-        
+        feedback: '✉️ Feedback',
+        training: '🎓 Undergo Training',
+        faq: '‼️ FAQ',
+        idea: '💡 To suggest idea'
     },
     games: {
         dice: '',
