@@ -10,8 +10,6 @@ module.exports = {
     
     setLanguage(l) {
         lang = l
-    }
-    getLanguage() {
         return lang
     }
 }
