@@ -10,32 +10,10 @@ let lang
 module.exports = {
     lang   
 }
+
 let keyboard = require('./keyboard')
 let ikb = require('./inline-keyboard')
 let texts = require('./texts-ru')
-
-switch (lang) {
-    case 'ru':
-        texts = require('./texts-ru')    
-    break
-    case 'en':
-        texts = require('./texts-ru')    
-    break
-    case 'de':
-        texts = require('./texts-ru')    
-    break
-    case 'fr':
-        texts = require('./texts-ru')    
-    break
-    case 'es':
-        texts = require('./texts-ru')    
-    break
-    case 'pt':
-        texts = require('./texts-ru')    
-    break
-    default: kb = require('./texts-ru')  
-}
-
 
 mongoose.connect(config.DB_URL)
 .then (() => {
@@ -58,10 +36,6 @@ const bot = new TelegramBot(config.TOKEN, {
 
 setInterval(function(){
     var hm = new Date().getHours() + ':' + new Date().getMinutes()
-    
-    lang = setLanguage('de')
-    console.log(lang, ikb.bank[1][0].text)
-    
     switch (hm) {
         case '0:30':
         case '1:30':
@@ -1476,3 +1450,27 @@ function sendProducts(Id, qId) {
             }
         })
 }
+
+// function setLang(lang) {
+//     switch (lang) {
+//     case 'ru':
+//         texts = require('./texts-ru')    
+//     break
+//     case 'en':
+//         texts = require('./texts-en')    
+//     break
+//     case 'de':
+//         texts = require('./texts-de')    
+//     break
+//     case 'fr':
+//         texts = require('./texts-fr')    
+//     break
+//     case 'es':
+//         texts = require('./texts-es')    
+//     break
+//     case 'pt':
+//         texts = require('./texts-pt')    
+//     break
+//     default: kb = require('./texts-ru')  
+//     }
+// }
