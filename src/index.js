@@ -18,7 +18,6 @@ let texts = require('./texts-ru')
 mongoose.connect(config.DB_URL)
 .then (() => {
       console.log('MogoDB Connected: ' + config.DB_URL)
-      console.log(lang, ikb.bank[1][0].text)
 })
 .catch((e) => console.log(e))
 
