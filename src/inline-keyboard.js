@@ -1,7 +1,6 @@
 const cbd = require('./callbacks')
 const index = require('./index')
-
-let kb = require('./keyboard-buttons-ru')
+let kb
 
 switch (index.lang) {
     case 'ru':
@@ -22,6 +21,7 @@ switch (index.lang) {
     case 'pt':
         kb = require('./keyboard-buttons-pt')    
     break
+    default: kb = require('./keyboard-buttons-ru')  
 }
 
 module.exports = {
@@ -100,24 +100,6 @@ module.exports = {
             {
                 text: kb.market.products,
                 callback_data: cbd.sell_products
-            }
-        ]
-    ],
-    warehouse: [
-        [
-            {
-                text: kb.warehouse.fruit,
-                callback_data: cbd.det_fruit
-            },
-            {
-                text: kb.warehouse.vegetables,
-                callback_data: cbd.det_vegetables
-            }
-        ],
-        [
-            {
-                text: kb.warehouse.products,
-                callback_data: cbd.det_products
             }
         ]
     ],

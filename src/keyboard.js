@@ -1,6 +1,5 @@
 const index = require('./index')
-
-let kb = require('./keyboard-buttons-ru')
+let kb
 
 switch (index.lang) {
     case 'ru':
@@ -21,6 +20,7 @@ switch (index.lang) {
     case 'pt':
         kb = require('./keyboard-buttons-pt')    
     break
+    default: kb = require('./keyboard-buttons-ru')  
 }
 
 module.exports = {
@@ -54,7 +54,7 @@ module.exports = {
 //        [kb.casino.bowling, kb.casino.lottery],
 //        [kb.casino.dice, kb.casino.darts],
 //        [kb.casino.slot_machine, kb.casino.guess_suit],
-        [kb.casino.bonus, kb.back_city]
+//        [kb.casino.bonus, kb.back_city]
     ],
     friends: [
         

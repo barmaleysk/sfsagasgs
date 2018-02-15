@@ -1,22 +1,25 @@
 const TelegramBot = require('node-telegram-bot-api')
 const mongoose = require('mongoose')
 
-
 const config = require('./config')
 const helper = require('./helper')
-const keyboard = require('./keyboard')
-const ikb = require('./inline-keyboard')
 const cbd = require('./callbacks')
+let kb = require('./keyboard-buttons-ru')
+let lang
 
+module.exports = {
+    lang   
+}
+
+let keyboard = require('./keyboard')
+let ikb = require('./inline-keyboard')
+let texts = require('./texts-ru')
 
 mongoose.connect(config.DB_URL)
-.then (() => console.log('mogodb connected'))
+.then (() => {
+      console.log('MogoDB Connected: ' + config.DB_URL)
+})
 .catch((e) => console.log(e))
-
-
-let texts = require('./texts-ru')
-let kb = require('./keyboard-buttons-ru')
-let lang = 'ru'
 
 require('./models/users.model')
 require('./models/general.model')
@@ -29,9 +32,7 @@ var name = ''
 const bot = new TelegramBot(config.TOKEN, {
     polling: true
 })
-
 helper.logStart()
-
 setInterval(function(){
     var hm = new Date().getHours() + ':' + new Date().getMinutes()
     switch (hm) {
@@ -138,7 +139,6 @@ setInterval(function(){
         break
     }
 }, 60 * 1000)
-
 
 bot.on('message', msg => {
     const chatId = helper.gCI(msg)
@@ -1449,6 +1449,26 @@ function sendProducts(Id, qId) {
         })
 }
 
-module.exports = {
-    lang   
-}
+// function setLang(lang) {
+//     switch (lang) {
+//     case 'ru':
+//         texts = require('./texts-ru')    
+//     break
+//     case 'en':
+//         texts = require('./texts-en')    
+//     break
+//     case 'de':
+//         texts = require('./texts-de')    
+//     break
+//     case 'fr':
+//         texts = require('./texts-fr')    
+//     break
+//     case 'es':
+//         texts = require('./texts-es')    
+//     break
+//     case 'pt':
+//         texts = require('./texts-pt')    
+//     break
+//     default: kb = require('./texts-ru')  
+//     }
+// }
