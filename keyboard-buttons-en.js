@@ -80,7 +80,7 @@ module.exports = {
     skip: '📰',
     continue: '🗞',
     step: '📃',
-    changeName: '📝 Change the Title', //
+    changeName: '📝 Change Title', //
     cancel: '✖️ Cancel',
     yes: '✔️ Yes',
     no: '❌ No'
