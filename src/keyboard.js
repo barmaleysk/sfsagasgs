@@ -1,4 +1,27 @@
-const kb = require('./keyboard-buttons')
+const index = require('./index')
+let kb
+
+switch (index.lang) {
+    case 'ru':
+        kb = require('./keyboard-buttons-ru')    
+    break
+    case 'en':
+        kb = require('./keyboard-buttons-en')    
+    break
+    case 'de':
+        kb = require('./keyboard-buttons-de')    
+    break
+    case 'fr':
+        kb = require('./keyboard-buttons-fr')    
+    break
+    case 'es':
+        kb = require('./keyboard-buttons-es')    
+    break
+    case 'pt':
+        kb = require('./keyboard-buttons-pt')    
+    break
+    default: kb = require('./keyboard-buttons-ru')  
+}
 
 module.exports = {
     home: [
@@ -31,7 +54,7 @@ module.exports = {
 //        [kb.casino.bowling, kb.casino.lottery],
 //        [kb.casino.dice, kb.casino.darts],
 //        [kb.casino.slot_machine, kb.casino.guess_suit],
-        [kb.casino.bonus, kb.back_city]
+//        [kb.casino.bonus, kb.back_city]
     ],
     friends: [
         

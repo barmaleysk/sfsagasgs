@@ -1,9 +1,9 @@
 module.exports = {
     home: {
-        myFarm: '🏡 My Farm',
+        myFarm: '🏡 My farm',
         friends: '🏘 Friends',
         city: '🏢 City',
-        other: '✨ Other'
+        other: '✨ Other' //
     },
     city: {
         townHall: '⛪️ Town Hall',
@@ -12,21 +12,21 @@ module.exports = {
         casino: '🎰 Casino'
     },
     other: {
-        tasks: '📋 Tasks',
+        tasks: '📋 Tasks', //
         settings: '⚙️ Settings',
         help: '❓ Help',
-        community: '💬 Community'
+        community: '💬 Community' //
     },
     townHall: {
         statistics: '📊 Statistics',
-        name: '📝 Farmer License'
+        name: '📝 Farmer License' //
     },
     myFarm: {
         plants: '🌱 Plants',
         buildings: '🏫 Buildings',
-        referals: '👥 Referals',
-        name: '📝 Title',
-        garage: '🚗 Транспорт'
+        warehouse: '📦 Warehouse',
+        referals: '👥 Referrals',
+        garage: '🚗 Transport'
     },
     plants: {
         fruit: '🍎 Fruits',
@@ -35,63 +35,52 @@ module.exports = {
     },
     fruit: {
         buy: 'Buy 🍎 Fruits',
-        send: '📦 Send 🍎 to the warehouse'
+        send: '📦 Send 🍎 Warehouse'
     },
     vegetables: {
         buy: 'Buy 🌽 Vegetables',
-        send: '📦 Send 🌽 to the warehouse'
+        send: '📦 Send 🌽 Warehouse'
     },
     buildings: {
-        build: '🏫 Build new',
-        send: '📦 Send 🥚 to the warehouse',
+        build: '🏫 Build New',
+        send: '📦 Send 🥚 Warehouse',
         buildOne: '🏫 Build'
     },
     friends: {
         
     },
     market: {
-        plants: 'Sell 🌱 Vegetable',
+        plants: 'Sell 🌱 Plants',
         products: 'Sell 🥚 Products'
     },
     settings: {
-        statistics: '📊 Statistics',
-        notifications: '🔔 Notification'
+        notifications: '🔔 Notification' //
     },
     bank: {
-        deposit: '💸 Deposit balance',
-        exchange: '💱 Currency Exchange',
-        withdraw: '📤 Withdraw',
-        redeem: '💼 Purchase a Site'
-    },
+        deposit: '💸 Add balance',  //
+        exchange: '💱 Currency Exchange', //
+        withdraw: '📤 Withdraw', //
+        redeem: '💼 Redeem plot' //
+    }, 
     help: {
-        feedback: '✉️ Feedback',
-        training: '🎓 Undergo Training',
-        faq: '‼️ FAQ',
-        idea: '💡 To suggest idea'
+        
     },
-    games: {
+    casino: {
         dice: '🎲 Dice',
         bonus: '🎁 Daily bonus',
         darts: '🎯 Darts',
         slot_machine: '🎰 Slot Machines',
         lottery: '🎟 Lottery',
-        guess_suit: '🃏 Guess Suit',
+        guess_suit: '🃏 Guess suit',
         bowling: '🎳 Bowling'
-    },
-    languages: {
-        english: '🇬🇧 English',
-        russian: '🇷🇺 Русский',
-        german: '🇩🇪 Deutsch 🤖',
-        french: '🇫🇷 Français 🤖',
-        portuguese: '🇵🇹 Portugues 🤖',
-        spanish: '🇪🇸 Español 🤖'
     },
     back: '⬅️ Back',
     back_farm: '🏡 Back',
+    back_city: '🏢 Back',
     skip: '📰',
     continue: '🗞',
     step: '📃',
-    changeName: '📝 Изменить название',
+    changeName: '📝 Change Title', //
     cancel: '✖️ Cancel',
     yes: '✔️ Yes',
     no: '❌ No'
