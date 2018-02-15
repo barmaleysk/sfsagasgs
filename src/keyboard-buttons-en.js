@@ -17,6 +17,10 @@ module.exports = {
         help: '❓ Help',
         community: '💬 Community'
     },
+    townHall: {
+        statistics: '📊 Statistics',
+        name: '📝 Farmer License'
+    },
     myFarm: {
         plants: '🌱 Plants',
         buildings: '🏫 Buildings',
