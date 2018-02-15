@@ -63,8 +63,8 @@ module.exports = {
         redeem: '💼 Canjear trama' //
     }, 
     help: {
-        feedback: '✉️ Realimentación',
-        training: '🎓 Someterse a la formación',
+        feedback: '✉️ Comentarios',
+        training: '🎓 Someterse Entrenamiento',
         faq: '‼️ Preguntas más frecuentes',
         idea: '💡 Sugerir una idea'
     },
