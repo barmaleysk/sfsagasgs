@@ -4,15 +4,38 @@ const mongoose = require('mongoose')
 const config = require('./config')
 const helper = require('./helper')
 const cbd = require('./callbacks')
-let texts = require('./texts-ru')
 let kb = require('./keyboard-buttons-ru')
 let lang
 
 module.exports = {
     lang   
 }
-const keyboard = require('./keyboard')
-const ikb = require('./inline-keyboard')
+let keyboard = require('./keyboard')
+let ikb = require('./inline-keyboard')
+let texts = require('./texts-ru')
+
+switch (lang) {
+    case 'ru':
+        texts = require('./texts-ru')    
+    break
+    case 'en':
+        texts = require('./texts-ru')    
+    break
+    case 'de':
+        texts = require('./texts-ru')    
+    break
+    case 'fr':
+        texts = require('./texts-ru')    
+    break
+    case 'es':
+        texts = require('./texts-ru')    
+    break
+    case 'pt':
+        texts = require('./texts-ru')    
+    break
+    default: kb = require('./texts-ru')  
+}
+
 
 mongoose.connect(config.DB_URL)
 .then (() => {
@@ -31,14 +54,12 @@ var name = ''
 // ===========================================
 const bot = new TelegramBot(config.TOKEN, {
     polling: true
-})
-
-helper.logStart()
+}).then(() => { helper.logStart() })
 
 setInterval(function(){
     var hm = new Date().getHours() + ':' + new Date().getMinutes()
     
-    lang = 'de'
+    lang = setLanguage('de')
     console.log(lang, ikb.bank[1][0].text)
     
     switch (hm) {
