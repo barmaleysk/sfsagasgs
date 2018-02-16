@@ -28,6 +28,7 @@ const User = mongoose.model('users')
 const Gen = mongoose.model('general')
 
 var name = ''
+var nameFlag = false
 // ===========================================
 const bot = new TelegramBot(config.TOKEN, {
     polling: true
@@ -72,12 +73,12 @@ setInterval(function(){
             const plantCherries = u.plants.cherries
             const plantPeach = u.plants.peach
         
-            const producedApple =  g.produces.one * plantApple
-            const producedPear =  g.produces.two * plantPear
-            const producedGrapes =  g.produces.three * plantGrapes
-            const producedStrawberries =  g.produces.four * plantStrawberries
-            const producedCherries =  g.produces.five * plantCherries
-            const producedPeach =  g.produces.six * plantPeach
+            const producedApple =  (g.produces.one / 2) * plantApple
+            const producedPear =  (g.produces.two / 2) * plantPear
+            const producedGrapes =  (g.produces.three / 2) * plantGrapes
+            const producedStrawberries =  (g.produces.four / 2) * plantStrawberries
+            const producedCherries =  (g.produces.five / 2) * plantCherries
+            const producedPeach =  (g.produces.six / 2) * plantPeach
                 
             // =============== Vegetables ================
         
@@ -88,12 +89,12 @@ setInterval(function(){
             const plantPepper = u.plants.pepper
             const plantPotatoes = u.plants.potatoes
                 
-            const producedTomato =  g.produces.one * plantTomato
-            const producedEggplant =  g.produces.two * plantEggplant
-            const producedCarrots =  g.produces.three * plantCarrots
-            const producedCorn =  g.produces.four * plantCorn
-            const producedPepper =  g.produces.five * plantPepper
-            const producedPotatoes =  g.produces.six * plantPotatoes
+            const producedTomato =  (g.produces.one / 2) * plantTomato
+            const producedEggplant =  (g.produces.two / 2) * plantEggplant
+            const producedCarrots =  (g.produces.three / 2) * plantCarrots
+            const producedCorn =  (g.produces.four / 2) * plantCorn
+            const producedPepper =  (g.produces.five / 2) * plantPepper
+            const producedPotatoes =  (g.produces.six / 2) * plantPotatoes
                 
             // =============== Buildings ================
             
@@ -168,11 +169,11 @@ bot.on('message', msg => {
 <b>${u.warehouse.products.eggs + u.warehouse.products.bacon + u.warehouse.products.wool + u.warehouse.products.milk + u.warehouse.products.honey + u.warehouse.products.leg}</b> 🥚 Продуктов
 
 Расценки
-<b>500</b> 🌱 Растительного = 1 💰 Gold и 2 💵 Доллара
-<b>500</b> 🥚 Продуктов = 1 💎 Diamond и 5 💶 Евро
+<b>500</b> 🌱 Растительных продуктов = 1 💰 Gold и 2 💵 Доллара
+<b>500</b> 🥚 Животных продуктов = 1 💎 Diamond и 2 💶 Евро
 
 Минимум для продажи:
-<i>500 🌱 Растительного/ 🥚 Продуктов</i>`
+<i>500 🌱/🥚 продуктов</i>`
         
             sendHTMLi(chatId, market, 'market')
         })
@@ -189,8 +190,19 @@ bot.on('message', msg => {
         break
         case kb.townHall.name:
         User.findOne({_id: chatId}).then(u => {
+            if (u.nameFarm == '') {
+                const text = `📝 <b>Название фермы</b>\n
+Ваша ферма пока никак не назывется. Вы можете придумать для нее абсолютно любое название состоящее из латинских букв и цифр.
+\nНазвание для фермы - это её лицо. По нему Вас смогут находить другие игроки и именно оно в первую очередь будет отображаться при взаимоотношениях с другими игроками.\n
+✅ Полный список разрешенных символов:
+Латинский алфавит:\nA-Z, a-z\nЦифры:\n0-9\n
+Длина названия фермы должна быть больше 4-х символов и меньше 20-ти.\n
+❗️ Запрещено в названии распологать рекламу и использовать нецезурные слова!`
             
-        const text = `📝 <b>Название фермы</b>\n
+            sendHTMLi(chatId, text, 'change')
+            }
+            else {
+                const text = `📝 <b>Название фермы</b>\n
 Ваша ферма называется '<b>${u.nameFarm}</b>'.\n
 ✅ Полный список разрешенных символов:
 Латинский алфавит:\nA-Z, a-z\nЦифры:\n0-9\n
@@ -198,6 +210,8 @@ bot.on('message', msg => {
 ❗️ Запрещено в названии распологать рекламу и использовать нецезурные слова!`
             
             sendHTMLi(chatId, text, 'change')
+            }
+        
         })
             
         break
@@ -261,10 +275,12 @@ bot.on('message', msg => {
             sendHTML(chatId, texts.other, 'other')
         break
         case kb.other.tasks:
+            sendHTMLi(chatId, texts.tasks.task1, 'task1')
         break
         case kb.other.settings:
         break
         case kb.other.help:
+            sendHTMLi(chatId, texts.help, 'help')
         break
         
         
@@ -273,33 +289,52 @@ bot.on('message', msg => {
             sendHTML(chatId, texts.mainMenu, 'home')
         break
         case kb.yes: 
+            if (nameFlag) {
+            User.findOne({_id: chatId}).then(u => {
+
+                User.updateOne({_id: u.landlord}, { $inc: {
+                    "bank.dollars": 40,
+                    "bank.euro": 20
+                }}).catch((e) => console.log(e))
+
                 User.updateOne({_id: chatId}, { $set: {
                     "nameFarm": name
                 }
                 }).catch((e) => console.log(e))
 
-                User.findOne({_id: chatId}).then(u => {
+                const ref = `✅ Ваш реферал успешно получил лицензию фермера!\n\nЗа это Вам был выдан бонус <b>40</b> 💵 Долларов и <b>20</b> 💶 Евро.`
+                
+                sendHTML(u.landlord, ref)
 
-                const success = `✅ Название успешно изменено!\n\nТеперь Ваша компания называется <b>'${u.nameFarm}'</b>`
+            })
+            }
+            else {
+                User.updateOne({_id: chatId}, { $set: {
+                    "nameFarm": name
+                }
+                }).catch((e) => console.log(e))
+            }
 
-                sendHTML(chatId, success, 'townHall')
-                }) 
+            User.findOne({_id: chatId}).then(u => {
+
+            const success = `✅ Название успешно изменено!\n\nТеперь Ваша компания называется <b>'${name}'</b>`
+
+            sendHTML(chatId, success, 'townHall')
+            }) 
         break
     } 
 })
 
 bot.onText(/\/start/, msg => {
-    
     const chatId = helper.gCI(msg)
     
     User.findOne({_id: chatId}).then(u => {
         
         if (u != null) {
-            
             sendHTML(chatId, texts.mainMenu, 'home')
-            
         }
-        else if (u == null) {
+        else 
+            if (u == null) {
             u = new User({
                 _id: chatId
             })
@@ -313,42 +348,39 @@ bot.onText(/\/start/, msg => {
     })
     
 })
-
-bot.onText(/\/start (.+)/, (msg, [, match]) => {
+bot.onText(/\/start (\d+)/, (msg, [, match]) => {
     const chatId = helper.gCI(msg)
     
     User.findOne({_id: chatId}).then(u => {
         
         if (u != null) {
-            
-            sendHTML(chatId, texts.mainMenu, 'home')
-            
+            console.log(`Пользователь ${chatId} существует`)
         }
-        else if (u == null) {
+        else 
+            if (u == null) {
+            
             u = new User({
                 _id: chatId,
                 landlord: match
             })
+                
+            u.save().catch((e) => console.log('Дублирование индекса'))
+                
+            if (chatId != match) {
+                User.updateOne({_id: match}, {
+                    $push: {
+                        "referals": chatId
+                    }
+                }).catch(e => console.log('Ошибка добавления реферала'))   
+            }
             
-            u.save()
-                .catch((e) => console.log(e))
+            const text = `🌐 <b>Новая регистрация по Вашей реферальной ссылке</b>\nИмя вашего реферала: ${msg.from.first_name}\n<i>Вы получите награду за реферала, как только он получит Лицензию Фермера.</i>`
             
-            User.updateOne({_id: match}, {
-                $push: {
-                    "referals": chatId
-                }
-            }).catch(e => console.log(e))
+            sendHTML(match, text)    
             
-            sendHTMLi(chatId, texts.firstStarting, 'firstMessage')
-            
-            const text = `🌐 <b>Новая регистрация по Вашей реферальной ссылке</b>\nИмя вашего реферала: ${msg.from.first_name} ${msg.from.second_name}\n<i>Вы получите награду за реферала, как только он придумает название для своей компании.</i>`
-            
-            sendHTML(match, text)
         }
     })
 })
-
-
 bot.onText(/\/menu/, msg => {
     sendHTML(helper.gCI(msg), texts.mainMenu, 'home')
 })
@@ -410,23 +442,23 @@ bot.on('callback_query', query => {
             User.findOne({_id: chat.id}).then(u => {
             Gen.findOne({_id: 1}).then(g => {
                 const one = `🌱🍎 Яблоня
-Производит: <b>${g.produces.one}</b> 🍎 Яблок в час
-Цена: <b>${g.prices.one}</b> 💵 Долларов`
+Производит: <b>${g.produces.one / 2}</b> 🍎 Яблок в час
+Цена: <b>${g.prices.one / 2}</b> 💵 Долларов`
                 const two = `🌱🍐 Груша
-Производит: <b>${g.produces.two}</b> 🍐 Груш в час
-Цена: <b>${g.prices.two}</b> 💵 Долларов`
+Производит: <b>${g.produces.two / 2}</b> 🍐 Груш в час
+Цена: <b>${g.prices.two / 2}</b> 💵 Долларов`
                 const three = `🌱🍇 Виноградная лоза
-Производит: <b>${g.produces.three}</b> 🍇 Винограда в час
-Цена: <b>${g.prices.three}</b> 💵 Долларов`
+Производит: <b>${g.produces.three / 2}</b> 🍇 Винограда в час
+Цена: <b>${g.prices.three / 2}</b> 💵 Долларов`
                 const four = `🌱🍓 Куст клубники
-Производит: <b>${g.produces.four}</b> 🍓 Клубники в час
-Цена: <b>${g.prices.four}</b> 💵 Долларов`
+Производит: <b>${g.produces.four / 2}</b> 🍓 Клубники в час
+Цена: <b>${g.prices.four / 2}</b> 💵 Долларов`
                 const five = `🌱🍒 Вишня
-Производит: <b>${g.produces.five}</b> 🍒 Вишен в час
-Цена: <b>${g.prices.five}</b> 💵 Долларов`
+Производит: <b>${g.produces.five / 2}</b> 🍒 Вишен в час
+Цена: <b>${g.prices.five / 2}</b> 💵 Долларов`
                 const six = `🌱🍑 Персик
-Производит: <b>${g.produces.six}</b> 🍑 Персиков в час
-Цена: <b>${g.prices.six}</b> 💵 Долларов`
+Производит: <b>${g.produces.six / 2}</b> 🍑 Персиков в час
+Цена: <b>${g.prices.six / 2}</b> 💵 Долларов`
 
                 setTimeout(sendHTMLi, 0, chat.id, one, 'buyApple')
 
@@ -449,23 +481,23 @@ bot.on('callback_query', query => {
             User.findOne({_id: chat.id}).then(u => {
             Gen.findOne({_id: 1}).then(g => {
             const one = `🌱🍅 Куст томата
-Производит: <b>${g.produces.one}</b> 🍅 Томатов в час
-Цена: <b>${g.prices.one}</b> 💵 Долларов`
+Производит: <b>${g.produces.one / 2}</b> 🍅 Томатов в час
+Цена: <b>${g.prices.one / 2}</b> 💵 Долларов`
             const two = `🌱🍆 Куст баклажана
-Производит: <b>${g.produces.two}</b> 🍆 Баклажанов в час
-Цена: <b>${g.prices.two}</b> 💵 Долларов`
+Производит: <b>${g.produces.two / 2}</b> 🍆 Баклажанов в час
+Цена: <b>${g.prices.two / 2}</b> 💵 Долларов`
             const three = `🌱🥕 Морковь
-Производит: <b>${g.produces.three}</b> 🥕 Моркови в час
-Цена: <b>${g.prices.three}</b> 💵 Долларов`
+Производит: <b>${g.produces.three / 2}</b> 🥕 Моркови в час
+Цена: <b>${g.prices.three / 2}</b> 💵 Долларов`
             const four = `🌱🌽 Кукуруза
-Производит: <b>${g.produces.four}</b> 🌽 Кукурузы в час
-Цена: <b>${g.prices.four}</b> 💵 Долларов`
+Производит: <b>${g.produces.four / 2}</b> 🌽 Кукурузы в час
+Цена: <b>${g.prices.four / 2}</b> 💵 Долларов`
             const five = `🌱🌶 Куст красного перца
-Производит: <b>${g.produces.five}</b> 🌶 Красных перцев в час
-Цена: <b>${g.prices.five}</b> 💵 Долларов`
+Производит: <b>${g.produces.five / 2}</b> 🌶 Красных перцев в час
+Цена: <b>${g.prices.five / 2}</b> 💵 Долларов`
             const six = `🌱🥔 Куст картофеля
-Производит: <b>${g.produces.six}</b> 🥔 Картофеля в час
-Цена: <b>${g.prices.six}</b> 💵 Долларов`
+Производит: <b>${g.produces.six / 2}</b> 🥔 Картофеля в час
+Цена: <b>${g.prices.six / 2}</b> 💵 Долларов`
 
             setTimeout(sendHTMLi, 0, chat.id, one, 'buyTomato')
 
@@ -485,15 +517,13 @@ bot.on('callback_query', query => {
             sendVegetables(chat.id, query.id)
         break
         case cbd.sell_plants:
+            sell(chat.id, query.id)
         break
         case cbd.sell_products:
+            sell(chat.id, query.id, false)
         break
-        case cbd.det_fruit:
-        break
-        case cbd.det_vegetables:
-        break
-        case cbd.det_products:
-        break
+        
+        
         case cbd.next_step:
             editText(texts.step2, chat.id, message_id, 'step2')
         break
@@ -507,13 +537,11 @@ bot.on('callback_query', query => {
         case cbd.step5:
             editText(texts.step5, chat.id, message_id, 'step5')
         break
-        case cbd.finish:
-            sendHTML(chat.id, texts.finish, 'home')
+        case cbd.skip: case cbd.finish:
+            sendHTML(chat.id, texts.skip, 'home')
         break
         
-        case cbd.skip:
-            sendHTML(chat.id, texts.mainMenu, 'home')
-        break
+        
         case cbd.buildChicken:
             Build(chat.id, 100, 'chicken', query.id)
         break
@@ -534,42 +562,42 @@ bot.on('callback_query', query => {
         break
         
         case cbd.buyApple:
-            BuyPlants(chat.id, 100, 'apple', query.id)
+            BuyPlants(chat.id, 100 / 2, 'apple', query.id)
         break
         case cbd.buyPear:
-            BuyPlants(chat.id, 1000, 'pear', query.id)
+            BuyPlants(chat.id, 1000 / 2, 'pear', query.id)
         break
         case cbd.buyGrapes:
-            BuyPlants(chat.id, 6000, 'grapes', query.id)
+            BuyPlants(chat.id, 6000 / 2, 'grapes', query.id)
         break
         case cbd.buyStrawberries:
-            BuyPlants(chat.id, 18000, 'strawberries', query.id)
+            BuyPlants(chat.id, 18000 / 2, 'strawberries', query.id)
         break
         case cbd.buyCherries:
-            BuyPlants(chat.id, 45000, 'cherries', query.id)
+            BuyPlants(chat.id, 45000 / 2, 'cherries', query.id)
         break
         case cbd.buyPeach:
-            BuyPlants(chat.id, 90000, 'peach', query.id)
+            BuyPlants(chat.id, 90000 / 2, 'peach', query.id)
         break
         // =========== VEGETABLES ============
         
         case cbd.buyTomato:
-            BuyPlants(chat.id, 100, 'tomato', query.id)
+            BuyPlants(chat.id, 100 / 2, 'tomato', query.id)
         break
         case cbd.buyEggplant:
-            BuyPlants(chat.id, 1000, 'eggplant', query.id)
+            BuyPlants(chat.id, 1000 / 2, 'eggplant', query.id)
         break
         case cbd.buyCarrots:
-            BuyPlants(chat.id, 6000, 'carrots', query.id)
+            BuyPlants(chat.id, 6000 / 2, 'carrots', query.id)
         break
         case cbd.buyCorn:
-            BuyPlants(chat.id, 18000, 'corn', query.id)
+            BuyPlants(chat.id, 18000 / 2, 'corn', query.id)
         break
         case cbd.buyPepper:
-            BuyPlants(chat.id, 45000, 'pepper', query.id)
+            BuyPlants(chat.id, 45000 / 2, 'pepper', query.id)
         break
         case cbd.buyPotatoes:
-            BuyPlants(chat.id, 90000, 'potatoes', query.id)
+            BuyPlants(chat.id, 90000 / 2, 'potatoes', query.id)
         break
         
         case cbd.changeName: 
@@ -656,8 +684,51 @@ bot.onText(/\/setbuild (.+)/, (msg, [source, match]) => {
 })
 bot.onText(/\/info/, msg => {
     User.findOne({_id: msg.chat.id}).then(u => {
+        sendHTML(msg.chat.id, u._id)
         console.log(u._id)
     })
+})
+bot.onText(/\/clear (\d+)/, (msg, [, match]) => {
+    User.updateOne({_id: match}, {$set: {
+        "buildings.chicken": 0,
+        "buildings.pig": 0,
+        "buildings.sheepdog": 0,
+        "buildings.cowshed": 0,
+        "buildings.hive": 0,
+        "buildings.turkey": 0,
+        "bank.dollars": 0,
+        "bank.euro": 0,
+        "bank.gold": 0,
+        "bank.diamond": 0,
+        "bank.points": 0,
+        "bank.token": 0,
+        "warehouse.products.eggs": 0,
+        "warehouse.products.bacon": 0,
+        "warehouse.products.wool": 0,
+        "warehouse.products.milk": 0,
+        "warehouse.products.honey": 0,
+        "warehouse.products.leg": 0,
+        "warehouse.vegetables.tomato": 0,
+        "warehouse.vegetables.eggplant": 0,
+        "warehouse.vegetables.carrots": 0,
+        "warehouse.vegetables.corn": 0,
+        "warehouse.vegetables.pepper": 0,
+        "warehouse.vegetables.potatoes": 0,
+        "warehouse.fruit.apple": 0,
+        "warehouse.fruit.pear": 0,
+        "warehouse.fruit.grapes": 0,
+        "warehouse.fruit.strawberries": 0,
+        "warehouse.fruit.cherries": 0,
+        "warehouse.fruit.peach": 0,
+        "lastBonus": '',
+        "landlord": ''
+    }})
+})
+bot.onText(/\/admins/, msg => {
+    const chatId = helper.gCI(msg)
+    const text = `/setfruit - устаналивает количество фруктов на складе\n/setvegetables - устаналивает количество овощей на складе\n/setproducts - устаналивает количество продуктов на складе\n/setbalance - устаналивает баланс в банке\n/info - ID\n/setbuild - устанавливает количество построек\n/clear - очищает всё у ID\n\n/clear ${chatId}\n\n/setfruit ${chatId} 128 256 0 0 0 0\n/setvegetables ${chatId} 128 256 0 0 0 0\n/setproducts ${chatId} 128 256 0 0 0 0\n/setbalance ${chatId} 10000 3000 0 0 0 0\n\n/setbuild ${chatId} 2 2 0 0 0 0`
+    
+    sendHTML(chatId, text)
 })
 
 function DisplayBank (chatId) {
@@ -872,7 +943,7 @@ function BuyPlants(chatId, price, plant, queryId) {
                     "bank.dollars": -price
                 }}).catch((e) => console.log(e))
 
-                const text = `🛒 <b>Покупка</b>\n🌱🍎 Яблоня\n➖${g.prices.one} 💵 Долларов\nБаланс: ${u.bank.dollars - g.prices.one} Долларов`
+                const text = `🛒 <b>Покупка</b>\n🌱🍎 Яблоня\n➖${price} 💵 Долларов\nБаланс: ${u.bank.dollars - price} Долларов`
                 sendHTML(chatId, text) 
             } 
             
@@ -882,7 +953,7 @@ function BuyPlants(chatId, price, plant, queryId) {
                     "bank.dollars": -price
                 }}).catch((e) => console.log(e))
 
-                const text = `🛒 <b>Покупка</b>\n🌱🍐 Груша\n➖${g.prices.two} 💵 Долларов\nБаланс: ${u.bank.dollars - g.prices.one} Долларов`
+                const text = `🛒 <b>Покупка</b>\n🌱🍐 Груша\n➖${price} 💵 Долларов\nБаланс: ${u.bank.dollars - price} Долларов`
                 sendHTML(chatId, text)    
             } 
             
@@ -892,7 +963,7 @@ function BuyPlants(chatId, price, plant, queryId) {
                     "bank.dollars": -price
                 }}).catch((e) => console.log(e))
 
-                const text = `🛒 <b>Покупка</b>\n🌱🍇 Виноградная лоза\n➖${g.prices.three} 💵 Долларов\nБаланс: ${u.bank.dollars - g.prices.one} Долларов`
+                const text = `🛒 <b>Покупка</b>\n🌱🍇 Виноградная лоза\n➖${price} 💵 Долларов\nБаланс: ${u.bank.dollars - price} Долларов`
                 sendHTML(chatId, text)    
             } 
             
@@ -902,7 +973,7 @@ function BuyPlants(chatId, price, plant, queryId) {
                     "bank.dollars": -price
                 }}).catch((e) => console.log(e))
 
-                const text = `🛒 <b>Покупка</b>\n🌱🍓 Куст клубники\n➖${g.prices.four} 💵 Долларов\nБаланс: ${u.bank.dollars - g.prices.one} Долларов`
+                const text = `🛒 <b>Покупка</b>\n🌱🍓 Куст клубники\n➖${price} 💵 Долларов\nБаланс: ${u.bank.dollars - price} Долларов`
                 sendHTML(chatId, text)  
             } 
             
@@ -912,7 +983,7 @@ function BuyPlants(chatId, price, plant, queryId) {
                     "bank.dollars": -price
                 }}).catch((e) => console.log(e))
 
-                const text = `🛒 <b>Покупка</b>\n🌱🍒 Вишня\n➖${g.prices.five} 💵 Долларов\nБаланс: ${u.bank.dollars - g.prices.one} Долларов`
+                const text = `🛒 <b>Покупка</b>\n🌱🍒 Вишня\n➖${price} 💵 Долларов\nБаланс: ${u.bank.dollars - price} Долларов`
                 sendHTML(chatId, text)    
             } 
             
@@ -922,7 +993,7 @@ function BuyPlants(chatId, price, plant, queryId) {
                     "bank.dollars": -price
                 }}).catch((e) => console.log(e))
 
-                const text = `🛒 <b>Покупка</b>\n🌱🍑 Персик\n➖${g.prices.six} 💵 Долларов\nБаланс: ${u.bank.dollars - g.prices.one} Долларов`
+                const text = `🛒 <b>Покупка</b>\n🌱🍑 Персик\n➖${price} 💵 Долларов\nБаланс: ${u.bank.dollars - price} Долларов`
                 sendHTML(chatId, text)    
             }
             
@@ -934,7 +1005,7 @@ function BuyPlants(chatId, price, plant, queryId) {
                     "bank.dollars": -price
                 }}).catch((e) => console.log(e))
 
-                const text = `🛒 <b>Покупка</b>\n🌱🍅 Куст томата\n➖${g.prices.one} 💵 Долларов\nБаланс: ${u.bank.dollars - g.prices.one} Долларов`
+                const text = `🛒 <b>Покупка</b>\n🌱🍅 Куст томата\n➖${price} 💵 Долларов\nБаланс: ${u.bank.dollars - price} Долларов`
                 sendHTML(chatId, text)       
             } 
             
@@ -944,7 +1015,7 @@ function BuyPlants(chatId, price, plant, queryId) {
                     "bank.dollars": -price
                 }}).catch((e) => console.log(e))
 
-                const text = `🛒 <b>Покупка</b>\n🌱🍆 Куст баклажана\n➖${g.prices.two} 💵 Долларов\nБаланс: ${u.bank.dollars - g.prices.one} Долларов`
+                const text = `🛒 <b>Покупка</b>\n🌱🍆 Куст баклажана\n➖${price} 💵 Долларов\nБаланс: ${u.bank.dollars - price} Долларов`
                 sendHTML(chatId, text)    
             } 
             
@@ -954,7 +1025,7 @@ function BuyPlants(chatId, price, plant, queryId) {
                     "bank.dollars": -price
                 }}).catch((e) => console.log(e))
 
-                const text = `🛒 <b>Покупка</b>\n🌱🥕 Морковь\n➖${g.prices.three} 💵 Долларов\nБаланс: ${u.bank.dollars - g.prices.one} Долларов`
+                const text = `🛒 <b>Покупка</b>\n🌱🥕 Морковь\n➖${price} 💵 Долларов\nБаланс: ${u.bank.dollars - price} Долларов`
                 sendHTML(chatId, text)    
             }
             
@@ -965,7 +1036,7 @@ function BuyPlants(chatId, price, plant, queryId) {
                     "bank.dollars": -price
                 }}).catch((e) => console.log(e))
 
-                const text = `🛒 <b>Покупка</b>\n🌱🌽 Кукуруза\n➖${g.prices.four} 💵 Долларов\nБаланс: ${u.bank.dollars - g.prices.one} Долларов`
+                const text = `🛒 <b>Покупка</b>\n🌱🌽 Кукуруза\n➖${price} 💵 Долларов\nБаланс: ${u.bank.dollars - price} Долларов`
                 sendHTML(chatId, text)    
             }
             
@@ -976,7 +1047,7 @@ function BuyPlants(chatId, price, plant, queryId) {
                     "bank.dollars": -price
                 }}).catch((e) => console.log(e))
 
-                const text = `🛒 <b>Покупка</b>\n🌱🌶 Куст красного перца\n➖${g.prices.five} 💵 Долларов\nБаланс: ${u.bank.dollars - g.prices.one} Долларов`
+                const text = `🛒 <b>Покупка</b>\n🌱🌶 Куст красного перца\n➖${price} 💵 Долларов\nБаланс: ${u.bank.dollars - price} Долларов`
                 sendHTML(chatId, text)    
             }
             
@@ -987,7 +1058,7 @@ function BuyPlants(chatId, price, plant, queryId) {
                     "bank.dollars": -price
                 }}).catch((e) => console.log(e))
 
-                const text = `🛒 <b>Покупка</b>\n🌱🥔 Куст картофеля\n➖${g.prices.six} 💵 Долларов\nБаланс: ${u.bank.dollars - g.prices.one} Долларов`
+                const text = `🛒 <b>Покупка</b>\n🌱🥔 Куст картофеля\n➖${price} 💵 Долларов\nБаланс: ${u.bank.dollars - price} Долларов`
                 sendHTML(chatId, text) 
             }    
     } else {
@@ -1070,27 +1141,32 @@ function Build(chatId, price, build, queryId) {
 }
 
 function changeName(chatId) {
+    User.findOne({_id: chatId}).then(u => {
+        if (u.nameFarm == '')
+            nameFlag = true
+        else nameFlag = false
+    })
     bot.once('message', msg => {
         if (msg.text == kb.cancel)
             sendHTML(chatId, texts.townHall, 'townHall')
-            name = msg.text
-            const error = `⛔️'<b>${name}</b>' - некорректное название. Используйте другое название.\nЧтобы открыть главное меню, введите команду /menu`
-            if (name.length >= 4 && name.length <= 20) {
-                if (name.search(/[А-я-Ё-ё]/) === -1) {
-                const {message_id} = msg
-                const text = `❓ Подтверждение действия
+        name = msg.text
+        const error = `⛔️'<b>${name}</b>' - некорректное название. Используйте другое название.\nЧтобы открыть главное меню, введите команду /menu`
+        if (name.length >= 4 && name.length <= 20) {
+            if (name.search(/[А-я-Ё-ё]/) === -1) {
+            const {message_id} = msg
+            const text = `❓ Подтверждение действия
 Вы уверены, что хотите изменить название компании на <b>'${name}'</b>?`
-                sendHTML(chatId, text, 'yesno')
-                }
-                else {
-                    sendHTML(chatId, error)
-                    changeName(chatId)
-                }
+            sendHTML(chatId, text, 'yesno')
             }
             else {
                 sendHTML(chatId, error)
                 changeName(chatId)
             }
+        }
+        else {
+            sendHTML(chatId, error)
+            changeName(chatId)
+        }
     })
 }
 function getBonus(chatId, time) {
@@ -1172,7 +1248,7 @@ function sendFruit(Id, qId) {
    
 ➕ Вы успешно собрали <b>${collected}</b> 🍎 Фруктов и они были отправлены на склад.
 
-📦 Всего на складе: <b>${wh}</b> 🍎 Фруктов.`
+📦 Всего на складе: <b>${wh + collected}</b> 🍎 Фруктов.`
             
             sendHTML(Id, text)
                 
@@ -1218,7 +1294,7 @@ function sendFruit(Id, qId) {
    
 ➕ Вы успешно собрали <b>${collected}</b> 🍎 Фруктов, <b>${per70}</b> из которых были отправлены на склад.
 
-📦 Всего на складе: <b>${wh}</b> 🍎 Фруктов.
+📦 Всего на складе: <b>${wh + per70}</b> 🍎 Фруктов.
 🚚 Ваш арендодатель получил: <b>${per30}</b> Фруктов.`
             
             sendHTML(Id, text)
@@ -1286,7 +1362,7 @@ function sendVegetables(Id, qId) {
             const text = `<b>Сбор ресурсов</b>\n
 ➕ Вы успешно собрали <b>${collected}</b> 🌽 Овощей и они были отправлены на склад.
 
-📦 Всего на складе: <b>${wh}</b> 🌽 Овощей.`
+📦 Всего на складе: <b>${wh + collected}</b> 🌽 Овощей.`
             
             sendHTML(Id, text)
                 
@@ -1332,7 +1408,7 @@ function sendVegetables(Id, qId) {
             const text = `<b>Сбор ресурсов</b>\n
 ➕ Вы успешно собрали <b>${collected}</b> 🌽 Овощей, <b>${per70}</b> из которых были отправлены на склад.
 
-📦 Всего на складе: <b>${wh}</b> 🌽 Овощей.
+📦 Всего на складе: <b>${wh + per70}</b> 🌽 Овощей.
 🚚 Ваш арендодатель получил: <b>${per30}</b> Овощей.`
             sendHTML(Id, text)
             }
@@ -1394,7 +1470,7 @@ function sendProducts(Id, qId) {
             const wh = u.warehouse.products.eggs + u.warehouse.products.bacon + u.warehouse.products.wool + u.warehouse.products.milk + u.warehouse.products.honey + u.warehouse.products.leg  
             const text = `<b>Сбор ресурсов</b>\n
 ➕ Вы успешно собрали <b>${collected}</b> 🥚 Продуктов и они были отправлены на склад.\n
-📦 Всего на складе: <b>${wh}</b> 🥚 Продуктов.`
+📦 Всего на складе: <b>${wh + collected}</b> 🥚 Продуктов.`
             sendHTML(Id, text)
             }
             else {
@@ -1437,7 +1513,7 @@ function sendProducts(Id, qId) {
             
             const text = `<b>Сбор ресурсов</b>\n
 ➕ Вы успешно собрали <b>${collected}</b> 🥚 Продуктов, <b>${per70}</b> из которых были отправлены на склад.\n
-📦 Всего на складе: <b>${wh}</b> 🥚 Продуктов.
+📦 Всего на складе: <b>${wh + per70}</b> 🥚 Продуктов.
 🚚 Ваш арендодатель получил: <b>${per30}</b> Продуктов.`
             sendHTML(Id, text)
             }
@@ -1448,6 +1524,130 @@ function sendProducts(Id, qId) {
             }
         })
 }
+
+function sell(Id, qId, plants = true) {
+    const price = 2
+    const price2 = 1
+    User.findOne({_id: Id}).then(u => {
+        let rounded, delta
+        if (plants) {
+            const apple = u.warehouse.fruit.apple
+            const pear = u.warehouse.fruit.pear
+            const grapes = u.warehouse.fruit.grapes
+            const strawberries = u.warehouse.fruit.strawberries
+            const cherries = u.warehouse.fruit.cherries
+            const peach = u.warehouse.fruit.peach
+            const tomato = u.warehouse.vegetables.tomato
+            const eggplant = u.warehouse.vegetables.eggplant
+            const carrots = u.warehouse.vegetables.carrots
+            const corn = u.warehouse.vegetables.corn
+            const pepper = u.warehouse.vegetables.pepper
+            const potatoes = u.warehouse.vegetables.potatoes
+            
+            const plants = apple + pear + grapes + strawberries + cherries + peach + tomato + eggplant + carrots + corn + pepper + potatoes
+            
+            rounded = Math.floor(plants / 500)
+            delta = plants - (Math.floor(plants / 500) * 500)
+            
+            if (rounded >= 1) {
+                
+            const appleRound = round(apple)
+            const pearRound = round(pear)
+            const grapesRound = round(grapes)
+            const strawberriesRound = round(strawberries)
+            const cherriesRound = round(cherries)
+            const peachRound = round(peach)
+            const tomatoRound = round(tomato)
+            const eggplantRound = round(eggplant)
+            const carrotsRound = round(carrots)
+            const cornRound = round(corn)
+            const pepperRound = round(pepper)
+            const potatoesRound = round(potatoes)
+            
+            User.updateOne({_id: Id}, { $inc: {
+                "bank.dollars": price * rounded,
+                "bank.gold": price2,
+                "warehouse.fruit.apple": -appleRound,
+                "warehouse.fruit.pear": -pearRound,
+                "warehouse.fruit.grapes": -grapesRound,
+                "warehouse.fruit.strawberries": -strawberriesRound,
+                "warehouse.fruit.cherries": -cherriesRound,
+                "warehouse.fruit.peach": -peachRound,
+                "warehouse.vegetables.tomato": -tomatoRound,
+                "warehouse.vegetables.eggplant": -eggplantRound,
+                "warehouse.vegetables.carrots": -carrotsRound,
+                "warehouse.vegetables.corn": -cornRound,
+                "warehouse.vegetables.pepper": -pepperRound,
+                "warehouse.vegetables.potatoes": -potatoesRound
+            }}).catch(e => console.log(e))
+            
+            const text = `🛒 <b>Рынок</b>\n\nВы продали\n${plants - delta} 🌱 Растительных продуктов\nза ${rounded * price} 💵 Долларов и ${price2} 💰 Gold`
+            
+            sendHTML(Id, text)
+            } else {
+                const error = `🚫 Минимум для продажи 500 🌱 Растительных продуктов, у Вас только ${plants} 🌱 продуктов(а)`
+                bot.answerCallbackQuery(qId, error, true)
+            }
+        }
+        else {
+            const eggs = u.warehouse.products.eggs
+            const bacon = u.warehouse.products.bacon
+            const wool = u.warehouse.products.wool
+            const milk = u.warehouse.products.milk
+            const honey = u.warehouse.products.honey
+            const leg = u.warehouse.products.leg
+            
+            const products = eggs + bacon + wool + milk + honey + leg
+            
+            rounded = Math.floor(products / 500)
+            delta = products - (Math.floor(products / 500) * 500)
+            
+            if (rounded >= 1) {
+                
+            const eggsRound = round(eggs)
+            const baconRound = round(bacon)
+            const woolRound = round(wool)
+            const milkRound = round(milk)
+            const honeyRound = round(honey)
+            const legRound = round(leg)
+            
+            User.updateOne({_id: Id}, { $inc: {
+                "bank.euro": price * rounded,
+                "bank.diamond": price2,
+                "warehouse.products.eggs": -eggsRound,
+                "warehouse.products.bacon": -baconRound,
+                "warehouse.products.wool": -woolRound,
+                "warehouse.products.milk": -milkRound,
+                "warehouse.products.honey": -honeyRound,
+                "warehouse.products.leg": -legRound
+            }}).catch(e => console.log(e))
+            
+            const text = `🛒 <b>Рынок</b>\n\nВы продали\n${products - delta} 🥚 Животных продуктов\nза ${rounded * price} 💶 Евро и ${price2} 💎 Diamond`
+            
+            sendHTML(Id, text)
+            } else {
+                const error = `🚫 Минимум для продажи 500 🥚 Животных продуктов, у Вас только ${products} 🥚 продуктов(а)`
+                bot.answerCallbackQuery(qId, error, true)
+            }
+        }   
+    })
+}
+
+function round(i) {
+    let main
+    let delta
+    if (i < 1000) {
+        main = Math.floor(i / 100)
+        delta = i - (Math.floor(i / 100) * 100)
+    }
+    else if (i >= 1000) {
+        main = Math.floor(i / 1000)
+        delta = i - (Math.floor(i / 1000) * 1000)
+    }
+    return (i - delta)
+}
+
+
 
 // function setLang(lang) {
 //     switch (lang) {
