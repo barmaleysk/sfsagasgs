@@ -25,8 +25,7 @@ module.exports = {
         plants: '🌱 Plants',
         buildings: '🏫 Buildings',
         referals: '👥 Referals',
-        name: '📝 Title',
-        garage: '🚗 Транспорт'
+        garage: '🚗 Transport'
     },
     plants: {
         fruit: '🍎 Fruits',
@@ -69,7 +68,7 @@ module.exports = {
         faq: '‼️ FAQ',
         idea: '💡 To suggest idea'
     },
-    games: {
+    casino: {
         dice: '🎲 Dice',
         bonus: '🎁 Daily bonus',
         darts: '🎯 Darts',
@@ -88,6 +87,7 @@ module.exports = {
     },
     back: '⬅️ Back',
     back_farm: '🏡 Back',
+    back_city: '🏢 Back',
     skip: '📰',
     continue: '🗞',
     step: '📃',

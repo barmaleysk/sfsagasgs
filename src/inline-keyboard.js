@@ -245,6 +245,28 @@ module.exports = {
       ]  
     ],
     
+    help: [
+        [
+            {
+                text: kb.help.feedback,
+                callback_data: cbd.feedback
+            },
+            {
+                text: kb.help.training,
+                callback_data: cbd.training
+            }
+        ],
+        [
+            {
+                text: kb.help.faq,
+                callback_data: cbd.faq
+            },
+            {
+                text: kb.help.idea,
+                callback_data: cbd.idea
+            }
+        ]
+    ],
     
     buyTomato: [
       [
@@ -301,7 +323,46 @@ module.exports = {
                 callback_data: cbd.changeName
             }
         ]
+    ],
+    task1: [
+        [
+            {
+                text: kb.check,
+                callback_data: cbd.check1
+            }
+        ]
+    ],
+    task2: [
+        [
+            {
+                text: kb.check,
+                callback_data: cbd.check2
+            }
+        ]
+    ],
+    task3: [
+        [
+            {
+                text: kb.check,
+                callback_data: cbd.check3
+            }
+        ]
+    ],
+    task4: [
+        [
+            {
+                text: kb.check,
+                callback_data: cbd.check4
+            }
+        ]
+    ],
+    task5: [
+        [
+            {
+                text: kb.check,
+                callback_data: cbd.check5
+            }
+        ]
     ]
-    
     
 }
