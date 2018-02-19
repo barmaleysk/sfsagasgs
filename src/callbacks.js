@@ -1,8 +1,11 @@
 module.exports = {
+    // ========= BANK =============
     deposit: 'deposit',
     withdraw: 'withdraw',
     exchange: 'exchange',
     redeem: 'redeem',
+    
+    // ========= PRODUCTS ==========
     build: 'build',
     send_buildings: 'send_buildings',
     buy_fruit: 'buy_fruit',
@@ -11,9 +14,14 @@ module.exports = {
     send_vegetables: 'send_vegetables',
     sell_plants: 'sell_plants',
     sell_products: 'sell_products',
-    det_fruit: 'det_fruit',
-    det_vegetables: 'det_vegetables',
-    det_products: 'det_products',
+    fruit: 'fruit',
+    vegetables: 'vegetables',
+    back_plants: 'back_plants',
+    back_f: 'back_f',
+    back_v: 'back_v',
+    back_p: 'back_p',
+    
+    // ========= TRAINING ============
     next_step: 'next_step',
     skip: 'skip',
     step2: 'step2',
@@ -22,6 +30,8 @@ module.exports = {
     step5: 'step5',
     step6: 'step6',
     finish: 'finish',
+    
+    // ======== BUILDINGS ============
     buildChicken: 'buildChicken',
     buildPig: 'buildPig',
     buildSheepdog: 'buildSheepdog',

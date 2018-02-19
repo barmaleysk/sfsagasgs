@@ -70,6 +70,9 @@ module.exports = {
     cancel: [
         [kb.cancel]
     ],
+    cancel_dep: [
+        [kb.cancel_dep]
+    ],
     yesno: [
         [kb.yes, kb.no]
     ]

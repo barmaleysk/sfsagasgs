@@ -11,9 +11,17 @@ const UsersSchema = new Schema({
         type: Number,
         default: 268932098
     },
+    registerDate: {
+        type: Date,
+        default: ''
+    },
     lastBonus: {
         type: Date,
         default: ''
+    },
+    successTasks: {
+        type: Number,
+        default: 0
     },
     warehouse: {
         fruit: {
@@ -95,58 +103,6 @@ const UsersSchema = new Schema({
             }
         } 
     },
-//    prices: {
-//        one: {
-//            type: Number,
-//            default: 100
-//        },
-//        two: {
-//            type: Number,
-//            default: 1000
-//        },
-//        three: {
-//            type: Number,
-//            default: 6000
-//        },
-//        four: {
-//            type: Number,
-//            default: 18000
-//        },
-//        five: {
-//            type: Number,
-//            default: 45000
-//        },
-//        six: {
-//            type: Number,
-//            default: 90000
-//        }
-//    },
-//    produces: {
-//        one: {
-//            type: Number,
-//            default: 16
-//        },
-//        two: {
-//            type: Number,
-//            default: 180
-//        },
-//        three: {
-//            type: Number,
-//            default: 1250
-//        },
-//        four: {
-//            type: Number,
-//            default: 4850
-//        },
-//        five: {
-//            type: Number,
-//            default: 13000
-//        },
-//        six: {
-//            type: Number,
-//            default: 31250
-//        }
-//    },
     produced: {
         apple: {
             type: Number,
@@ -217,6 +173,16 @@ const UsersSchema = new Schema({
             default: 0
         },
         leg: {
+            type: Number,
+            default: 0
+        }
+    },
+    total: {
+        plants: {
+            type: Number,
+            default: 0
+        },
+        products: {
             type: Number,
             default: 0
         }

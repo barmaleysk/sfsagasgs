@@ -48,7 +48,10 @@ module.exports = {
         buildOne: '🏫 Построить'
     },
     friends: {
-        
+        friends: '',
+        search: '',
+        add_friend: '',
+        create_company: ''
     },
     market: {
         plants: 'Продать 🌱 Растения',
@@ -91,14 +94,21 @@ module.exports = {
         portuguese: '🇵🇹 Portugues 🤖',
         spanish: '🇪🇸 Español 🤖'
     },
+    
     back: '🔙 Назад',
     back_farm: '🏡 Назад',
     back_city: '🏢 Назад',
+    back_plants: '🌱 Назад',
+    back_f: '🍎 Назад',
+    back_v: '🌽 Назад',
+    back_p: '🥚 Назад',
+    
     skip: '📰',
     continue: '🗞',
     step: '📃',
     changeName: '📝 Изменить название',
     cancel: '✖️ Отмена',
+    cancel_dep: '💸 Отмена',
     yes: '✔️ Да',
     no: '❌ Нет',
     check: '📎 Проверить задание'

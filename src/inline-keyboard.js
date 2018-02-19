@@ -47,6 +47,24 @@ module.exports = {
             }
         ]
     ],
+    bank_w: [
+        [
+            {
+                text: kb.bank.deposit,
+                callback_data: cbd.deposit
+            },
+            {
+                text: kb.bank.withdraw,
+                callback_data: cbd.withdraw
+            }
+        ],
+        [
+            {
+                text: kb.bank.exchange,
+                callback_data: cbd.exchange
+            }
+        ]
+    ],
     buildings: [
         [
             {
@@ -61,34 +79,81 @@ module.exports = {
             }
         ]
     ],
-    fruit: [
+    
+    plants: [
         [
             {
-                text: kb.fruit.buy,
-                callback_data: cbd.buy_fruit    
+                text: kb.plants.fruit,
+                callback_data: cbd.fruit
+            },
+            {
+                text: kb.plants.vegetables,
+                callback_data: cbd.vegetables
             }
-        ],
+        ]
+    ],
+    fruit: [
         [
             {
                 text: kb.fruit.send,
                 callback_data: cbd.send_fruit    
+            }
+        ],
+        [
+            {
+                text: kb.fruit.buy,
+                callback_data: cbd.buy_fruit    
+            },
+            {
+                text: kb.back_plants,
+                callback_data: cbd.back_plants
             }
         ]
     ],
     vegetables: [
         [
             {
-                text: kb.vegetables.buy,
-                callback_data: cbd.buy_vegetables    
+                text: kb.vegetables.send,
+                callback_data: cbd.send_vegetables    
             }
         ],
         [
             {
-                text: kb.vegetables.send,
-                callback_data: cbd.send_vegetables    
+                text: kb.vegetables.buy,
+                callback_data: cbd.buy_vegetables    
+            },
+            {
+                text: kb.back_plants,
+                callback_data: cbd.back_plants
             }
-        ] 
+        ]
     ],
+    
+    back_f: [
+        [
+            {
+                text: kb.back_f,
+                callback_data: cbd.back_f
+            }
+        ]
+    ],
+    back_v: [
+        [
+            {
+                text: kb.back_v,
+                callback_data: cbd.back_v
+            }
+        ]
+    ],
+    back_p: [
+        [
+            {
+                text: kb.back_p,
+                callback_data: cbd.back_p
+            }
+        ]
+    ],
+    
     market: [
         [
             {
@@ -361,6 +426,22 @@ module.exports = {
             {
                 text: kb.check,
                 callback_data: cbd.check5
+            }
+        ]
+    ],
+    task6: [
+        [
+            {
+                text: kb.check,
+                callback_data: cbd.check6
+            }
+        ]
+    ],
+    task7: [
+        [
+            {
+                text: kb.check,
+                callback_data: cbd.check7
             }
         ]
     ]

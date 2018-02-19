@@ -15,6 +15,11 @@ let keyboard = require('./keyboard')
 let ikb = require('./inline-keyboard')
 let texts = require('./texts-ru')
 
+
+const PAYMENT_WALL_TEST = '361519591:TEST:5c1110cb8fd8c126b7cbc329a53b0afa'
+const CLICK_TEST = '398062629:TEST:999999999_F91D8F69C042267444B74CC0B3C747757EB0E065'
+const PAYCOM_TEST = '371317599:TEST:268932098'
+
 mongoose.connect(config.DB_URL)
 .then (() => {
       console.log('MogoDB Connected: ' + config.DB_URL)
@@ -27,8 +32,11 @@ require('./models/general.model')
 const User = mongoose.model('users')
 const Gen = mongoose.model('general')
 
+
 var name = ''
+var dep = 0
 var nameFlag = false
+var sellFlag = false
 // ===========================================
 const bot = new TelegramBot(config.TOKEN, {
     polling: true
@@ -154,7 +162,7 @@ bot.on('message', msg => {
         break
         
         // ======= CITY =======
-        case kb.home.city: case kb.back_city:
+        case kb.home.city: case kb.back_city: case kb.cancel_dep:
             sendHTML(chatId, texts.city, 'city')
         break
         
@@ -213,8 +221,12 @@ bot.on('message', msg => {
             }
         
         })
-            
         break
+        
+        case kb.townHall.statistics:
+            getStat(chatId)
+        break
+        
         // ========== CASINO ==============
         case kb.casino.bonus:
             User.findOne({_id: chatId}).then(u => {
@@ -242,7 +254,7 @@ bot.on('message', msg => {
         break
         // ========== MY FARM =============
         case kb.myFarm.plants:
-            sendHTML(chatId, texts.plants, 'plants')
+            sendHTMLi(chatId, texts.plants, 'plants')
         break
         case kb.plants.fruit:
             DisplayFruit(chatId)
@@ -254,9 +266,6 @@ bot.on('message', msg => {
             DisplayBuildings(chatId)
         break
         
-        case kb.myFarm.warehouse:
-            DisplayWarehouse(chatId)
-        break
         case kb.myFarm.referals:
         User.findOne({_id: chatId}).then(u => {
         const text = `👥 <b>Реферальная ссылка</b>\n 
@@ -266,7 +275,7 @@ bot.on('message', msg => {
 Ссылка:`
         const link = `https://t.me/FarmerGameBot?start=${u._id}`
         sendHTML(chatId, text)
-        sendHTML(chatId, link)
+        setTimeout(sendHTML, 300, chatId, link)
         })
         break
         
@@ -275,12 +284,53 @@ bot.on('message', msg => {
             sendHTML(chatId, texts.other, 'other')
         break
         case kb.other.tasks:
-            sendHTMLi(chatId, texts.tasks.task1, 'task1')
+            User.findOne({_id: chatId}).then(u => {
+                
+                switch (u.successTasks) {
+                    case 0: 
+                    sendHTMLi(chatId, texts.tasks.task1, 'task1')
+                    break
+                    case 1: 
+                    sendHTMLi(chatId, texts.tasks.task2, 'task2')
+                    break
+                    case 2: 
+                    sendHTMLi(chatId, texts.tasks.task3, 'task3')
+                    break
+                    case 3: 
+                    sendHTMLi(chatId, texts.tasks.task4, 'task4')
+                    break
+                    case 4: 
+                    sendHTMLi(chatId, texts.tasks.task5, 'task5')
+                    break
+                    case 5: 
+                    sendHTMLi(chatId, texts.tasks.task6, 'task6')
+                    break
+                    case 6: 
+                    sendHTMLi(chatId, texts.tasks.task7, 'task7')
+                    break
+                    case 7: 
+                    sendHTMLi(chatId, texts.tasks.task8, 'task8')
+                    break
+                    case 8: 
+                    sendHTMLi(chatId, texts.tasks.task9, 'task9')
+                    break
+                    case 9: 
+                    sendHTMLi(chatId, texts.tasks.task10, 'task10')
+                    break
+                    case 10: 
+                    sendHTML(chatId, texts.tasks.no_task)
+                    break
+                }
+                
+            })
         break
         case kb.other.settings:
         break
         case kb.other.help:
             sendHTMLi(chatId, texts.help, 'help')
+        break
+        case kb.other.community:
+            sendHTML(chatId, texts.community)
         break
         
         
@@ -302,7 +352,7 @@ bot.on('message', msg => {
                 }
                 }).catch((e) => console.log(e))
 
-                const ref = `✅ Ваш реферал успешно получил лицензию фермера!\n\nЗа это Вам был выдан бонус <b>40</b> 💵 Долларов и <b>20</b> 💶 Евро.`
+                const ref = `👤 По вашей реферальной ссылке реферал успешно получил лицензию фермера, его ферма называется:\n<b>${name}</b>\nТеперь Вы сдаете в аренду 30% участка этой фермы и Вы так же получаете награду:\n <b>40</b> 💵 Долларов и <b>20</b> 💶 Евро.`
                 
                 sendHTML(u.landlord, ref)
 
@@ -327,7 +377,13 @@ bot.on('message', msg => {
 
 bot.onText(/\/start/, msg => {
     const chatId = helper.gCI(msg)
-    
+    User.find({}).then(u => {
+        var count = 0
+        u.forEach(i => {
+            count++
+        })
+        console.log(count)
+    })
     User.findOne({_id: chatId}).then(u => {
         
         if (u != null) {
@@ -336,7 +392,8 @@ bot.onText(/\/start/, msg => {
         else 
             if (u == null) {
             u = new User({
-                _id: chatId
+                _id: chatId,
+                registerDate: new Date()
             })
         
             u.save()
@@ -361,7 +418,8 @@ bot.onText(/\/start (\d+)/, (msg, [, match]) => {
             
             u = new User({
                 _id: chatId,
-                landlord: match
+                landlord: match,
+                registerDate: new Date()
             })
                 
             u.save().catch((e) => console.log('Дублирование индекса'))
@@ -389,14 +447,33 @@ bot.on('callback_query', query => {
     const {chat, message_id } = query.message
 //    bot.answerCallbackQuery(query.id, `${query.data}`)
     switch (query.data) {
+        // =========== BANK =============
         case cbd.deposit:
+        const dep = `💸 Введите желаемую сумму пополнения 💵 Долларов.\nТекущий курс:\n<code>100 💵 Долларов = $1</code>\nМинимальный внос - <b>300 💵 Долларов</b> или <b>$3</b>`
+        
+        bot.sendMessage(chat.id, dep, {
+            parse_mode: 'HTML',
+            reply_markup: {
+                keyboard: keyboard.cancel_dep,
+                resize_keyboard: true
+            }
+        }).then(() => {
+            deposit(chat.id, query.id)
+        })
         break
         case cbd.withdraw:
+            
         break
         case cbd.exchange:
+            
         break
         case cbd.redeem:
+            redeem(chat.id, query.id)
         break
+        
+        
+        
+        
         case cbd.build:
             User.findOne({_id: chat.id}).then(u => {
                 Gen.findOne({_id: 1}).then(g => {
@@ -436,7 +513,7 @@ bot.on('callback_query', query => {
             })
         break
         case cbd.send_buildings:
-        sendProducts(chat.id, query.id)
+        sendProducts(chat.id, query.id, message_id)
         break
         case cbd.buy_fruit:
             User.findOne({_id: chat.id}).then(u => {
@@ -475,7 +552,7 @@ bot.on('callback_query', query => {
             })
         break
         case cbd.send_fruit:
-            sendFruit(chat.id, query.id)
+            sendFruit(chat.id, query.id, message_id)
         break
         case cbd.buy_vegetables:
             User.findOne({_id: chat.id}).then(u => {
@@ -514,7 +591,7 @@ bot.on('callback_query', query => {
             })
         break
         case cbd.send_vegetables:
-            sendVegetables(chat.id, query.id)
+            sendVegetables(chat.id, query.id, message_id)
         break
         case cbd.sell_plants:
             sell(chat.id, query.id)
@@ -523,6 +600,15 @@ bot.on('callback_query', query => {
             sell(chat.id, query.id, false)
         break
         
+        case cbd.fruit: case cbd.back_f:
+            DisplayFruit(chat.id, message_id)
+        break
+        case cbd.vegetables: case cbd.back_v:
+            DisplayVegetables(chat.id, message_id)
+        break
+        case cbd.back_plants: 
+            editText(texts.plants, chat.id, message_id, 'plants')
+        break
         
         case cbd.next_step:
             editText(texts.step2, chat.id, message_id, 'step2')
@@ -613,6 +699,35 @@ bot.on('callback_query', query => {
         }).then(() => {
             changeName(chat.id)
         })
+        break
+        
+        // ========== HELP ===============
+        case cbd.training:
+            sendHTMLi(chat.id, texts.firstStarting, 'firstMessage')
+        break
+        
+        
+        // ========== TASKS ==============
+        case cbd.check1: 
+            checkTask(chat.id, 1, query.id)
+        break
+        case cbd.check2: 
+            checkTask(chat.id, 2, query.id)
+        break
+        case cbd.check3: 
+            checkTask(chat.id, 3, query.id)
+        break
+        case cbd.check4: 
+            checkTask(chat.id, 4, query.id)
+        break
+        case cbd.check5: 
+            checkTask(chat.id, 5, query.id)
+        break
+        case cbd.check6: 
+            checkTask(chat.id, 6, query.id)
+        break
+        case cbd.check7: 
+            checkTask(chat.id, 7, query.id)
         break
     }
 })
@@ -731,9 +846,9 @@ bot.onText(/\/admins/, msg => {
     sendHTML(chatId, text)
 })
 
-function DisplayBank (chatId) {
+function DisplayBank (Id) {
     
-    User.findOne({_id: chatId}).then(u => {
+    User.findOne({_id: Id}).then(u => {
         
         const bank =  `🏦 <b>Банк</b>\n\nДобро пожаловать в банк!\nЗдесь Вы можете купить, обменять, вывести валюту и выкупить свой участок.\n\nВаш счет:
 <b>${u.bank.dollars}</b> 💵 Долларов
@@ -742,83 +857,83 @@ function DisplayBank (chatId) {
 <b>${u.bank.diamond}</b> 💎 Diamond
 <b>${u.bank.points}</b> ⚜️ Баллы
 <b>${u.bank.token}</b> 💠 Токены`
-    
-        sendHTMLi(u._id, bank, 'bank')
+        
+        if (u.landlord == '') {
+            sendHTMLi(Id, bank, 'bank_w')
+        } else {
+            sendHTMLi(Id, bank, 'bank')
+        }
         
     })
 }
-function DisplayFruit(chatId) {
+function DisplayFruit(chatId, mId) {
     User.findOne({_id: chatId}).then(u => {
         const fruit = `Ваши фрукты:
 🌱🍎 Яблоня
 Количество: <b>${u.plants.apple}</b>
-Выросло: <b>${u.produced.apple}</b> 🍎 Яблок
-На складе: <b>${u.warehouse.fruit.apple}</b> 🍎 Яблок
-
+Выросло: <b>${u.produced.apple}</b> 🍎
+На складе: <b>${u.warehouse.fruit.apple}</b> 🍎\n
 🌱🍐 Груша
 Количество: <b>${u.plants.pear}</b>
-Выросло: <b>${u.produced.pear}</b> 🍐 Груш
-На складе: <b>${u.warehouse.fruit.pear}</b> 🍐 Груш
-
+Выросло: <b>${u.produced.pear}</b> 🍐 
+На складе: <b>${u.warehouse.fruit.pear}</b> 🍐\n
 🌱🍇 Виноградная лоза
 Количество: <b>${u.plants.grapes}</b>
-Выросло: <b>${u.produced.grapes}</b> 🍇 Винограда
-На складе: <b>${u.warehouse.fruit.grapes}</b> 🍇 Винограда
-
+Выросло: <b>${u.produced.grapes}</b> 🍇
+На складе: <b>${u.warehouse.fruit.grapes}</b> 🍇\n
 🌱🍓 Куст клубники
 Количество: <b>${u.plants.strawberries}</b>
-Выросло: <b>${u.produced.strawberries}</b> 🍓 Клубники
-На складе: <b>${u.warehouse.fruit.strawberries}</b> 🍓 Клубники
-
+Выросло: <b>${u.produced.strawberries}</b> 🍓
+На складе: <b>${u.warehouse.fruit.strawberries}</b> 🍓\n
 🌱🍒 Вишня
 Количество: <b>${u.plants.cherries}</b>
-Выросло: <b>${u.produced.cherries}</b> 🍒 Вишен
-На складе: <b>${u.warehouse.fruit.cherries}</b> 🍒 Вишен
-
+Выросло: <b>${u.produced.cherries}</b> 🍒
+На складе: <b>${u.warehouse.fruit.cherries}</b> 🍒\n
 🌱🍑 Персик
 Количество: <b>${u.plants.peach}</b>
-Выросло: <b>${u.produced.peach}</b> 🍑 Персиков
-На складе: <b>${u.warehouse.fruit.peach}</b> 🍑 Персиков`
+Выросло: <b>${u.produced.peach}</b> 🍑
+На складе: <b>${u.warehouse.fruit.peach}</b> 🍑`
     
-        sendHTMLi(u._id, fruit, 'fruit')
+        editText(fruit, chatId, mId, 'fruit')  
         
     })
 }
-function DisplayVegetables(chatId) {
+function DisplayVegetables(chatId, mId) {
     User.findOne({_id: chatId}).then(u => {
         
         const vegetables =  `Ваши овощи:
 🌱🍅 Куст томата
 Количество: <b>${u.plants.tomato}</b>
-Выросло: <b>${u.produced.tomato}</b> 🍅 Томатов
-На складе: <b>${u.warehouse.vegetables.tomato}</b> 🍅 Томатов
+Выросло: <b>${u.produced.tomato}</b> 🍅
+На складе: <b>${u.warehouse.vegetables.tomato}</b> 🍅
 
 🌱🍆 Куст баклажана
 Количество: <b>${u.plants.eggplant}</b>
-Выросло: <b>${u.produced.eggplant}</b> 🍆 Баклажанов
-На складе: <b>${u.warehouse.vegetables.eggplant}</b> 🍆 Баклажанов
+Выросло: <b>${u.produced.eggplant}</b> 🍆
+На складе: <b>${u.warehouse.vegetables.eggplant}</b> 🍆
 
 🌱🥕 Морковь
 Количество: <b>${u.plants.carrots}</b>
-Выросло: <b>${u.produced.carrots}</b> 🥕 Моркови
-На складе: <b>${u.warehouse.vegetables.carrots}</b> 🥕 Моркови
+Выросло: <b>${u.produced.carrots}</b> 🥕
+На складе: <b>${u.warehouse.vegetables.carrots}</b> 🥕
 
 🌱🌽 Кукуруза
 Количество: <b>${u.plants.corn}</b>
-Выросло: <b>${u.produced.corn}</b> 🌽 Кукурузы
-На складе: <b>${u.warehouse.vegetables.corn}</b> 🌽 Кукурузы
+Выросло: <b>${u.produced.corn}</b> 🌽
+На складе: <b>${u.warehouse.vegetables.corn}</b> 🌽
 
 🌱🌶 Куст красного перца
 Количество: <b>${u.plants.pepper}</b>
-Выросло: <b>${u.produced.pepper}</b> 🌶 Красных перцев
-На складе: <b>${u.warehouse.vegetables.pepper}</b> 🌶 Красных перцев
+Выросло: <b>${u.produced.pepper}</b> 🌶
+На складе: <b>${u.warehouse.vegetables.pepper}</b> 🌶
 
 🌱🥔 Куст картофеля
 Количество: <b>${u.plants.potatoes}</b>
-Выросло: <b>${u.produced.potatoes}</b> 🥔 Картофеля
-На складе: <b>${u.warehouse.vegetables.potatoes}</b> 🥔 Картофеля`
+Выросло: <b>${u.produced.potatoes}</b> 🥔
+На складе: <b>${u.warehouse.vegetables.potatoes}</b> 🥔`
     
-        sendHTMLi(u._id, vegetables, 'vegetables')
+//        sendHTMLi(u._id, vegetables, 'vegetables')
+        editText(vegetables, chatId, mId, 'vegetables')  
         
     })
 }
@@ -873,6 +988,8 @@ function DisplayBuildings(chatId) {
         
     })
 }
+
+
 function DisplayWarehouse(chatId) {
     User.findOne({_id: chatId}).then(u => {
         const warehouse =  `📦 <b>Склад</b>\nУ вас на складе:\n
@@ -1169,6 +1286,51 @@ function changeName(chatId) {
         }
     })
 }
+function getStat(Id) {
+    User.findOne({_id: Id}).then(u => {
+        Gen.findOne({_id: 1}).then(g => {
+            
+        const days = Math.floor((new Date() - u.registerDate.getTime()) / (1000*60*60*24))
+        let percent 
+        
+        if (u.landlord == null) {
+            percent = 100
+        }
+        else {
+            percent = 70
+        }
+        
+        const producPlants = (u.plants.apple + u.plants.tomato) * (g.produces.one / 2) + (u.plants.pear + u.plants.eggplant) * (g.produces.two / 2) + (u.plants.grapes + u.plants.carrots) * (g.produces.three / 2) + (u.plants.strawberries + u.plants.corn) * (g.produces.four / 2) + (u.plants.cherries + u.plants.pepper) * (g.produces.five / 2) + (u.plants.peach + u.plants.potatoes) * (g.produces.six / 2)
+              
+        const producProd = u.buildings.chicken * g.produces.one + u.buildings.pig * g.produces.two + u.buildings.sheepdog * g.produces.three + u.buildings.cowshed * g.produces.four + u.buildings.hive * g.produces.five + u.buildings.turkey * g.produces.six
+            
+        console.log(producPlants)
+        
+        const text = `📊 <b>Статистика вашей компании</b>\n
+📝 Название Вашей компании:\n<b>'${u.nameFarm}'</b>
+
+📅 Возраст компании (дней):\n<b>${days}</b>
+
+На данный момент Ваша ферма выращивает:
+<b>${producPlants}</b> 🌱 Растительных продуктов в час
+<b>${producProd}</b> 🥚 Животных продуктов в час
+ 
+🌱 Всего выросло Растительных продуктов:\n<b>${u.total.plants}</b>
+
+🥚 Всего было собрано Животных продуктов:\n<b>${u.total.products}</b>
+
+👤 Компаний зарегистрировавшихся по Вашей реферальной ссылке:\n<b>${u.referals.lenght}</b>
+
+✅ Выполнено заданий:\n<b>${u.successTasks}</b>
+
+📑 Доля Вашей компании, принадлежащая Вам:\n<b>${percent}%</b>`
+        
+        sendHTML(Id, text)
+        
+        })
+    })
+}
+
 function getBonus(chatId, time) {
     
     const dollars = getRand(10, 101)
@@ -1194,7 +1356,7 @@ function getRand(min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
-function sendFruit(Id, qId) {
+function sendFruit(Id, qId, mId) {
     User.findOne({_id: Id}).then(u => {
             
             const collected = u.produced.apple + u.produced.pear + u.produced.grapes + u.produced.strawberries + u.produced.cherries + u.produced.peach
@@ -1225,7 +1387,7 @@ function sendFruit(Id, qId) {
             const per70 = Math.ceil(collected * 0.7)
             const per30 = Math.ceil(collected - per70)
             
-            if (u.landlord = null) {
+            if (u.landlord == null) {
                 User.updateOne({_id: Id}, { $inc: {
                 "warehouse.fruit.apple": eggs70,
                 "warehouse.fruit.pear": bacon70,
@@ -1250,7 +1412,7 @@ function sendFruit(Id, qId) {
 
 📦 Всего на складе: <b>${wh + collected}</b> 🍎 Фруктов.`
             
-            sendHTML(Id, text)
+            editText(text, Id, mId, 'back_f')
                 
             }
             else {
@@ -1297,7 +1459,7 @@ function sendFruit(Id, qId) {
 📦 Всего на складе: <b>${wh + per70}</b> 🍎 Фруктов.
 🚚 Ваш арендодатель получил: <b>${per30}</b> Фруктов.`
             
-            sendHTML(Id, text)
+            editText(text, Id, mId, 'back_f')
             }
             }
             else {
@@ -1309,7 +1471,7 @@ function sendFruit(Id, qId) {
             }
         })
 }
-function sendVegetables(Id, qId) {
+function sendVegetables(Id, qId, mId) {
     User.findOne({_id: Id}).then(u => {
         
             const collected = u.produced.tomato + u.produced.eggplant + u.produced.carrots + u.produced.corn + u.produced.pepper + u.produced.potatoes
@@ -1364,7 +1526,7 @@ function sendVegetables(Id, qId) {
 
 📦 Всего на складе: <b>${wh + collected}</b> 🌽 Овощей.`
             
-            sendHTML(Id, text)
+            editText(text, Id, mId, 'back_v')
                 
             }
             else {
@@ -1410,7 +1572,7 @@ function sendVegetables(Id, qId) {
 
 📦 Всего на складе: <b>${wh + per70}</b> 🌽 Овощей.
 🚚 Ваш арендодатель получил: <b>${per30}</b> Овощей.`
-            sendHTML(Id, text)
+            editText(text, Id, mId, 'back_v')
             }
             }
             else {
@@ -1551,6 +1713,10 @@ function sell(Id, qId, plants = true) {
             
             if (rounded >= 1) {
                 
+            if (!sellFlag) {
+                sellFlag = true
+            }    
+                
             const appleRound = round(apple)
             const pearRound = round(pear)
             const grapesRound = round(grapes)
@@ -1647,7 +1813,178 @@ function round(i) {
     return (i - delta)
 }
 
+function checkTask(Id, task, qId) {
 
+    User.findOne({_id: Id}).then(u => {
+        if (u.successTasks >= task) {
+            console.log('ошибка номера')
+            failureTask(qId)
+        }
+        else {
+    switch (task) {
+        case 1:
+            if (u.nameFarm != '') {
+                successTask(Id, 100)
+            }
+        break
+        case 2:
+            if (u.plants.apple >= 1 && u.plants.tomato >= 1) {
+                successTask(Id, 0, 25)
+            }
+        break
+        case 3:
+            if (u.warehouse.fruit.apple >= 6 && u.warehouse.vegetables.tomato >= 6) {
+                successTask(Id, 0, 25)
+            }
+        break
+        case 4:
+            if (sellFlag) {
+                successTask(Id, 0, 50)
+            }
+        break
+        case 5:
+            if (u.buildings.chicken >= 1) {
+                successTask(Id, 50, 30)
+            }
+        break
+        case 6:
+            if (u.warehouse.products.eggs >= 16) {
+                successTask(Id, 40, 40)
+            }
+        break
+        case 7:
+            if (u.referals.lenght >= 4) {
+                successTask(Id, 125, 75)
+            }
+        break
+        default: 
+        failureTask(qId) 
+    }
+        }
+    })
+}
+function successTask(Id, dollars = 0, euro = 0) {
+    
+    User.updateOne({_id: Id}, { $inc: {
+            "bank.dollars": dollars,
+            "bank.euro": euro,
+            "successTasks": 1
+        } 
+    })
+        .catch((e) => console.log(e))
+    
+    if (euro == 0 && dollars != 0) {
+        const success = `✅ Задание успешно выполнено!\n
+🏆 Получена награда:  ${dollars} 💵 Долларов`
+        sendHTML(Id, success)
+    } 
+    if (dollars == 0 && euro != 0) {
+        const success = `✅ Задание успешно выполнено!\n
+🏆 Получена награда:  ${euro} 💶 Евро`
+        sendHTML(Id, success)
+    } 
+    else if (dollars != 0 && euro != 0) {
+        const success = `✅ Задание успешно выполнено!\n
+🏆 Получена награда:  ${dollars} 💵 Долларов и ${euro} 💶 Евро`
+        sendHTML(Id, success)
+    }
+}
+function failureTask(qId) {
+    bot.answerCallbackQuery(qId, texts.tasks.failureTask, true)
+}
+
+function redeem(Id, qId) {
+    
+    User.findOne({_id: Id}).then(u => {
+        
+        if (u.landlord == null) {
+            const error = `🚫 У вас нет арендодателя для того чтобы выкупить свой участок.`
+            bot.answerCallbackQuery(qId, error, true)
+        } else {
+            const ll = u.landlord
+            if (u.bank.points >= 20) {
+                
+                User.updateOne({_id: Id}, { $inc: {
+                    "bank.points": -20
+                }, 
+                $set: {
+                    "landlord": null
+                }
+                }).catch((e) => console.log(e))
+                
+                User.updateOne({_id: ll}, { 
+                $inc: {
+                    "bank.points": 20
+                }
+                }).catch((e) => console.log(e))
+                
+                const success = `Вы выкупили участок`
+                sendHTML(Id, success)
+                
+            }
+            else {
+                const error = `🚫 У вас недостаточно ⚜️ Баллов для того чтобы выкупить свой участок.`
+                bot.answerCallbackQuery(qId, error, true)
+            }
+        }
+        
+    })
+    
+}
+
+function deposit(chatId, qId) {
+    bot.once('message', msg => {
+        
+        if (msg.text == kb.cancel_dep) {
+            return
+        }
+        
+        dep = msg.text
+        
+        const error = `⛔️ ${dep} - некорректная сумма. Напишите другую сумму.\nЧтобы открыть главное меню, введите команду /menu`
+        
+        if (dep >= 300) {
+            if (+dep != NaN) {
+                console.log('оплата')
+                bot.sendInvoice( 
+                    chatId,
+                    `${dep} 💵 Долларов`,
+                    `Получите на ваш счет ${dep} 💵 Долларов для покупки фруктов и овощей.`,
+                    'payload',
+                    PAYMENT_WALL_TEST,
+//                    CLICK_TEST,
+//                    PAYCOM_TEST,
+                    'SOME_RANDOM_STRING_KEY',
+                    'USD',
+                    [
+                        {
+                            label: `dollars${dep}`,
+                            amount: dep
+                        }
+                    ],
+                    {
+                        need_name: false,
+                        need_shipping_address: false,
+                        need_email: true,
+                        need_phone_number: false,
+                        is_flexible: false,
+                        send_email_to_provider: true
+                    }
+                ).then((inv) => {
+                    console.log(inv)
+                })
+            }
+            else {
+                bot.answerCallbackQuery(qId, error, true)
+                deposit(chatId, qId)
+            }
+        }
+        else {
+            bot.answerCallbackQuery(qId, error, true)
+            deposit(chatId, qId)
+        }
+    })
+}
 
 // function setLang(lang) {
 //     switch (lang) {
