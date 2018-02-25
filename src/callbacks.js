@@ -38,6 +38,16 @@ module.exports = {
     buildCowshed: 'buildCowshed',
     buildHive: 'buildHive',
     buildTurkey: 'buildTurkey',
+    
+    chicken: 'chicken',
+    pig: 'pig',
+    sheepdog: 'sheepdog',
+    cowshed: 'cowshed',
+    hive: 'hive',
+    turkey: 'turkey',
+    
+    back_b: 'back_b',
+    
     // ======== FRUIT =========
     buyApple: 'buyApple',
     buyPear: 'buyPear',
@@ -45,6 +55,15 @@ module.exports = {
     buyStrawberries: 'buyStrawberries',
     buyCherries: 'buyCherries',
     buyPeach: 'buyPeach',
+    
+    apple: 'apple',
+    pear: 'pear',
+    grapes: 'grapes',
+    strawberries: 'strawberries',
+    cherries: 'cherries',
+    peach: 'peach',
+    
+    back_fs: 'back_fs',
     // ======== VEGETABLES =========
     buyTomato: 'buyTomato',
     buyEggplant: 'buyEggplant',
@@ -53,6 +72,16 @@ module.exports = {
     buyPepper: 'buyPepper',
     buyPotatoes: 'buyPotatoes',
     
+    tomato: 'tomato',
+    eggplant: 'eggplant',
+    carrots: 'carrots',
+    corn: 'corn',
+    pepper: 'pepper',
+    potatoes: 'potatoes',
+    
+    back_vs: 'back_vs',
+    
+    // ============= OTHER ============
     feedback: 'feedback',
     training: 'training',
     faq: 'faq',

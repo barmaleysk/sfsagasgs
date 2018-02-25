@@ -102,6 +102,10 @@ module.exports = {
     back_f: '🍎 Назад',
     back_v: '🌽 Назад',
     back_p: '🥚 Назад',
+    back_fs: '🍎 Назад',
+    back_vs: '🌽 Назад',
+    next_list: '▶️',
+    prev_list: '◀️',
     
     skip: '📰',
     continue: '🗞',

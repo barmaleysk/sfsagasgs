@@ -262,53 +262,259 @@ module.exports = {
     ],
     
     buyApple: [
-      [
+        [
           {
               text: kb.plants.buy,
               callback_data: cbd.buyApple
           }
-      ]  
+        ],
+        [
+            {
+                text: kb.back_fs,
+                callback_data: cbd.back_fs
+            },
+            {
+                text: kb.next_list,
+                callback_data: cbd.pear
+            }
+        ]
     ],
     buyPear: [
-      [
+        [
           {
               text: kb.plants.buy,
               callback_data: cbd.buyPear
           }
-      ]  
+        ],
+        [
+            {
+                text: kb.prev_list,
+                callback_data: cbd.apple
+            },
+            {
+                text: kb.back_fs,
+                callback_data: cbd.back_fs
+            },
+            {
+                text: kb.next_list,
+                callback_data: cbd.grapes
+            }
+        ]
     ],
     buyGrapes: [
-      [
+        [
           {
               text: kb.plants.buy,
               callback_data: cbd.buyGrapes
           }
-      ]  
+        ],
+        [
+            {
+                text: kb.prev_list,
+                callback_data: cbd.pear
+            },
+            {
+                text: kb.back_fs,
+                callback_data: cbd.back_fs
+            },
+            {
+                text: kb.next_list,
+                callback_data: cbd.strawberries
+            }
+        ]
     ],
     buyStrawberries: [
-      [
+        [
           {
               text: kb.plants.buy,
               callback_data: cbd.buyStrawberries
           }
-      ]  
+        ],
+        [
+            {
+                text: kb.prev_list,
+                callback_data: cbd.grapes
+            },
+            {
+                text: kb.back_fs,
+                callback_data: cbd.back_fs
+            },
+            {
+                text: kb.next_list,
+                callback_data: cbd.cherries
+            }
+        ]
     ],
     buyCherries: [
-      [
+        [
           {
               text: kb.plants.buy,
               callback_data: cbd.buyCherries
           }
-      ]  
-    ],
+        ],
+        [
+            {
+                text: kb.prev_list,
+                callback_data: cbd.strawberries
+            },
+            {
+                text: kb.back_fs,
+                callback_data: cbd.back_fs
+            },
+            {
+                text: kb.next_list,
+                callback_data: cbd.peach
+            }
+        ]
+        ],
     buyPeach: [
-      [
+        [
           {
               text: kb.plants.buy,
               callback_data: cbd.buyPeach
           }
-      ]  
+        ],
+        [
+            {
+                text: kb.prev_list,
+                callback_data: cbd.cherries
+            },
+            {
+                text: kb.back_fs,
+                callback_data: cbd.back_fs
+            }
+        ]
     ],
+    
+    
+    buyTomato: [
+        [
+          {
+              text: kb.plants.buy,
+              callback_data: cbd.buyTomato
+          }
+        ],
+        [
+            {
+                text: kb.back_vs,
+                callback_data: cbd.back_vs
+            },
+            {
+                text: kb.next_list,
+                callback_data: cbd.eggplant
+            }
+        ]
+    ],
+    buyEggplant: [
+        [
+          {
+              text: kb.plants.buy,
+              callback_data: cbd.buyEggplant
+          }
+        ],
+        [
+            {
+                text: kb.prev_list,
+                callback_data: cbd.tomato
+            },
+            {
+                text: kb.back_vs,
+                callback_data: cbd.back_vs
+            },
+            {
+                text: kb.next_list,
+                callback_data: cbd.carrots
+            }
+        ]
+    ],
+    buyCarrots: [
+        [
+          {
+              text: kb.plants.buy,
+              callback_data: cbd.buyCarrots
+          }
+        ],
+        [
+            {
+                text: kb.prev_list,
+                callback_data: cbd.eggplant
+            },
+            {
+                text: kb.back_vs,
+                callback_data: cbd.back_vs
+            },
+            {
+                text: kb.next_list,
+                callback_data: cbd.corn
+            }
+        ]
+    ],
+    buyCorn: [
+        [
+          {
+              text: kb.plants.buy,
+              callback_data: cbd.buyCorn
+          }
+        ],
+        [
+            {
+                text: kb.prev_list,
+                callback_data: cbd.carrots
+            },
+            {
+                text: kb.back_vs,
+                callback_data: cbd.back_vs
+            },
+            {
+                text: kb.next_list,
+                callback_data: cbd.pepper
+            }
+        ]
+    ],
+    buyPepper: [
+        [
+          {
+              text: kb.plants.buy,
+              callback_data: cbd.buyPepper
+          }
+        ],
+        [
+            {
+                text: kb.prev_list,
+                callback_data: cbd.corn
+            },
+            {
+                text: kb.back_vs,
+                callback_data: cbd.back_vs
+            },
+            {
+                text: kb.next_list,
+                callback_data: cbd.potatoes
+            }
+        ]
+    ],
+    buyPotatoes: [
+        [
+          {
+              text: kb.plants.buy,
+              callback_data: cbd.buyPotatoes
+          }
+        ],
+        [
+            {
+                text: kb.prev_list,
+                callback_data: cbd.pepper
+            },
+            {
+                text: kb.back_vs,
+                callback_data: cbd.back_vs
+            }
+        ]
+    ],
+    
+    
+    
+    
     
     help: [
         [
@@ -333,54 +539,6 @@ module.exports = {
         ]
     ],
     
-    buyTomato: [
-      [
-          {
-              text: kb.plants.buy,
-              callback_data: cbd.buyTomato
-          }
-      ]  
-    ],
-    buyEggplant: [
-      [
-          {
-              text: kb.plants.buy,
-              callback_data: cbd.buyEggplant
-          }
-      ]  
-    ],
-    buyCarrots: [
-      [
-          {
-              text: kb.plants.buy,
-              callback_data: cbd.buyCarrots
-          }
-      ]  
-    ],
-    buyCorn: [
-      [
-          {
-              text: kb.plants.buy,
-              callback_data: cbd.buyCorn
-          }
-      ]  
-    ],
-    buyPepper: [
-      [
-          {
-              text: kb.plants.buy,
-              callback_data: cbd.buyPepper
-          }
-      ]  
-    ],
-    buyPotatoes: [
-      [
-          {
-              text: kb.plants.buy,
-              callback_data: cbd.buyPotatoes
-          }
-      ]  
-    ],
     change: [
         [
             {

@@ -234,6 +234,8 @@ bot.on('message', msg => {
                 const time = msg.date
                 const utime = u.lastBonus
                 
+//                console.log(Date(utime * 1000))
+                
                 if (utime != null) {
                     
                     const delta = new Date(time - utime).getHours()
@@ -247,7 +249,7 @@ bot.on('message', msg => {
                     }
                 }
                 else {
-                    const iso = new Date(time * 1000)
+//                    const iso = new Date(time * 1000)
                     getBonus(chatId, time)
                 }
             })
@@ -515,81 +517,140 @@ bot.on('callback_query', query => {
         case cbd.send_buildings:
         sendProducts(chat.id, query.id, message_id)
         break
-        case cbd.buy_fruit:
-            User.findOne({_id: chat.id}).then(u => {
+        
+        case cbd.apple: case cbd.buy_fruit:
+        User.findOne({_id: chat.id}).then(u => {
             Gen.findOne({_id: 1}).then(g => {
-                const one = `🌱🍎 Яблоня
+                const text = `🌱🍎 Яблоня
 Производит: <b>${g.produces.one / 2}</b> 🍎 Яблок в час
 Цена: <b>${g.prices.one / 2}</b> 💵 Долларов`
-                const two = `🌱🍐 Груша
+                editText(text, chat.id, message_id, 'buyApple')
+            })
+        })
+        break
+        case cbd.pear:
+        User.findOne({_id: chat.id}).then(u => {
+            Gen.findOne({_id: 1}).then(g => {
+                const text = `🌱🍐 Груша
 Производит: <b>${g.produces.two / 2}</b> 🍐 Груш в час
 Цена: <b>${g.prices.two / 2}</b> 💵 Долларов`
-                const three = `🌱🍇 Виноградная лоза
+                editText(text, chat.id, message_id, 'buyPear')
+            })
+        })
+        break
+        case cbd.grapes:
+        User.findOne({_id: chat.id}).then(u => {
+            Gen.findOne({_id: 1}).then(g => {
+                const text = `🌱🍇 Виноградная лоза
 Производит: <b>${g.produces.three / 2}</b> 🍇 Винограда в час
 Цена: <b>${g.prices.three / 2}</b> 💵 Долларов`
-                const four = `🌱🍓 Куст клубники
+                editText(text, chat.id, message_id, 'buyGrapes')
+            })
+        })
+        break
+        case cbd.strawberries:
+        User.findOne({_id: chat.id}).then(u => {
+            Gen.findOne({_id: 1}).then(g => {
+                const text = `🌱🍓 Куст клубники
 Производит: <b>${g.produces.four / 2}</b> 🍓 Клубники в час
 Цена: <b>${g.prices.four / 2}</b> 💵 Долларов`
-                const five = `🌱🍒 Вишня
+                editText(text, chat.id, message_id, 'buyStrawberries')
+            })
+        })
+        break
+        case cbd.cherries:
+        User.findOne({_id: chat.id}).then(u => {
+            Gen.findOne({_id: 1}).then(g => {
+                const text = `🌱🍒 Вишня
 Производит: <b>${g.produces.five / 2}</b> 🍒 Вишен в час
 Цена: <b>${g.prices.five / 2}</b> 💵 Долларов`
-                const six = `🌱🍑 Персик
+                editText(text, chat.id, message_id, 'buyCherries')
+            })
+        })
+        break
+        case cbd.peach:
+        User.findOne({_id: chat.id}).then(u => {
+            Gen.findOne({_id: 1}).then(g => {
+                const text = `🌱🍑 Персик
 Производит: <b>${g.produces.six / 2}</b> 🍑 Персиков в час
 Цена: <b>${g.prices.six / 2}</b> 💵 Долларов`
-
-                setTimeout(sendHTMLi, 0, chat.id, one, 'buyApple')
-
-                setTimeout(sendHTMLi, 300, chat.id, two, 'buyPear')
-
-                setTimeout(sendHTMLi, 600, chat.id, three, 'buyGrapes')
-
-                setTimeout(sendHTMLi, 900, chat.id, four, 'buyStrawberries')
-
-                setTimeout(sendHTMLi, 1200, chat.id, five, 'buyCherries')
-
-                setTimeout(sendHTMLi, 1500, chat.id, six, 'buyPeach')
-                })
+                editText(text, chat.id, message_id, 'buyPeach')
             })
+        })
         break
+        
         case cbd.send_fruit:
             sendFruit(chat.id, query.id, message_id)
         break
-        case cbd.buy_vegetables:
+        
+        
+        
+        case cbd.tomato: case cbd.buy_vegetables:
             User.findOne({_id: chat.id}).then(u => {
-            Gen.findOne({_id: 1}).then(g => {
-            const one = `🌱🍅 Куст томата
+                Gen.findOne({_id: 1}).then(g => {
+                    const text = `🌱🍅 Куст томата
 Производит: <b>${g.produces.one / 2}</b> 🍅 Томатов в час
 Цена: <b>${g.prices.one / 2}</b> 💵 Долларов`
-            const two = `🌱🍆 Куст баклажана
-Производит: <b>${g.produces.two / 2}</b> 🍆 Баклажанов в час
-Цена: <b>${g.prices.two / 2}</b> 💵 Долларов`
-            const three = `🌱🥕 Морковь
-Производит: <b>${g.produces.three / 2}</b> 🥕 Моркови в час
-Цена: <b>${g.prices.three / 2}</b> 💵 Долларов`
-            const four = `🌱🌽 Кукуруза
-Производит: <b>${g.produces.four / 2}</b> 🌽 Кукурузы в час
-Цена: <b>${g.prices.four / 2}</b> 💵 Долларов`
-            const five = `🌱🌶 Куст красного перца
-Производит: <b>${g.produces.five / 2}</b> 🌶 Красных перцев в час
-Цена: <b>${g.prices.five / 2}</b> 💵 Долларов`
-            const six = `🌱🥔 Куст картофеля
-Производит: <b>${g.produces.six / 2}</b> 🥔 Картофеля в час
-Цена: <b>${g.prices.six / 2}</b> 💵 Долларов`
-
-            setTimeout(sendHTMLi, 0, chat.id, one, 'buyTomato')
-
-            setTimeout(sendHTMLi, 300, chat.id, two, 'buyEggplant')
-
-            setTimeout(sendHTMLi, 600, chat.id, three, 'buyCarrots')
-
-            setTimeout(sendHTMLi, 900, chat.id, four, 'buyCorn')
-
-            setTimeout(sendHTMLi, 1200, chat.id, five, 'buyPepper')
-
-            setTimeout(sendHTMLi, 1500, chat.id, six, 'buyPotatoes')
+                    editText(text, chat.id, message_id, 'buyTomato')
                 })
             })
         break
+        case cbd.eggplant:
+            User.findOne({_id: chat.id}).then(u => {
+                Gen.findOne({_id: 1}).then(g => {
+                    const text = `🌱🍆 Куст баклажана
+Производит: <b>${g.produces.two / 2}</b> 🍆 Баклажанов в час
+Цена: <b>${g.prices.two / 2}</b> 💵 Долларов`
+                    
+                    editText(text, chat.id, message_id, 'buyEggplant')
+                })
+            })
+        break
+        case cbd.carrots:
+            User.findOne({_id: chat.id}).then(u => {
+                Gen.findOne({_id: 1}).then(g => {
+                    const text = `🌱🥕 Морковь
+Производит: <b>${g.produces.three / 2}</b> 🥕 Моркови в час
+Цена: <b>${g.prices.three / 2}</b> 💵 Долларов`
+                    
+                    editText(text, chat.id, message_id, 'buyCarrots')
+                })
+            })
+        break
+        case cbd.corn:
+            User.findOne({_id: chat.id}).then(u => {
+                Gen.findOne({_id: 1}).then(g => {
+                    const text = `🌱🌽 Кукуруза
+Производит: <b>${g.produces.four / 2}</b> 🌽 Кукурузы в час
+Цена: <b>${g.prices.four / 2}</b> 💵 Долларов`
+                    
+                    editText(text, chat.id, message_id, 'buyCorn')
+                })
+            })
+        break
+        case cbd.pepper:
+            User.findOne({_id: chat.id}).then(u => {
+                Gen.findOne({_id: 1}).then(g => {
+                    const text = `🌱🌶 Куст красного перца
+Производит: <b>${g.produces.five / 2}</b> 🌶 Красных перцев в час
+Цена: <b>${g.prices.five / 2}</b> 💵 Долларов`
+                    
+                    editText(text, chat.id, message_id, 'buyPepper')
+                })
+            })
+        break
+        case cbd.potatoes:
+            User.findOne({_id: chat.id}).then(u => {
+                Gen.findOne({_id: 1}).then(g => {
+                    const text = `🌱🥔 Куст картофеля
+Производит: <b>${g.produces.six / 2}</b> 🥔 Картофеля в час
+Цена: <b>${g.prices.six / 2}</b> 💵 Долларов`
+                    
+                    editText(text, chat.id, message_id, 'buyPotatoes')
+                })
+            })
+        break
+        
         case cbd.send_vegetables:
             sendVegetables(chat.id, query.id, message_id)
         break
@@ -600,10 +661,10 @@ bot.on('callback_query', query => {
             sell(chat.id, query.id, false)
         break
         
-        case cbd.fruit: case cbd.back_f:
+        case cbd.fruit: case cbd.back_f: case cbd.back_fs:
             DisplayFruit(chat.id, message_id)
         break
-        case cbd.vegetables: case cbd.back_v:
+        case cbd.vegetables: case cbd.back_v: case cbd.back_vs:
             DisplayVegetables(chat.id, message_id)
         break
         case cbd.back_plants: 
@@ -1350,8 +1411,51 @@ function getBonus(chatId, time) {
         }
     })
     .catch(e => console.log(e))
+    
     sendHTML(chatId, success)
 }
+
+function dice() {
+    
+}
+
+function em(num) {
+    let emj
+    switch (num) {
+        case 0: 
+            emj = '0️⃣' 
+        break
+        case 1: 
+            emj = '1️⃣' 
+        break
+        case 2: 
+            emj = '2️⃣' 
+        break
+        case 3: 
+            emj = '3️⃣' 
+        break
+        case 4: 
+            emj = '4️⃣' 
+        break
+        case 5: 
+            emj = '5️⃣' 
+        break
+        case 6: 
+            emj = '6️⃣' 
+        break
+        case 7: 
+            emj = '7️⃣' 
+        break
+        case 8: 
+            emj = '8️⃣' 
+        break
+        case 9: 
+            emj = '9️⃣' 
+        break
+    }
+    return emj
+}
+
 function getRand(min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
